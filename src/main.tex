@@ -1,8 +1,12 @@
 % Author - - Jon Arnt Kårstad, NTNU IMT
-\documentclass{article}
+\documentclass[12pt]{scrreport}
 
 % Importing document settings from our file "packages.sty"
 \usepackage{packages}
+
+\setkomafont{chapter}{\Large\bfseries} % Default: \huge\bfseries
+\setkomafont{section}{\large\bfseries} % Default: \Large\bfseries
+\setkomafont{subsection}{\normalsize\bfseries} % Default: \large\bfseries
 
 % Beginning of document
 \begin{document}
@@ -42,6 +46,17 @@
     \addappendix
     \import{./Appendices/}{example_appendix}
     \newpage
+
+    \pagenumbering{gobble}  % No page numbers
+
+    \clearpage
+    \import{./Sections/}{Danksagung.tex}
+    \newpage
+
+    \clearpage
+    \pagestyle{empty}
+    \import{./Sections/}{EidesstattlicheVersicherung.tex}
+
 
 % End of document
 \end{document}

@@ -1,23 +1,23 @@
-\section{Implementierung in Haskell}
+\chapter{Implementierung in Haskell}
 Erwähnen, dass Germanedge bereits Lösung hat.
 Aber: Heuristik - (optimale) Lösungen gehen möglicherweise verloren.
 Hier: Neuer Ansatz mit Garantie Vollständigkeit und Optimalität.
 Was ist Haskell und warum Haskell?
 Was ist Hasmtlib?
 
-\subsection{Funktionale Programmierung mit Haskell}
+\section{Funktionale Programmierung mit Haskell}
 
-\subsection{Hasmtlib - Haskell-Bibliothek für SMTLib}
+\section{Hasmtlib - Haskell-Bibliothek für SMTLib}
 Generelle Funktionsweise: Gastsprache - Constraintsprache - Interaktion Solver
 Hier müssen besonders der polymorphe Formelbaum (Expr-GADT) und die dependent-like Singletons (SSMTSort) erklärt werden.
 Wird später gebraucht um zu verstehen, wie Pressenplanungsprobleme flexibel in verschiedenen Logiken kodiert werden (Programm polymorph in SMTSort).
 Codec erklären.
 
-\subsubsection{Ergänzung um Anzahl-Constraints}
+\subsection{Ergänzung um Anzahl-Constraints}
 
-\subsubsection{Ergänzung um Incremental Refinement}
+\subsection{Ergänzung um Incremental Refinement}
 
-\subsubsection{Ergänzung um Observable-Sharing}
+\subsection{Ergänzung um Observable-Sharing}
 Sprengt das den Rahmen?
 Hier müsste vorher viel erklärt werden:
 Repräsentation von Bäumen im Speicher in Haskell (DAG),
@@ -27,13 +27,13 @@ Dann auch die Frage: Warum der Aufwand?
 Bringt das überhaupt was für den Anwendungsfall Pressenplanung?
 Wenn nein: Gehört das hier dann überhaupt rein?
 
-\subsection{Kodierung des Pressenplanungsproblems}
+\section{Kodierung des Pressenplanungsproblems}
 Zwei Modelle erschweren hier möglicherweise Verständnis für den Leser.
 Für ein Modell entscheiden: Relationales Modell begründend wegwerfen, auf Laufzeitmessung verweisen.
 Ebenso Unterscheidung Incremental Refinement/OMT, OMT wegwerfen, weil Laufzeit.
 Geeignete Programmauszüge: Polymorphe Kodierung in Sorte (damit Logik), vereinzelt Datentypen und Constraints analog zu Modellierung.
 
-\subsection{Validierung der Lösung}
+\section{Validierung der Lösung}
 Warum validieren?
 Wie validieren?
 Wenn Modell richtig und auch richtig in SMT kodiert, dann Ergebnis richtig gdw. Solver Spezifikation erfüllt.
