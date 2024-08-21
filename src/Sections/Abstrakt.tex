@@ -1,5 +1,5 @@
 \abstract
-\label{sec:Abstrakt}
+\label{Abstrakt}
 
 Die Pressenplanung von Holzbalken aus Bauteilen erfordert eine fein abgestimmte Konfiguration, um die Pressen optimal auszulasten und den Verschnitt der Balken zu minimieren.
 Dafür hat die Germanedge Solutions GmbH\footnote{https://www.germanedge.com/, abgerufen am 21.08.2024}, Industriepartner dieser Arbeit, bereits eine unternehmensinterne Heuristik, welche aufgrund ihrer Natur allerdings möglicherweise (optimale) Lösungen nicht berücksichtigt.
@@ -11,7 +11,7 @@ Das Programm wandelt die Lösung des Solvers folglich in eine, zu den bereits ex
 Weiter ist das Programm so strukturiert, dass verschiedene Logiken aus SMT zur Erzeugung des Constraint-Systems genutzt werden können.
 Dies wird durch Wahl der Programmiersprache Haskell und deren ausdrucksstarkes Typsystem ermöglicht.
 Als Grundlage zur Kodierung des Pressenplanungsproblems und Interaktion mit externen Solvern
-wird die Haskell-Bibliothek \texttt{Hasmtlib} \cite{bruder} verwendet und an geeigneten Stellen erweitert.
+wird die Haskell-Bibliothek \texttt{Hasmtlib} \cite{hasmtlib} verwendet und an geeigneten Stellen erweitert.
 
 Das Ziel für die prototypische Lösung des Problems der Pressenplanung ist die korrekte, optimale und bestenfalls schnelle (unter sechs Minuten) Lösung bekannter Testfälle.
 Da es sich hier um eine prototypische Lösung handelt, werden einige Sonderfälle des Pressenplanungsproblems in dieser Arbeit nicht betrachtet.

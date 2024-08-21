@@ -1,0 +1,8 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{o}{(}declare\PYGZhy{}fun\PYG{+w}{ }var\PYGZus{}1\PYG{+w}{ }\PYG{o}{()}\PYG{+w}{ }Real\PYG{o}{)}
+\PYG{o}{(}declare\PYGZhy{}fun\PYG{+w}{ }var\PYGZus{}2\PYG{+w}{ }\PYG{o}{()}\PYG{+w}{ }Real\PYG{o}{)}
+...
+\PYG{o}{(}assert\PYG{+w}{ }\PYG{o}{(=}\PYG{+w}{ }var\PYGZus{}34\PYG{+w}{ }\PYG{o}{(}not\PYG{+w}{ }var\PYGZus{}33\PYG{o}{)))}
+\PYG{o}{(}assert\PYG{+w}{ }\PYG{o}{(=}\PYG{+w}{ }var\PYGZus{}38\PYG{+w}{ }\PYG{o}{(}and\PYG{+w}{ }var\PYGZus{}36\PYG{+w}{ }var\PYGZus{}37\PYG{o}{)))}
+\PYG{o}{(}assert\PYG{+w}{ }\PYG{o}{(=}\PYG{+w}{ }var\PYGZus{}39\PYG{+w}{ }\PYG{o}{(}or\PYG{+w}{ }var\PYGZus{}35\PYG{+w}{ }var\PYGZus{}38\PYG{o}{)))}
+\end{Verbatim}
