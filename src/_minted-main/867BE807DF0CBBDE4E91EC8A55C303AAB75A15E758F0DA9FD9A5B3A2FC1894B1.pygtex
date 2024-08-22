@@ -1,5 +1,5 @@
 \begin{Verbatim}[commandchars=\\\{\}]
-\PYG{n+nf}{barLength}\PYG{+w}{ }\PYG{o+ow}{::}\PYG{+w}{ }\PYG{p}{[}\PYG{k+kt}{Layer}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{Expr}\PYG{+w}{ }\PYG{k+kt}{RealSort}\PYG{p}{)]}\PYG{+w}{ }\PYG{o+ow}{\PYGZhy{}\PYGZgt{}}\PYG{+w}{ }\PYG{k+kt}{Expr}\PYG{+w}{ }\PYG{k+kt}{BoolSort}
+\PYG{n+nf}{barLength}\PYG{+w}{ }\PYG{o+ow}{::}\PYG{+w}{ }\PYG{p}{[}\PYG{k+kt}{Bar}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{Expr}\PYG{+w}{ }\PYG{k+kt}{RealSort}\PYG{p}{)]}\PYG{+w}{ }\PYG{o+ow}{\PYGZhy{}\PYGZgt{}}\PYG{+w}{ }\PYG{k+kt}{Expr}\PYG{+w}{ }\PYG{k+kt}{BoolSort}
 \PYG{n+nf}{barLength}\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }\PYG{n}{all}
 \PYG{+w}{              }\PYG{p}{(}\PYG{n+nf}{\PYGZbs{}}\PYG{p}{(}\PYG{n}{b1}\PYG{p}{,}\PYG{n}{b2}\PYG{p}{)}\PYG{+w}{ }\PYG{o+ow}{\PYGZhy{}\PYGZgt{}}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{b1}\PYG{o}{\PYGZca{}.}\PYG{n}{press}\PYG{+w}{ }\PYG{o}{===}\PYG{+w}{ }\PYG{n}{b2}\PYG{o}{\PYGZca{}.}\PYG{n}{press}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{==\PYGZgt{}}
 \PYG{+w}{                }\PYG{p}{(}\PYG{n}{b1}\PYG{o}{\PYGZca{}.}\PYG{n}{length}\PYG{+w}{ }\PYG{o}{===}\PYG{+w}{ }\PYG{n}{b2}\PYG{o}{\PYGZca{}.}\PYG{n}{length}\PYG{p}{)}

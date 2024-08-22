@@ -1,0 +1,1 @@
+(assert (forall ((x Int)) (and (= (+ x 0) x) (= (+ 0 x) x))))

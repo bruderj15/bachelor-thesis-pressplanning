@@ -6,7 +6,18 @@ unterstützt Unternehmen mit individuellen Softwarelösungen für die Industrie 
 Darunter auch ein nicht genannter Kunde, welcher Germanedge mit der Optimierung der Planung von Holzpressen beauftragt hat.
 Dabei werden Holzbauteile zu Holzbalken verleimt und anschließend in Pressen gepresst.
 Die Art und Weise der Anordnung der Bauteile in den Pressen wird als Pressenplan bezeichnet.
-Abbildung xy visualisiert einen solchen Pressenplan. % TODO: Bild einfügen und linken
+Abbildung \ref{figure:pressenplan} visualisiert einen solchen Pressenplan.
+Die Presse (grau) presst in Richtung der Pfeile nach unten.
+Die Balken (gelb) liegen horizontal und bestehen aus Bauteilen, welche durch die vertikalen (schwarzen) Linien getrennt sind.
+Der Rest jedes Balkens ist rot hervorgehoben.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1.00\textwidth, center]{Images/Pressenplan}\\
+    \caption{Darstellung eines Pressenplans}
+    \label{figure:pressenplan}
+\end{figure}
+
 An einen Pressenplan werden verschiedene Anforderungen wie beispielsweise die Gleichheit der Längen aller Balken in einer Presse gestellt.
 Neben diesen Anforderungen sind auch einige Optimierungsziele für den Pressenplan von Bedeutung.
 Darunter zum Beispiel die Minimierung des Rests, der Balken auf die gleiche Länge auffüllt und somit zusätzliche Materialkosten erzeugt.
@@ -16,13 +27,26 @@ Es ist lediglich bekannt, dass jene einen heuristischen Ansatz wählt, was bedeu
 
 Daher wird in dieser Arbeit ein neuer, vollständiger Ansatz zur Lösung des Problems gewählt.
 Dieser besteht in der Kodierung der Anforderungen an den Pressenplan als Constraints in einem Constraint-System.
-Ein Constraint ist eine aussagenlogische Formel, welche mit einer Belegung den Wahrheitswert \texttt{Wahr} haben muss.
+Ein Constraint ist eine aussagenlogische Formel, welche unter einer erfüllenden Belegung den Wahrheitswert \texttt{Wahr} haben muss.
 Für die dafür in dieser Arbeit verwendeten Satisfiability Modulo Theories (SMT) und deren Sprachstandard SMTLib Version 2.6 \cite{smtlib}
-beschreibt folgendes Constraint beispielsweise die Neutralität der Null im Monoid $(\mathbb{N}_0, +, 0)$: % TODO: Referenz Buch % TODO: SMTLIb-Grafik
+beschreibt folgendes Constraint beispielsweise die Neutralität der Null im Monoid $(\mathbb{N}_0, +, 0)$:
+
+\begin{listing}[H]
+    \inputminted{haskell}{Code/Einleitung/MonoidNPlusNull.smt2}
+    \caption{SMTLib-Kodierung der Neutralität der Null im Monoid $(\mathbb{N}_0, +, 0)$}
+    \label{listing:monoidnnplusnull}
+\end{listing}
+
 Ein Constraint-System besteht aus der Konjunktion mehrerer Constraints.
-In typischen Anwendungsbereichen von SMT wie der Programmverifikation \cite{smt} werden im Gegensatz zu Beispiel % TODO: Link zum Beispiel
+In typischen Anwendungsbereichen von SMT wie der Programmverifikation \cite{smt} werden im Gegensatz zu Beispiel \ref{listing:monoidnnplusnull}
 Unbekannte (Variablen) modelliert, für welche der Solver eine erfüllende Belegung unter Beachtung der Constraints ermitteln soll.
-So könnte obiges Beispiel als Frage nach dem neutralen Element im Monoid $(\mathbb{N}_0, +, x)$ folgend formuliert werden: % TODO: SMTLib-Grafik mit Monoid Gesetzen
+So könnte obiges Beispiel als Frage nach dem neutralen Element im Monoid $(\mathbb{N}_0, +, x)$ folgend formuliert werden:
+
+\begin{listing}[H]
+    \inputminted{haskell}{Code/Einleitung/MonoidNPlusZ.smt2}
+    \caption{SMTLib-Kodierung des unbekannten neutralen Elements $x$ im Monoid $(\mathbb{N}_0, +, x)$}
+    \label{listing:monoidnnplusz}
+\end{listing}
 
 Um zum Pressenplanungsproblem zurückzukehren, stellt sich die Frage, wie dieses in SMTLib Version 2.6 kodiert werden kann.
 Eine Beispieleingabe von Bauteilen könnte folgende sein:
@@ -47,13 +71,13 @@ Eine Beispieleingabe von Bauteilen könnte folgende sein:
 \end{table}
 
 Da das Formulieren der Constraints für einen Pressenplan mit gegebenen Bauteilen händisch in der Constraint-Sprache SMTLib sehr schwer- und fehleranfällig ist,
-erzeugt ein Programm in einer Gastsprache das Constraint-System in der Constraint-Sprache.
+erzeugt ein Programm in einer Gastsprache das Constraint-System für die Constraint-Sprache.
 Für diese Arbeit wird als jene Gastsprache Haskell \cite{haskellhistory} gewählt.
 Mit der Haskell-Bibliothek \texttt{Hasmtlib} \cite{hasmtlib} lässt sich beispielhaft das bereits erwähnte Constraint gleicher Länge aller Balken in einer Presse folgend formulieren:
 
 \begin{listing}[H]
     \inputminted{haskell}{Code/Einleitung/PressenlängeConstraintHaskell.hs}
-    \caption{Haskell-Code für das Constraint: Gleiche Länge aller Balken einer Presse}
+    \caption{Haskell-Code für das Constraint gleicher Länge aller Balken einer Presse}
     \label{listing:barLengthCode}
 \end{listing}
 
@@ -96,14 +120,15 @@ Jene Belegung transformiert das Programm dann in das gewünschte Ausgabeformat:
 
 Die Struktur dieser Arbeit ist folgende:
 
-In Kapitel \ref{chapter:fol} werden die, für das weitere Verständnis der Arbeit erforderlichen, Grundlagen der Prädikatenlogik dargelegt.
+In Kapitel \ref{chapter:fol} werden die, für das weitere Verständnis der Arbeit erforderlichen, Grundlagen der Prädikatenlogik erklärt.
 
-Danach wird in Kapitel \ref{chapter:problem} das Problem der Pressenplanung erklärt, modelliert und nach, für das Problem relevanten, Zielfunktionen optimiert.
+Danach wird in Kapitel \ref{chapter:problem} das Problem der Pressenplanung dargelegt, modelliert und nach, für das Problem relevanten, Zielfunktionen optimiert.
 
 Folgend wird in Kapitel \ref{chapter:smt} gezeigt, wie Erfüllbarkeitsprobleme der Satisfiability Modulo Theories im Sprachstandard SMTLib Version 2.6 kodiert werden können.
 
 In Kapitel \ref{chapter:implementierung} wird zunächst auf wenige, notwendige Grundlagen von Haskell eingegangen,
 bevor die Kodierung der in Abschnitt \ref{section:modellierung} erstellten Modelle des Pressenplanungsproblems in Haskell erläutert wird.
+Zusätzlich werden dort einige Erweiterungen der Haskell-Bibliothek \texttt{Hasmtlib} diskutiert.
 
 Weiter werden die Ergebnisse der Kodierungen in Kapitel \ref{chapter:auswertung} mithilfe von Laufzeitmessungen ausgewertet.
 
