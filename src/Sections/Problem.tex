@@ -9,7 +9,7 @@ Im Pressenplanungsproblem sind drei Entitäten und deren Eigenschaften von eleme
 Diese haben jeweils die Eigenschaften Höhe, Breite und Länge.
 Zusätzlich gibt es Holzlamellen, welche durch Zersägen eines sogenannten \textit{Endlosbretts} entstehen.
 Dieses kann von einer Maschine \textit{scheinbar} endlos ausgegeben werden.
-Höhe und Breite der Lamelle sind somit fest.
+Höhe und Breite der Lamelle sind fest.
 Lamellen werden vertikal zu Bauteilen verleimt, sodass Bauteile immer die Form eines Quaders haben.
 Diese Verleimung ist der eigentliche Grund für die Notwendigkeit des Pressens.
 Folgend eine Abbildung verleimter Lamellen:
@@ -34,7 +34,7 @@ Folgend eine Abbildung eines Balkens aus drei Bauteilen mit Rest:
 
 Balken werden vertikal in Pressen gestapelt und anschließend gepresst.
 Eine mit Balken befüllte Presse, bei der festgelegt ist wie die Balken zu Bauteilen nach der Pressung zersägt werden müssen, nennt man auch Pressenplan.
-In einem Pressenplan ist jedem Bauteil genau eine Position in einer Schicht (von unten gezählter Balken) einer Presse zugeordnet.
+In einem Pressenplan ist jedem Bauteil höchstens eine Position in einer Schicht (von unten gezählter Balken) einer Presse zugeordnet.
 Folgend die Visualisierung eines Pressenplans für eine Presse:
 
 \begin{figure}[h]
@@ -47,7 +47,7 @@ Folgend die Visualisierung eines Pressenplans für eine Presse:
 Da Pressen im Allgemeinfall in einer Pressung nur Bauteile gleicher Breite pressen können, werden die Bauteile nach Breite vorsortiert.
 Damit reduziert man die Dimension des Problems vom 3-Dimensionalen auf das 2-Dimensionale, da nur noch Länge und Höhe aller Entitäten berücksichtigt werden muss.
 
-Die Eingabe für das Pressenplanungsproblem ist eine Liste von Bauteilen mit Länge und Höhe und deren Anzahl.
+Die Eingabe für das Pressenplanungsproblem ist eine Liste von Bauteilen mit Länge und Höhe sowie deren Anzahl.
 Diese Eingabe wird auch Auftrag genannt.
 Die Lösung des Pressenplanungsproblems (Ausgabe) ist ein Pressenplan.
 An einen Pressenplan bestehen folgende Anforderungen:
@@ -57,10 +57,10 @@ An einen Pressenplan bestehen folgende Anforderungen:
     \item Alle Balken einer Presse haben die gleiche Länge. Dazu kann der Balken so aus Bauteilen zusammengesetzt sein, dass ein Rest übrig bleibt.
     \item Alle Bauteile, die einen Balken formen, haben die gleiche Höhe.
     \item Jedes Bauteil eines Auftrages ist höchstens einem Balken zugeordnet.
-    \item Jeder Balken ist höchstens einer Presse zugeordnet.
+    \item Jeder Balken ist genau einer Presse zugeordnet.
 \end{itemize}
 
-% TODO: Vollständiges Beispiel mit Eingabe-Tabelle, Ausgabe-Tabelle und visualisierter Ausgabe-Tabelle.
+% Hier könnte noch ein Beispiel eingefügt werden
 
 \section{Modellierung}
 \label{section:modellierung}

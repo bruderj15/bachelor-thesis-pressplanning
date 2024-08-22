@@ -1,17 +1,25 @@
 \chapter{Implementierung in Haskell}
 \label{chapter:implementierung}
-Erwähnen, dass Germanedge bereits Lösung hat.
-Aber: Heuristik - (optimale) Lösungen gehen möglicherweise verloren.
-Hier: Neuer Ansatz mit Garantie Vollständigkeit und Optimalität.
-Was ist Haskell und warum Haskell?
-Was ist Hasmtlib?
+In diesem Kapitel wird gezeigt, wie SMT-Probleme mit funktionaler Programmierung in SMTLib kodiert werden können.
+Dazu werden zunächst einige Grundlagen der funktionalen Programmiersprache Haskell erklärt.
+Danach wird der Kern der Funktionsweise der Haskell-Bibliothek \texttt{Hasmtlib} \cite{hasmtlib} untersucht.
+Ferner werden einige geeignete Erweiterungen dieser diskutiert.
+Anschließend wird mithilfe von Quellcode-Ausschnitten demonstriert, wie das Pressenplanungsproblem polymorph in der SMT-Sorte in Haskell implementiert werden kann.
+Zum Schluss wird die Validierung vermeintlicher Lösungen betrachtet.
 
 \section{Funktionale Programmierung mit Haskell}
+Was ist ein ADT?
+Was ist ein GADT und was kann er besser als ein ADT?
+Was ist eine pure Funktion?
+Wie kann man Nebenwirkungen dennoch modellieren - was ist eine Monade?
+Was ist Lazy?
+Speicher-Aspekte: Referentielle Integrität, \ldots
 
 \section{Hasmtlib - Haskell-Bibliothek für SMTLib}
-Generelle Funktionsweise: Gastsprache - Constraintsprache - Interaktion Solver.
-Hier müssen besonders der polymorphe Formelbaum (Expr-GADT) und die dependent-like Singletons (SSMTSort) erklärt werden.
-Wird später gebraucht um zu verstehen, wie Pressenplanungsprobleme flexibel in verschiedenen Logiken kodiert werden (Programm polymorph in SMTSort).
+Was ist eine eDSL?
+Welche Aufgaben übernimmt Hasmtlib? - Formel bauen, kodieren, Solver kommunizieren, Lösung dekodieren.
+Wie werden Formeln dargestellt (Expr-GADT)?
+Warum sind dabei Eigenschaften von dependently-typed-PL (Idris nennen) nützlich? - Singletons (SSMTSort) erklären, Eisenberg zitieren.
 Codec erklären.
 
 \subsection{Ergänzung um Anzahl-Constraints}
@@ -19,14 +27,16 @@ Codec erklären.
 \subsection{Ergänzung um Incremental Refinement}
 
 \subsection{Ergänzung um Observable-Sharing}
-Sprengt das den Rahmen?
-Hier müsste vorher viel erklärt werden:
-Repräsentation von Bäumen im Speicher in Haskell (DAG),
-Auszug Kategorientheorie - Morphismen (hier Paramorphismus),
-Vergleich zu Tseitin sinnvoll, aber bisher SAT gänzlich unerwähnt.
-Dann auch die Frage: Warum der Aufwand?
+Observable Sharing motivieren.
+Grundlagen für Implementierung erklären: Paramorphismen (sprengt das den Rahmen?), StableNames, Tseitin.
+Ausschnitte der Implementierung zeigen?
+Warum der Aufwand?
 Bringt das überhaupt was für den Anwendungsfall Pressenplanung?
 Wenn nein: Gehört das hier dann überhaupt rein?
+Also benchmarken\ldots?
+Geht es vielleicht noch besser als (DAG-)Speicher-Sharing?
+Vergleich Formeln auf Gleichheit + Umformungen ermöglichen viel mehr Sharing (speicher-unabhängig).
+Warum wird das noch nicht gemacht?
 
 \section{Kodierung des Pressenplanungsproblems}
 Zwei Modelle erschweren hier möglicherweise Verständnis für den Leser.

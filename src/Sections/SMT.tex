@@ -1,18 +1,28 @@
 \chapter{Satisfiability Modulo Theories}
 \label{chapter:smt}
 
-Einleitung\ldots
+In diesem Kapitel wird zuerst das Erfüllbarkeitsproblem der Satisfiability Module Theories - kurz SMT - vorgestellt.
+Danach wird auf die Kernelemente des Sprachstandards SMTLib Version 2.6 \cite{smtlib} eingegangen.
+Dieser ermöglicht die Kodierung von SMT-Problemen für SMT-Solver \cite{smt}.
+Ein SMT-Solver - kurz Solver - ist ein Programm, welches für ein kodiertes Problem die Erfüllbarkeit dieses und für den
+Fall \textit{erfüllbar} (englisch \textit{satisfiable} - kurz \textit{sat}) ein Modell für jenes bestimmen kann.
+Einige bekannte Solver sind zum Beispiel Z3 \cite{z3}, CVC5 \cite{cvc5}, Yices \cite{yices} und OpenSMT \cite{opensmt}.
+Diese und viele andere nehmen jährlich an dem internationalen Wettbewerb SMT-COMP \cite{smtcomp} für SMT-Solver teil,
+wo sie sich in verschiedenen Disziplinen miteinander messen.
+Am Ende dieses Kapitels wird zudem betrachtet, wie SMT-Probleme nach Zielfunktionen optimiert werden können.
 
 \section{Einführung in das Erfüllbarkeitsproblem SMT}
+Logiken, Sorten erklären.
 Welche Logiken hier relevant?
-Was zeichnet diese Logiken aus?
-Wie performant lösen die Solver diese Logiken - Komplexität?
-SMT-Comp - beste Solver für relevante Kategorien nennen - Lösungsverfahren nur minimal erwähnen.
+Wie lösen die Solver die Probleme der Logiken?
+Wie performant lösen die Solver diese - Komplexität?
+Aktuelle SMT-Comp - beste Solver für relevante Kategorien nennen.
 
-\section{Sprachstandard SMTLib2.6}
-Kodierung prädikatenlogischer Problemen.
-Assert, \ldots
+\section{Sprachstandard SMTLib Version 2.6}
+Standard Version 2.6: \cite{smtlib}
 
 \section{SMT-Kodierung von Anzahl-Constraints}
+Hier folgende Paper: \cite{suelflow} und \cite{kovasznai}
 
 \section{Optimierung - Optimization Modulo Theories}
+nuZ3 Paper hier sehr hilfreich \cite{nuz3}
