@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kr}{class}\PYG{+w}{    }\PYG{k+kt}{KnownSMTSort}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{t}\PYG{+w}{ }\PYG{o+ow}{::}\PYG{+w}{ }\PYG{k+kt}{SMTSort}\PYG{p}{)}\PYG{+w}{ }\PYG{k+kr}{where}\PYG{+w}{ }\PYG{n}{sortSing}\PYG{+w}{ }\PYG{o+ow}{::}\PYG{+w}{ }\PYG{k+kt}{SSMTSort}\PYG{+w}{ }\PYG{n}{t}
+\PYG{k+kr}{instance}\PYG{+w}{ }\PYG{k+kt}{KnownSMTSort}\PYG{+w}{ }\PYG{k+kt}{IntSort}\PYG{+w}{        }\PYG{k+kr}{where}\PYG{+w}{ }\PYG{n}{sortSing}\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }\PYG{k+kt}{SIntSort}
+\PYG{k+kr}{instance}\PYG{+w}{ }\PYG{k+kt}{KnownSMTSort}\PYG{+w}{ }\PYG{k+kt}{RealSort}\PYG{+w}{       }\PYG{k+kr}{where}\PYG{+w}{ }\PYG{n}{sortSing}\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }\PYG{k+kt}{SRealSort}
+\PYG{k+kr}{instance}\PYG{+w}{ }\PYG{k+kt}{KnownSMTSort}\PYG{+w}{ }\PYG{k+kt}{BoolSort}\PYG{+w}{       }\PYG{k+kr}{where}\PYG{+w}{ }\PYG{n}{sortSing}\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }\PYG{k+kt}{SBoolSort}
+\PYG{o}{...}
+\end{Verbatim}

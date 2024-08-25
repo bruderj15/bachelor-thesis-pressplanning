@@ -1,0 +1,30 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kr}{module}\PYG{+w}{ }\PYG{n+nn}{Example.Foo}\PYG{+w}{ }\PYG{k+kr}{where}
+
+\PYG{k+kr}{import}\PYG{+w}{ }\PYG{n+nn}{Language.Hasmtlib}
+\PYG{k+kr}{import}\PYG{+w}{ }\PYG{n+nn}{GHC.Generics}
+
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} a custom data\PYGZhy{}type marshalled to a solver}
+\PYG{k+kr}{data}\PYG{+w}{ }\PYG{k+kt}{Foo}\PYG{+w}{ }\PYG{n}{a}\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }\PYG{k+kt}{Foo}\PYG{+w}{ }\PYG{n}{a}\PYG{+w}{ }\PYG{n}{a}\PYG{+w}{ }\PYG{k+kr}{deriving}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{Show}\PYG{p}{,}\PYG{+w}{ }\PYG{k+kt}{Generic}\PYG{p}{)}
+\PYG{k+kr}{instance}\PYG{+w}{ }\PYG{k+kt}{Codec}\PYG{+w}{ }\PYG{n}{a}\PYG{+w}{ }\PYG{o+ow}{=\PYGZgt{}}\PYG{+w}{ }\PYG{k+kt}{Codec}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{Foo}\PYG{+w}{ }\PYG{n}{a}\PYG{p}{)}
+\PYG{k+kr}{instance}\PYG{+w}{ }\PYG{k+kt}{Variable}\PYG{+w}{ }\PYG{n}{a}\PYG{+w}{ }\PYG{o+ow}{=\PYGZgt{}}\PYG{+w}{ }\PYG{k+kt}{Variable}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{Foo}\PYG{+w}{ }\PYG{n}{a}\PYG{p}{)}
+
+\PYG{n+nf}{main}\PYG{+w}{ }\PYG{o+ow}{::}\PYG{+w}{ }\PYG{k+kt}{IO}\PYG{+w}{ }\PYG{n+nb}{()}
+\PYG{n+nf}{main}\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }\PYG{k+kr}{do}
+\PYG{+w}{  }\PYG{n}{result}\PYG{+w}{ }\PYG{o+ow}{\PYGZlt{}\PYGZhy{}}\PYG{+w}{ }\PYG{n}{solveWith}\PYG{+w}{ }\PYG{o}{@}\PYG{k+kt}{SMT}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{solver}\PYG{+w}{ }\PYG{n}{cvc5}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{\PYGZdl{}}\PYG{+w}{ }\PYG{k+kr}{do}
+\PYG{+w}{    }\PYG{c+c1}{\PYGZhy{}\PYGZhy{} set logic for solver to use}
+\PYG{+w}{    }\PYG{n}{setLogic}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}QF\PYGZus{}LIA\PYGZdq{}}
+
+\PYG{+w}{    }\PYG{c+c1}{\PYGZhy{}\PYGZhy{} construct a Foo with variables}
+\PYG{+w}{    }\PYG{n}{foo}\PYG{o}{@}\PYG{p}{(}\PYG{k+kt}{Foo}\PYG{+w}{ }\PYG{n}{l}\PYG{+w}{ }\PYG{n}{r}\PYG{p}{)}\PYG{+w}{ }\PYG{o+ow}{::}\PYG{+w}{ }\PYG{k+kt}{Foo}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{Expr}\PYG{+w}{ }\PYG{k+kt}{IntSort}\PYG{p}{)}\PYG{+w}{ }\PYG{o+ow}{\PYGZlt{}\PYGZhy{}}\PYG{+w}{ }\PYG{n}{variable}
+
+\PYG{+w}{    }\PYG{c+c1}{\PYGZhy{}\PYGZhy{} constrain foo}
+\PYG{+w}{    }\PYG{n}{assert}\PYG{+w}{ }\PYG{o}{\PYGZdl{}}\PYG{+w}{ }\PYG{n}{l}\PYG{+w}{ }\PYG{o}{===}\PYG{+w}{ }\PYG{n}{r}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{n}{r}
+\PYG{+w}{    }\PYG{n}{assert}\PYG{+w}{ }\PYG{o}{\PYGZdl{}}\PYG{+w}{ }\PYG{n}{r}\PYG{+w}{ }\PYG{o}{===}\PYG{+w}{ }\PYG{l+m+mi}{42}
+
+\PYG{+w}{    }\PYG{n}{return}\PYG{+w}{ }\PYG{n}{foo}
+
+\PYG{+w}{  }\PYG{n}{print}\PYG{+w}{ }\PYG{n}{result}
+
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} Prints: (Sat,Just (Foo 84 42))}
+\end{Verbatim}

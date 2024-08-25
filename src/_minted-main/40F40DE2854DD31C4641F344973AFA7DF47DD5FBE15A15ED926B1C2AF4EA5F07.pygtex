@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kr}{data}\PYG{+w}{ }\PYG{k+kt}{SSMTSort}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{t}\PYG{+w}{ }\PYG{o+ow}{::}\PYG{+w}{ }\PYG{k+kt}{SMTSort}\PYG{p}{)}\PYG{+w}{ }\PYG{k+kr}{where}
+\PYG{+w}{  }\PYG{k+kt}{SIntSort}\PYG{+w}{    }\PYG{o+ow}{::}\PYG{+w}{ }\PYG{k+kt}{SSMTSort}\PYG{+w}{ }\PYG{k+kt}{IntSort}
+\PYG{+w}{  }\PYG{k+kt}{SRealSort}\PYG{+w}{   }\PYG{o+ow}{::}\PYG{+w}{ }\PYG{k+kt}{SSMTSort}\PYG{+w}{ }\PYG{k+kt}{RealSort}
+\PYG{+w}{  }\PYG{k+kt}{SBoolSort}\PYG{+w}{   }\PYG{o+ow}{::}\PYG{+w}{ }\PYG{k+kt}{SSMTSort}\PYG{+w}{ }\PYG{k+kt}{BoolSort}
+\PYG{+w}{  }\PYG{o}{...}
+\end{Verbatim}
