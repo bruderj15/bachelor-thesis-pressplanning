@@ -22,7 +22,41 @@ Aktuelle SMT-Comp - beste Solver für relevante Kategorien nennen.
 Standard Version 2.6: \cite{smtlib}
 
 \section{SMT-Kodierung von Anzahl-Constraints}
-Hier folgende Paper: \cite{suelflow} und \cite{kovasznai}
+\label{sec:smtcardinality}
+%Hier folgende Paper: \cite{suelflow} und \cite{kovasznai}
+
+Oftmals werden zur Kodierung von SMT-Problemen auch Anzahl-Constraints benötigt.
+Auf einer Menge von $n$ gegeben booleschen Variablen $\{b_0, b_1, \ldots, b_{n-1}\}$ soll dabei die Anzahl wahr belegter Variablen nach $k$ restriktiert werden.
+Dabei existieren die folgenden drei Restriktionen:
+\begin{itemize}
+    \item Mindestens $k$: $atLeast(k, \{b_0, b_1, \ldots, b_{n-1}\})$
+    \item Genau $k$: $exactly(k, \{b_0, b_1, \ldots, b_{n-1}\})$
+    \item Höchstens $k$: $atMost(k, \{b_0, b_1, \ldots, b_{n-1}\})$
+\end{itemize}
+
+Anzahl-Constraints sind nicht Teil des SMTLib-Standards Version 2.6 \cite{smtlib}, sodass nur wenige Solver wie Z3 solche Kodierungen direkt unterstützen \cite{z3Cardinality}.
+Daher wird zur manuellen Kodierung of die ITE-Kodierung verwendet \cite{kovasznai}.
+Dabei werden die einzelnen booleschen Unbekannten mithilfe eines If-Then-Else-Ausdrucks (kurz ITE) in numerische Ausdrücke umgewandelt, anschließend summiert und verglichen.
+Mithilfe der Hilfsfunktion $count(\{b_0, b_1, \ldots, b_{n-1}\})$ lassen sich die Anzahl-Constraints einfach kodieren:
+
+\[
+    \begin{aligned}
+        & count(B) = \sum_{\substack{b \in B}}
+            \left(
+                \begin{cases}
+                    1 & \text{, } b \\
+                    0 & \text{, sonst}
+                \end{cases}
+            \right) \\[5pt]
+        & atLeast(k, B) = k \leq count(B) \\[5pt]
+        & exactly(k, B) = k = count(B) \\[5pt]
+        & atMost(k, B) = k \geq count(B)
+    \end{aligned}
+\]
+
+Je nach gewählter Logik erfolgt die Summierung in der entsprechenden Sorte.
+Ist für das SMT-Problem beispielsweise die Logik QF\_LRA gewählt, dann summiert $count(B)$ Terme der Sorte \texttt{Real}.
+Dabei entstehen für jedes Anzahl-Constraint offensichtlich $n$ ITE-Ausdrücke, $n-1$ binäre Additionen und ein Vergleich.
 
 \section{Optimierung - Optimization Modulo Theories}
 nuZ3 Paper hier sehr hilfreich \cite{nuz3}

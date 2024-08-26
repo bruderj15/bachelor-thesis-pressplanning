@@ -80,6 +80,15 @@ Dadurch lassen sich viele Funktionalitäten der Gastsprache wiederverwenden, zum
 \texttt{sum :: (Foldable t, Num a) => t a -> a}.
 
 \subsection{Ergänzung um Anzahl-Constraints}
+\texttt{Hasmtlib} unterstützte bis zum Zeitpunkt dieser Arbeit keine Anzahl-Constraints.
+Daher werden diese im Rahmen dieser Arbeit der Bibliothek hinzugefügt.
+Die Implementierung erfolgt analog zur in \ref{sec:smtcardinality} präsentierten ITE-Kodierung:
+
+\begin{listing}[H]
+    \inputminted[linenos=true]{haskell}{Code/Implementierung/Hasmtlib/Cardinality.hs}
+    \caption{ITE-Kodierung von Anzahl-Constraints in \texttt{Hasmtlib} \cite{hasmtlibCardinality}}
+    \label{listing:hasmtlibcardinality}
+\end{listing}
 
 \subsection{Ergänzung um Incremental Refinement}
 

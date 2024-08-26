@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{o}{(}declare\PYGZhy{}fun\PYG{+w}{ }z\PYG{+w}{ }\PYG{o}{()}\PYG{+w}{ }Int\PYG{o}{)}
+\PYG{o}{(}assert\PYG{+w}{ }\PYG{o}{(}forall\PYG{+w}{ }\PYG{o}{((}x\PYG{+w}{ }Int\PYG{o}{))}\PYG{+w}{ }\PYG{o}{(}and\PYG{+w}{ }\PYG{o}{(=}\PYG{+w}{ }\PYG{o}{(}+\PYG{+w}{ }x\PYG{+w}{ }z\PYG{o}{)}\PYG{+w}{ }x\PYG{o}{)}\PYG{+w}{ }\PYG{o}{(=}\PYG{+w}{ }\PYG{o}{(}+\PYG{+w}{ }z\PYG{+w}{ }x\PYG{o}{)}\PYG{+w}{ }x\PYG{o}{))))}
+\end{Verbatim}

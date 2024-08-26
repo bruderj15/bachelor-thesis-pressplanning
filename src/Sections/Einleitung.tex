@@ -20,7 +20,7 @@ Der Rest jedes Balkens ist rot hervorgehoben.
 
 An einen Pressenplan werden verschiedene Anforderungen wie beispielsweise die Gleichheit der Längen aller Balken in einer Presse gestellt.
 Neben diesen Anforderungen sind auch einige Optimierungsziele für den Pressenplan von Bedeutung.
-Darunter zum Beispiel die Minimierung des Rests, der Balken auf die gleiche Länge auffüllt und somit zusätzliche Materialkosten erzeugt.
+Darunter zum Beispiel die Minimierung des Rests, der Balken auf die gleiche Länge auffüllt und somit zusätzliche Materialkosten bedeutet.
 
 Germanedge konnte für dieses Problem bereits eine Lösung finden, diese ist allerdings unter Firmenverschluss.
 Es ist lediglich bekannt, dass jene einen heuristischen Ansatz wählt, was bedeutet, dass (optimale) Lösungen verloren gehen.
@@ -32,7 +32,7 @@ Für die dafür in dieser Arbeit verwendeten Satisfiability Modulo Theories (SMT
 beschreibt folgendes Constraint beispielsweise die Neutralität der Null im Monoid $(\mathbb{N}_0, +, 0)$:
 
 \begin{listing}[H]
-    \inputminted{haskell}{Code/Einleitung/MonoidNPlusNull.smt2}
+    \inputminted[linenos=true]{haskell}{Code/Einleitung/MonoidNPlusNull.smt2}
     \caption{SMTLib-Kodierung der Neutralität der Null im Monoid $(\mathbb{N}_0, +, 0)$}
     \label{listing:monoidnnplusnull}
 \end{listing}
@@ -43,7 +43,7 @@ Unbekannte (Variablen) modelliert, für welche der Solver eine erfüllende Beleg
 So könnte obiges Beispiel als Frage nach dem neutralen Element im Monoid $(\mathbb{N}_0, +, x)$ folgend formuliert werden:
 
 \begin{listing}[H]
-    \inputminted{haskell}{Code/Einleitung/MonoidNPlusZ.smt2}
+    \inputminted[linenos=true]{bash}{Code/Einleitung/MonoidNPlusZ.smt2}
     \caption{SMTLib-Kodierung des unbekannten neutralen Elements $x$ im Monoid $(\mathbb{N}_0, +, x)$}
     \label{listing:monoidnnplusz}
 \end{listing}
@@ -76,7 +76,7 @@ Für diese Arbeit wird als jene Gastsprache Haskell \cite{haskellhistory} gewäh
 Mit der Haskell-Bibliothek \texttt{Hasmtlib} \cite{hasmtlib} lässt sich beispielhaft das bereits erwähnte Constraint gleicher Länge aller Balken in einer Presse folgend formulieren:
 
 \begin{listing}[H]
-    \inputminted{haskell}{Code/Einleitung/PressenlängeConstraintHaskell.hs}
+    \inputminted[linenos=true]{haskell}{Code/Einleitung/PressenlängeConstraintHaskell.hs}
     \caption{Haskell-Code für das Constraint gleicher Länge aller Balken einer Presse}
     \label{listing:barLengthCode}
 \end{listing}
@@ -94,7 +94,7 @@ Die Kodierung wird an einen SMT-Solver gegeben, welcher die Erfüllbarkeit des P
 Zum Beispiel:
 
 \begin{listing}[H]
-    \inputminted{bash}{Code/Einleitung/PressenlängeConstraintSolverOutput.smt2}
+    \inputminted[linenos=true]{bash}{Code/Einleitung/PressenlängeConstraintSolverOutput.smt2}
     \caption{Ausschnitt des Solver-Outputs der Lösung eines Pressenplanungsproblems}
     \label{listing:barLengthSolverOutput}
 \end{listing}
