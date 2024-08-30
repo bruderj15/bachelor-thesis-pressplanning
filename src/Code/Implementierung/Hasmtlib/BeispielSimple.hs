@@ -20,7 +20,7 @@ main = do
     setLogic "QF_LRA"
     -- create variables
     bars <- replicateM 10 variable
-    -- constraint variables
+    -- constrain variables
     assert $ barLength bars
     -- find model for variables
     return foo
