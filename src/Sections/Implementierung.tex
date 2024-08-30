@@ -1,11 +1,11 @@
 \chapter{Implementierung in Haskell}
 \label{chapter:implementierung}
-In diesem Kapitel wird gezeigt, wie SMT-Probleme mit funktionaler Programmierung in SMTLib kodiert werden können.
+In diesem Kapitel wird gezeigt, wie das Problem der Pressenplanung mit funktionaler Programmierung in SMTLib kodiert werden kann.
 Dazu werden zunächst einige Grundlagen der funktionalen Programmiersprache Haskell erklärt.
-Danach wird der Kern der Funktionsweise der Haskell-Bibliothek \texttt{Hasmtlib} \cite{hasmtlib} untersucht.
+Danach wird der Kern der Funktionsweise der Haskell-Bibliothek \texttt{Hasmtlib} \cite{hasmtlib} beschrieben.
 Ferner werden einige geeignete Erweiterungen dieser diskutiert.
-Anschließend wird mithilfe von Quellcode-Ausschnitten demonstriert, wie das Pressenplanungsproblem polymorph in der SMT-Sorte in Haskell implementiert werden kann.
-Zum Schluss wird die Validierung vermeintlicher Lösungen betrachtet.
+Abschließend wird mithilfe von Quellcode-Ausschnitten demonstriert,
+wie das Pressenplanungsproblem in den Dimensionen Länge und Höhe polymorph in der SMT-Sorte in Haskell implementiert werden kann.
 
 \section{Funktionale Programmierung mit Haskell}
 \label{sec:haskell}
@@ -73,9 +73,8 @@ Folgend ein kleines Programm zur Erläuterung:
     \label{listing:hasmtlibsimplexample}
 \end{listing}
 
-Das Beispiel in Listing \ref{listing:hasmtlibsimplexample} demonstriert außerdem die pure Formelkonstruktion in \texttt{Hasmtlib}.
-Der Term \texttt{r + r} in Zeile 21 hat den Typ \texttt{Expr IntSort} während das Atom \texttt{l === r + r} den Typ \texttt{Expr BoolSort} hat.
-Lediglich Variablenerzeugung und Formel-Assertion sind monadisch.
+Das Beispiel in Listing \ref{listing:hasmtlibsimplexample} demonstriert mit der Funktion \texttt{barLength} außerdem die pure Formelkonstruktion in \texttt{Hasmtlib}.
+Lediglich Variablenerzeugung (Zeile 20) und Formel-Assertion (Zeile 22) sind monadisch.
 Dadurch lassen sich viele Funktionalitäten der Gastsprache wiederverwenden, zum Beispiel die Funktion \texttt{sum} aus \texttt{Data.Foldable}:
 \texttt{sum :: (Foldable t, Num a) => t a -> a}.
 
@@ -110,9 +109,3 @@ Für ein Modell entscheiden: Relationales Modell begründend wegwerfen, auf Lauf
 Ebenso Unterscheidung Incremental Refinement/OMT, OMT wegwerfen, weil Laufzeit.
 Geeignete Programmauszüge: Polymorphe Kodierung in Sorte (damit Logik), vereinzelt Datentypen und Constraints analog zu Modellierung.
 Minimal IO erklären.
-
-\section{Validierung der Lösung}
-Warum validieren?
-Wie validieren?
-Wenn Modell richtig und auch richtig in SMT kodiert, dann Ergebnis richtig gdw. Solver Spezifikation erfüllt.
-Erfüllt Solver die Spezifikation? Ja hoffentlich - das müssen wir denen abkaufen - oder Nachweis bspw. per SMT-Comp?

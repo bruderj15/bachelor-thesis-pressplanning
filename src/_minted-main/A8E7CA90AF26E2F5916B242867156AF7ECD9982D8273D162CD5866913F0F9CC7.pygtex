@@ -1,0 +1,11 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+...
+\PYG{o}{(}declare\PYGZhy{}fun\PYG{+w}{ }var\PYGZus{}69\PYG{+w}{ }\PYG{o}{()}\PYG{+w}{ }Real\PYG{o}{)}
+\PYG{o}{(}declare\PYGZhy{}fun\PYG{+w}{ }var\PYGZus{}70\PYG{+w}{ }\PYG{o}{()}\PYG{+w}{ }Bool\PYG{o}{)}
+\PYG{o}{(}declare\PYGZhy{}fun\PYG{+w}{ }var\PYGZus{}71\PYG{+w}{ }\PYG{o}{()}\PYG{+w}{ }Real\PYG{o}{)}
+...
+\PYG{o}{(}assert\PYG{+w}{ }\PYG{o}{(}and\PYG{+w}{ }\PYG{o}{(}or\PYG{+w}{ }var\PYGZus{}70\PYG{+w}{ }\PYG{o}{(}and\PYG{+w}{ }\PYG{o}{(}\PYGZgt{}\PYG{o}{=}\PYG{+w}{ }var\PYGZus{}69\PYG{+w}{ }\PYG{l+m}{1}.44\PYG{o}{)}\PYG{+w}{ }\PYG{o}{(}\PYGZlt{}\PYG{o}{=}\PYG{+w}{ }var\PYGZus{}69\PYG{+w}{ }\PYG{l+m}{2}.3\PYG{o}{)))}\PYG{+w}{ }...\PYG{o}{))}
+\PYG{o}{(}assert\PYG{+w}{ }\PYG{o}{(}and\PYG{+w}{ }\PYG{o}{(}or\PYG{+w}{ }var\PYGZus{}70\PYG{+w}{ }\PYG{o}{(}and\PYG{+w}{ }\PYG{o}{(}\PYGZgt{}\PYG{o}{=}\PYG{+w}{ }var\PYGZus{}68\PYG{+w}{ }\PYG{l+m}{6}.0\PYG{o}{)}\PYG{+w}{ }\PYG{o}{(}\PYGZlt{}\PYG{o}{=}\PYG{+w}{ }var\PYGZus{}68\PYG{+w}{ }\PYG{l+m}{24}.15\PYG{o}{)))}\PYG{+w}{ }...\PYG{o}{))}
+\PYG{o}{(}assert\PYG{+w}{ }\PYG{o}{(}and\PYG{+w}{ }\PYG{o}{(}and\PYG{+w}{ }\PYG{o}{(}and\PYG{+w}{ }\PYG{o}{(}and\PYG{+w}{ }\PYG{o}{(}and\PYG{+w}{ }\PYG{o}{(}and\PYG{+w}{ }\PYG{o}{(}and\PYG{+w}{ }\PYG{o}{(=}\PYG{+w}{ }var\PYGZus{}28\PYG{+w}{ }\PYG{o}{(}+\PYG{+w}{ }\PYG{o}{(}+\PYG{+w}{ }...\PYG{o}{)))))))))))}
+...
+\end{Verbatim}

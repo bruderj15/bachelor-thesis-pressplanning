@@ -7,12 +7,13 @@ Im Rahmen dieser Arbeit wird daher eine prototypische Lösung mithilfe der Metho
 Dazu werden die Constraints der Domäne zunächst mithilfe der Prädikatenlogik (FOL) modelliert und anschließend in einer konkreten Repräsentation des Modells implementiert.
 
 Dabei wird ein Programm entwickelt, welches aus den textuellen Eingaben der Pressen- und Bauteilspezifikationen ein Constraint-System erzeugt, das anschließend von einem externen Constraint-Solver gelöst wird.
-Das Programm wandelt die Lösung des Solvers folglich in eine, zu den bereits existenten Schnittstellen passende, textuelle Ausgabe um.
-Weiter ist das Programm so strukturiert, dass verschiedene Logiken aus SMT zur Erzeugung des Constraint-Systems genutzt werden können.
+Das Programm wandelt die Lösung des Solvers in eine, zu den bereits existenten Schnittstellen passende, textuelle Ausgabe um.
+Weiter ist das Programm so strukturiert, dass verschiedene Logiken aus SMT zur Erzeugung des Constraint-Systems genutzt werden können,
+um die performanteste Kodierung des Problems in jenen Logiken einfach zu ermitteln.
 Dies wird durch Wahl der Programmiersprache Haskell und deren ausdrucksstarkes Typsystem ermöglicht.
 Als Grundlage zur Kodierung des Pressenplanungsproblems und Interaktion mit externen Solvern
 wird die Haskell-Bibliothek \texttt{Hasmtlib} \cite{hasmtlib} verwendet und an geeigneten Stellen erweitert.
 
-Das Ziel für die prototypische Lösung des Problems der Pressenplanung ist die korrekte, optimale und bestenfalls schnelle (unter sechs Minuten) Lösung bekannter Testfälle.
+Das Ziel für die prototypische Lösung des Problems der Pressenplanung ist die korrekte, optimale und bestenfalls schnelle (Wunsch Germanedge: unter sechs Minuten) Lösung bekannter Testfälle.
 Da es sich hier um eine prototypische Lösung handelt, werden einige Sonderfälle des Pressenplanungsproblems in dieser Arbeit nicht betrachtet.
 Am Ende wird die Performance der prototypischen Lösung mit jener der aktuell existenten heuristischen verglichen.

@@ -1,28 +1,27 @@
 module Example.Foo where
 
 import Language.Hasmtlib
-import GHC.Generics
+import Control.Monad (replicateM)
 
--- a custom data-type marshalled to a solver
-data Foo a = Foo a a deriving (Show, Generic)
-instance Codec a => Codec (Foo a)
-instance Variable a => Variable (Foo a)
+data Bar a = Bar
+  { length :: a
+  , height :: a }
+  deriving (Generic)
+instance Variable a => Variable (Bar a)
+
+barLength :: [Bar (Expr RealSort)] -> Expr BoolSort
+barLength = all (\(b1,b2) -> ...) . binom
+  where
+    binom = ...
 
 main :: IO ()
 main = do
   result <- solveWith @SMT (solver cvc5) $ do
-    -- set logic for solver to use
-    setLogic "QF_LIA"
-
-    -- construct a Foo with variables
-    foo@(Foo l r) :: Foo (Expr IntSort) <- variable
-
-    -- constrain foo
-    assert $ l === r + r
-    assert $ r === 42
-
+    setLogic "QF_LRA"
+    -- create variables
+    bars <- replicateM 10 variable
+    -- constraint variables
+    assert $ barLength bars
+    -- find model for variables
     return foo
-
-  print result
-
--- Prints: (Sat,Just (Foo 84 42))
+  ...

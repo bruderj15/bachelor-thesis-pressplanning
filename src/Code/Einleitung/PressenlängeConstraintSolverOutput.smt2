@@ -1,7 +1,8 @@
 sat
-
 (
-  (define-fun var_1 () Real    (- 12.0))
-  (define-fun var_2 () Real    33.4)
+  ...
+  (define-fun var_69 () Real    (/ 287 125))
+  (define-fun var_70 () Bool    false)
+  (define-fun var_71 () Real    (/ 483 20))
   ...
 )

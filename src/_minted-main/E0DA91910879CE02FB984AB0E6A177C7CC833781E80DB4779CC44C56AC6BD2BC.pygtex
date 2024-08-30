@@ -1,9 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-sat
-
-\PYG{o}{(}
-\PYG{+w}{  }\PYG{o}{(}define\PYGZhy{}fun\PYG{+w}{ }var\PYGZus{}1\PYG{+w}{ }\PYG{o}{()}\PYG{+w}{ }Real\PYG{+w}{    }\PYG{o}{(}\PYGZhy{}\PYG{+w}{ }\PYG{l+m}{12}.0\PYG{o}{))}
-\PYG{+w}{  }\PYG{o}{(}define\PYGZhy{}fun\PYG{+w}{ }var\PYGZus{}2\PYG{+w}{ }\PYG{o}{()}\PYG{+w}{ }Real\PYG{+w}{    }\PYG{l+m}{33}.4\PYG{o}{)}
-\PYG{+w}{  }...
-\PYG{o}{)}
-\end{Verbatim}

@@ -1,0 +1,10 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+sat
+\PYG{o}{(}
+\PYG{+w}{  }...
+\PYG{+w}{  }\PYG{o}{(}define\PYGZhy{}fun\PYG{+w}{ }var\PYGZus{}69\PYG{+w}{ }\PYG{o}{()}\PYG{+w}{ }Real\PYG{+w}{    }\PYG{o}{(}/\PYG{+w}{ }\PYG{l+m}{287}\PYG{+w}{ }\PYG{l+m}{125}\PYG{o}{))}
+\PYG{+w}{  }\PYG{o}{(}define\PYGZhy{}fun\PYG{+w}{ }var\PYGZus{}70\PYG{+w}{ }\PYG{o}{()}\PYG{+w}{ }Bool\PYG{+w}{    }\PYG{n+nb}{false}\PYG{o}{)}
+\PYG{+w}{  }\PYG{o}{(}define\PYGZhy{}fun\PYG{+w}{ }var\PYGZus{}71\PYG{+w}{ }\PYG{o}{()}\PYG{+w}{ }Real\PYG{+w}{    }\PYG{o}{(}/\PYG{+w}{ }\PYG{l+m}{483}\PYG{+w}{ }\PYG{l+m}{20}\PYG{o}{))}
+\PYG{+w}{  }...
+\PYG{o}{)}
+\end{Verbatim}

@@ -1,7 +1,9 @@
-(declare-fun var_1 () Real)
-(declare-fun var_2 () Real)
 ...
-(assert (= var_34 (not var_33)))
-(assert (= var_38 (and var_36 var_37)))
-(assert (= var_39 (or var_35 var_38)))
+(declare-fun var_69 () Real)
+(declare-fun var_70 () Bool)
+(declare-fun var_71 () Real)
+...
+(assert (and (or var_70 (and (>= var_69 1.44) (<= var_69 2.3))) ...))
+(assert (and (or var_70 (and (>= var_68 6.0) (<= var_68 24.15))) ...))
+(assert (and (and (and (and (and (and (and (= var_28 (+ (+ ...)))))))))))
 ...

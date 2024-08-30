@@ -49,7 +49,50 @@ Damit reduziert man die Dimension des Problems vom 3-Dimensionalen auf das 2-Dim
 
 Die Eingabe für das Pressenplanungsproblem ist eine Liste von Bauteilen mit Länge und Höhe sowie deren Anzahl.
 Diese Eingabe wird auch Auftrag genannt.
+Folgend ein beispielhafter Auftrag:
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \textbf{Länge in mm} & \textbf{Höhe in mm} & \textbf{Anzahl} \\
+        \hline
+        7000 & 400 & 1 \\
+        13000 & 400 & 2 \\
+        3000 & 400 & 3 \\
+        6000 & 400 & 1 \\
+        9000 & 400 & 1 \\
+        7500 & 400 & 1 \\
+        5000 & 400 & 1 \\
+        5500 & 400 & 1 \\
+        3500 & 400 & 1 \\
+        \hline
+    \end{tabular}
+    \caption{Beispielauftrag, jede Zeile entpricht einer Bauteilspezifikation}
+    \label{tab:auftrageingabe}
+\end{table}
+
 Die Lösung des Pressenplanungsproblems (Ausgabe) ist ein Pressenplan.
+Für den Auftrag in Tabelle \ref{tab:auftrageingabe} könnte beispielsweise folgende Ausgabe den Pressenplan beschreiben:
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        \textbf{Presse} & \textbf{Schicht} & \textbf{Position} & \textbf{Länge in mm} & \textbf{Höhe in mm} \\
+        \hline
+        1 & 1 & 1 & 14000 & 400 \\
+        1 & 1 & 2 & 7500 & 400 \\
+        1 & 2 & 1 & 3000 & 400 \\
+        1 & 2 & 2 & 6500 & 400 \\
+        1 & 2 & 3 & 3000 & 400 \\
+        \ldots & \ldots & \ldots & \ldots & \ldots \\
+        \hline
+    \end{tabular}
+    \caption{Beispielausgabe des Pressenplans zu Auftrag in Tabelle \ref{tab:auftrageingabe}, Visualisierung in Abbildung \ref{figure:pressenplanproblem}}
+    \label{tab:auftragausgabe}
+\end{table}
+
 An einen Pressenplan bestehen folgende Anforderungen:
 \begin{itemize}
     \item Pressen haben eine Minimal- und Maximalhöhe. Die Summe der Höhe aller Balken einer Presse muss in diesem Intervall liegen.
@@ -70,4 +113,4 @@ Größe des Problems (Unbekannte, Formeln)?
 
 \section{Optimierung}
 Erweiterung der Modelle um Optimierungsziele.
-OMT, Incremental refinement, \ldots
+Lexikographie, \ldots
