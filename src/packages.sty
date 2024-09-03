@@ -61,6 +61,7 @@
     linkcolor = black,
     urlcolor = black
 }
+\usepackage{ulem}
 \usepackage{comment}    % Comment blocks of text using \begin{comment} ... \end{comment}
 \usepackage{pdfpages}   % Enables import of pdf-pages using e.g. \includepdf[pages=-]{./my_pdf.pdf}
 
@@ -114,3 +115,7 @@
 \setkomafont{chapter}{\Large\bfseries}
 \setkomafont{section}{\large\bfseries}
 \setkomafont{subsection}{\normalsize\bfseries}
+
+%custom commands
+\newcommand{\sem}[1]{\color{red} #1} %comments by Sebastian Möbius in red
+\newcommand{\semdone}[1]{} %comment has been resolved, do not show it anymore

@@ -4,7 +4,7 @@
 Die Germanedge Solutions GmbH ist Deutschlands Vorreiter in der Digitalisierung der Produktion und
 unterstützt Unternehmen mit individuellen Softwarelösungen für die Industrie 4.0 \cite{industry4dot0}.
 Darunter auch ein nicht genannter Kunde, welcher Germanedge mit der Optimierung der Planung von Holzpressen beauftragt hat.
-Dabei werden Holzbauteile zu Holzbalken verleimt und anschließend in Pressen gepresst.
+Dabei werden Holzbauteile zu Holzbalken verleimt und anschließend in Pressen gepresst \sem{Es werden Bretter zu Balken verleimt und in Bauteile zersägt.}.
 Die Art und Weise der Anordnung der Bauteile in den Pressen wird als Pressenplan bezeichnet.
 Abbildung \ref{figure:pressenplan} visualisiert einen solchen Pressenplan.
 Die Presse (grau) presst in Richtung der Pfeile nach unten.
@@ -14,7 +14,7 @@ Der Rest jedes Balkens ist rot hervorgehoben.
 \begin{figure}[h]
     \centering
     \includegraphics[width=1.00\textwidth, center]{Images/Pressenplan}\\
-    \caption{Darstellung eines Pressenplans}
+    \caption{Darstellung eines Pressenplans \sem{Die Caption sollte es erlauben das Bild zu verstehen ohne den Text lesen zu müssen. Oft ist es leider so das der Text nur überflogen wird und man eher an Bildern haften bleibt. Zusätzlich ist es schwer im Text immer die richtige Stelle zu finden um diese gegen das Bild abzugleichen. Und ja es doppelt sich der Text dann gern. Hier könntest du allerdings den Text in die Caption schieben und im Text nur auf das Bild verweisen ohne es nochmal explizit zu erklären. In der Einleitung ist dies nicht nötig.}}
     \label{figure:pressenplan}
 \end{figure}
 
@@ -22,14 +22,14 @@ An einen Pressenplan werden verschiedene Anforderungen wie beispielsweise die Gl
 Neben diesen Anforderungen sind auch einige Optimierungsziele für den Pressenplan von Bedeutung.
 Darunter zum Beispiel die Minimierung des Rests, der Balken auf die gleiche Länge auffüllt und somit zusätzliche Materialkosten bedeutet.
 
-Germanedge konnte für dieses Problem bereits eine Lösung finden, diese ist allerdings unter Firmenverschluss.
+Germanedge konnte für dieses Problem bereits eine Lösung finden, diese ist allerdings unter Firmenverschluss \sem{Der Code ist unter Verschluss, aber das Prinzip darf ruhig näher erläutert werden (Diskretisierung, lokale Optimierung, DFS-Algorithmus mit Abbruchkriterium wenn Zeit zu groß oder minimale Anforderung erfüllt.)}.
 Es ist lediglich bekannt, dass jene einen heuristischen Ansatz wählt, was bedeutet, dass (optimale) Lösungen verloren gehen.
 
-Daher wird in dieser Arbeit ein neuer, vollständiger Ansatz zur Lösung des Problems gewählt.
+Daher wird in dieser Arbeit ein neuer, vollständiger Ansatz zur Lösung des Problems gewählt. \sem{Ich finde die Überleitung könnte etwas besser sein. Es klingt so als hätte man den auch vorher schon wählen können. Warum ist es überhaupt nötig einen besseren Ansatz zu wählen. Ich würde darauf eingehen, dass für ein Teilproblem der Pressenplanung ein vollständiger Ansatz gewählt wird. Dieser kommt ohne eine Vergöberung aus und kann Reste besser abbilden und minimieren.}
 Dieser besteht in der Kodierung der Anforderungen an den Pressenplan als Constraints in einem Constraint-System.
 Ein Constraint ist eine aussagenlogische Formel, welche unter einer erfüllenden Belegung den Wahrheitswert \texttt{Wahr} haben muss.
 Für die dafür in dieser Arbeit verwendeten Satisfiability Modulo Theories (SMT) und deren Sprachstandard SMTLib Version 2.6 \cite{smtlib}
-beschreibt folgendes Constraint beispielsweise die Neutralität der Null im Monoid $(\mathbb{N}_0, +, 0)$:
+beschreibt folgendes Constraint beispielsweise die Neutralität der Null im Monoid $(\mathbb{N}_0, +, 0)$ \sem{Ist der Begriff allen klar. Warum ist es wichtig hier die Neutralität der Null in der gewählten Programmiersprache zu zeigen. Welchen Unterschied gibt es zu anderen Sprachen. Wie sähe denn die natürliche, bzw. rein mathematische Formulierung dazu aus}:
 
 \begin{listing}[H]
     \inputminted[linenos=true]{haskell}{Code/Einleitung/MonoidNPlusNull.smt2}
@@ -55,7 +55,7 @@ Eine Beispieleingabe von Bauteilen könnte folgende sein:
     \centering
     \begin{tabular}{|c|c|c|}
         \hline
-        \textbf{Länge} & \textbf{Höhe} & \textbf{Anzahl} \\
+        \textbf{Länge} \sem{[mm]} & \textbf{Höhe} \sem{[mm]} & \textbf{Anzahl} \sem{[mm]} \\
         \hline
         5345.0 & 235.0 & 4 \\
         5219.0 & 287.0 & 40 \\
@@ -66,7 +66,7 @@ Eine Beispieleingabe von Bauteilen könnte folgende sein:
         4740.0 & 287.0 & 34 \\
         \hline
     \end{tabular}
-    \caption{Beispieleingabe von Bauteilen, jede Zeile entpricht einer Bauteilspezifikation}
+    \caption{Beispieleingabe von Bauteilen, jede Zeile entpricht einer Bauteilspezifikation \sem{da alles immer in ganzen Millimeter angegeben wird, lass die Dezimalstellen weg. }}
     \label{table:bauteileingabe}
 \end{table}
 
@@ -77,7 +77,7 @@ Mit der Haskell-Bibliothek \texttt{Hasmtlib} \cite{hasmtlib} lässt sich beispie
 
 \begin{listing}[H]
     \inputminted[linenos=true]{haskell}{Code/Einleitung/PressenlängeConstraintHaskell.hs}
-    \caption{Haskell-Code für das Constraint gleicher Länge aller Balken einer Presse}
+    \caption{Haskell-Code für das Constraint gleicher Länge aller Balken einer Presse \sem{Was bedeuten die einzelnen Symbole/Variablen. Aus Sicht eines Außenstehenden könnten hier auch beliebige Hyroglyphen stehen (Sorry für den vergleich.)}}
     \label{listing:barLengthCode}
 \end{listing}
 
@@ -105,7 +105,7 @@ Jene Belegung transformiert das Programm dann in das gewünschte Ausgabeformat:
     \centering
     \begin{tabular}{|c|c|c|c|c|}
         \hline
-        \textbf{Presse} & \textbf{Schicht} & \textbf{Position} & \textbf{Länge} & \textbf{Höhe} \\
+        \textbf{Presse} & \textbf{Schicht} & \textbf{Position} & \textbf{Länge} \sem{[mm]}  & \textbf{Höhe} \sem{[mm]} \\
         \hline
         1 & 1 & 1 & 5345.0 & 235.0 \\
         1 & 1 & 2 & 5345.0 & 235.0 \\
@@ -114,7 +114,7 @@ Jene Belegung transformiert das Programm dann in das gewünschte Ausgabeformat:
         \ldots & \ldots & \ldots & \ldots & \ldots \\
         \hline
     \end{tabular}
-    \caption{Beispielausgabe des Pressenplans}
+    \caption{Beispielausgabe des Pressenplans \sem{Lass die Dezimalstellen weg. Woher kommend die Bezeichner Presse, Schicht und Position }}
     \label{table:pressenplan}
 \end{table}
 
@@ -133,3 +133,22 @@ Zusätzlich werden dort einige Erweiterungen der Haskell-Bibliothek \texttt{Hasm
 Weiter werden die Ergebnisse der Kodierungen in Kapitel \ref{chapter:auswertung} mithilfe von Laufzeitmessungen ausgewertet.
 
 Abschließend wird das Ergebnis dieser Arbeit in Kapitel \ref{chapter:zusammenfassung} zusammengefasst.
+\sem{Ausblick auf Erweiterung, ggf. Verallgemeinerung auf eine größere Klasse von Problemen}
+
+\sem{\textbf{Struktur} \newline 
+Ich würde die Struktur ein wenig anpassen
+\begin{enumerate}
+    \item Einleitung 
+    \item Prädikatenlogik
+    \item SMT (damit hättest du die theoretischen Grundlagen geschaffen)
+    \item Pressenplanung (hier das Problem was du lösen willst)
+    \item Progammatische Umsetzung. Haskell
+    \item Ergebnisse
+    \item Zusammenfassung
+\end{enumerate}
+}
+
+\sem{\textbf{Allgemeine Hinweise zu Einleitung} \newline 
+Mehr roter Faden, "weniger" Code. Vielleicht kann man hier ein einfaches bis trivales Beispiel für eine contraint Programmierung aufzeigen. Das Ziel sollte es sein zu zeigen, was sind Contraints im Sinne der Prädikatenlogik und SMT. Wie werden die mathematischen Formulierungen in eine gängige Solversprache übersetzt. Hier gern ein Beispiel haben was halt recht lang codiert werden muss und zu Fehlern führt und wie man diese besser lesbar in der höheren Haskell-Bibliothek formulieren kann. Auf Beispiele mit dem konkreten Problem würde ich in der Einleitung verzichten.
+
+}
