@@ -1,10 +1,11 @@
 \chapter{Problemdomäne Pressenplanung}
 \label{chapter:problem}
 In diesem Kapitel wird das Problem der Pressenplanung zunächst erläutert,
-bevor die prädikatenlogische Modellierung des Problems in zwei Modellen erfolgt.
-Abschließend werden die Modelle um Optimierungsziele erweitert.
+bevor die prädikatenlogische Modellierung des Problems in einem Modell erfolgt.
+Abschließend wird das Modell um Optimierungsziele erweitert.
 
 \section{Anforderungen}
+\label{sec:anforderungen}
 Im Pressenplanungsproblem sind drei Entitäten und deren Eigenschaften von elementarer Bedeutung: Pressen, Balken und Bauteile.
 Diese haben jeweils die Eigenschaften Höhe, Breite und Länge.
 Zusätzlich gibt es Holzlamellen, welche durch Zersägen eines sogenannten \textit{Endlosbretts} entstehen.
@@ -106,11 +107,98 @@ An einen Pressenplan bestehen folgende Anforderungen:
 % Hier könnte noch ein Beispiel eingefügt werden
 
 \section{Modellierung}
-\label{section:modellierung}
-Mathematische Modelle für Erfüllbarkeit des Problems.
-Warum zwei Modelle?
-Größe des Problems (Unbekannte, Formeln)?
+\label{sec:modellierung}
+In diesem Abschnitt wird ein mögliches Modell zur Modellierung des Pressenplanungsproblems erläutert.
+Alle Namen von Funktionen in jenem Modell werden englisch formuliert, um die Nähe zur später in Abschnitt \ref{sec:kodierung} gezeigten Implementierung zu wahren.
+Pressen heißen also \textit{Press}, Balken (Schichten) werden \textit{Layer} genannt und Bauteile erhalten den Namen \textit{Component}.
+Die Menge aller Pressen wird mit $P$, die Menge aller Schichten mit $L$ und die Menge aller Bauteile mit $C$ abgekürzt.
+Weiter werden boolesche als auch arithmetische Operatoren vorausgesetzt und in den Signaturen der Modelle nicht genannt.
+
+\[
+    \begin{aligned}
+        \text{Folgend die Signatur } \Sigma = \left( \Sigma_{F}^{P} \cup \Sigma_{F}^{L} \cup \Sigma_{F}^{C}, \Sigma_{R} \right) \text{ mit Variablen } \mathbb{X} = \mathbb{X}^{P} \cup \mathbb{X}^{L} \cup \mathbb{X}^{C} \text{ wobei } \\[5pt]
+            \begin{array}{ll}
+                \begin{aligned}
+                    \Sigma_{F}^{P} = \left\{
+                    \begin{aligned}
+                        & (id, & P \rightarrow \mathbb{Z}), \\
+                        & (minLength, & P \rightarrow \mathbb{Z}), \\
+                        & (maxLength, & P \rightarrow \mathbb{Z}), \\
+                        & (length, & P \rightarrow \mathbb{Z}), \\
+                        & (minHeight, & P \rightarrow \mathbb{Z}), \\
+                        & (maxHeight, & P \rightarrow \mathbb{Z}), \\
+                        & (height, & P \rightarrow \mathbb{Z}), \\
+                        & (layers, & P \rightarrow L_P \subseteq L)\; \\
+                    \end{aligned} \right\} \\[5pt]
+                \end{aligned}
+                &
+                \begin{aligned}
+                    \mathbb{X}^{P} &= \bigcup_{p \in P} \left\{length(p), height(p) \right\} \\
+                \end{aligned}
+                \\
+                \begin{aligned}
+                    \Sigma_{F}^{L} = \left\{
+                    \begin{aligned}
+                        & (id, & L \rightarrow \mathbb{Z}), \\
+                        & (length, & L \rightarrow \mathbb{Z}), \\
+                        & (height, & L \rightarrow \mathbb{Z}), \\
+                        & (waste, & L \rightarrow \mathbb{Z}), \\
+                        & (isEmpty, & L \rightarrow \mathbb{B})\; \\
+                    \end{aligned} \right\} \\[5pt]
+                \end{aligned}
+                &
+                \begin{aligned}
+                    \mathbb{X}^{L} &= \bigcup_{l \in L} \left\{length(l), height(l), waste(l), isEmpty(l)\right\} \\
+                \end{aligned}
+                \\
+                \begin{aligned}
+                    \Sigma_{F}^{C} &= \left\{
+                    \begin{aligned}
+                        & (length, & C \rightarrow \mathbb{Z}), \\
+                        & (height, & C \rightarrow \mathbb{Z})\; \\
+                    \end{aligned} \right\} \\
+                \end{aligned}
+                &
+                \begin{aligned}
+                    \mathbb{X}^{C} &= \emptyset \\
+                \end{aligned}
+                \\[10pt]
+                \begin{aligned}
+                    \Sigma_{R} &= \left\{
+                    \begin{aligned}
+                        & (InLayer, C \times L \rightarrow \mathbb{B}) \\
+                    \end{aligned} \right\} \\
+                \end{aligned}
+                &
+                \begin{aligned}
+                    \mathbb{X}^{InLayer} &= InLayer \\
+                \end{aligned}
+            \end{array}\\[5pt]
+    \end{aligned}
+\]
+Damit lassen sich folgende Constraints formulieren:
+\begin{align}
+    & \forall p \in P: minHeight(p) \leq height(p) \leq maxHeight(p) \\[10pt]
+    & \forall p \in P: minLength(p) \leq length(p) \leq maxLength(p) \\[10pt]
+    & \forall p \in P,\; \forall l \in layers(P): \neg isEmpty(l) \rightarrow length(p) = length(l) \\[10pt]
+    & \forall c \in C,\; \forall l \in L: InLayer(c,l) \rightarrow height(c) = height(l) \\[10pt]
+    & \forall c \in C: atMost(1,\{ InLayer(c,l) \mid l \in L \}) \\[10pt]
+    & \forall l \in L: isEmpty(l) \leftrightarrow \neg\bigvee_{c \in C} InLayer(c,l) \\[10pt]
+    & \forall l \in L: isEmpty(l) \leftrightarrow (length(l) = 0 \land height(l) = 0) \\[10pt]
+    & \forall p \in P: height(p) = \sum_{\substack{l \in layers(P)}} height(l)  \\[10pt]
+    & \forall l \in L: length(l) = waste(l) + \sum_{\substack{c \in C}}
+    \begin{cases}
+        length(c) & \text{, } InLayer(c,l) \\
+        0 & \text{, sonst}
+    \end{cases} \\[10pt]
+    & \forall l \in L: waste(l) \geq 0
+\end{align}
 
 \section{Optimierung}
-Erweiterung der Modelle um Optimierungsziele.
-Lexikographie, \ldots
+Das obige Modell beschreibt beliebige Lösungen für das Problem der Pressenplanung.
+Um Kosten- und Zeitaufwand beim Pressen zu reduzieren, sind Pressenpläne zusätzlich nach folgenden Kriterien lexikografisch zu optimieren.
+\begin{enumerate}
+    \item $ \min \left( \left\lvert \left\{ c \in C \mid \neg\bigvee\limits_{\substack{l \in L}} InLayer(c,l) \right\} \right\rvert \right) $
+    \item $ \min (\lvert P \rvert) $
+    \item $ \min \left(\sum\limits_{\substack{l \in L}} waste(l) \right) $
+\end{enumerate}

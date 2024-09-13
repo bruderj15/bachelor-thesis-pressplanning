@@ -21,7 +21,7 @@
 \PYG{+w}{    }\PYG{n}{setLogic}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}QF\PYGZus{}LRA\PYGZdq{}}
 \PYG{+w}{    }\PYG{c+c1}{\PYGZhy{}\PYGZhy{} create variables}
 \PYG{+w}{    }\PYG{n}{bars}\PYG{+w}{ }\PYG{o+ow}{\PYGZlt{}\PYGZhy{}}\PYG{+w}{ }\PYG{n}{replicateM}\PYG{+w}{ }\PYG{l+m+mi}{10}\PYG{+w}{ }\PYG{n}{variable}
-\PYG{+w}{    }\PYG{c+c1}{\PYGZhy{}\PYGZhy{} constraint variables}
+\PYG{+w}{    }\PYG{c+c1}{\PYGZhy{}\PYGZhy{} constrain variables}
 \PYG{+w}{    }\PYG{n}{assert}\PYG{+w}{ }\PYG{o}{\PYGZdl{}}\PYG{+w}{ }\PYG{n}{barLength}\PYG{+w}{ }\PYG{n}{bars}
 \PYG{+w}{    }\PYG{c+c1}{\PYGZhy{}\PYGZhy{} find model for variables}
 \PYG{+w}{    }\PYG{n}{return}\PYG{+w}{ }\PYG{n}{foo}
