@@ -9,7 +9,8 @@ Fall \textit{erfüllbar} (englisch \textit{satisfiable} - kurz \textit{sat}) ein
 Einige bekannte Solver sind zum Beispiel Z3 \cite{z3}, CVC5 \cite{cvc5}, Yices \cite{yices} und OpenSMT \cite{opensmt}.
 Diese und viele andere nehmen jährlich an dem internationalen Wettbewerb SMT-COMP \cite{smtcomp} für SMT-Solver teil,
 wo sie sich in verschiedenen Disziplinen miteinander messen.
-Am Ende dieses Kapitels wird zudem betrachtet, wie SMT-Probleme nach Zielfunktionen optimiert werden können.
+Nach dem Überblick über SMTLib werden Anzahl-Constraints in SMT betrachtet,
+bevor am Ende dieses Kapitels beleuchtet wird, wie SMT-Probleme nach Zielfunktionen optimiert werden können.
 
 \section{Einführung in das Erfüllbarkeitsproblem SMT}
 Logiken, Sorten erklären.
@@ -57,7 +58,7 @@ Ist für das SMT-Problem beispielsweise die Logik QF\_LRA gewählt, dann summier
 Dabei entstehen für jedes Anzahl-Constraint offensichtlich $n$ ITE-Ausdrücke, $n-1$ binäre Additionen und ein Vergleich.
 
 Für bestimmte $k$ wie beispielsweise $k = 0$ oder $k = 1$ können Anzahl-Constraints allerdings von spezialisierten Kodierungen profitieren.
-Genauer sind folgende Kodierungen möglich:
+Einige davon sind folgende:
 \begin{itemize}
     \item $atLeast(0,B) = True$
     \item $atLeast(1,B) = \bigvee\limits_{\substack{b \in B}} b $
@@ -69,17 +70,23 @@ Genauer sind folgende Kodierungen möglich:
 
 Die Produkt-Kodierung (englisch \textit{product-encoding}) ist eine aus SAT bekannte Kodierung für $atMost(1,B)$ \cite{amoChen}.
 Dabei werden die $n = \lvert B \rvert$ Unbekannten in eine Matrix $M^{q \times p}$ mit $p = \lceil \sqrt {n} \rceil$ und $q = \lceil n/p \rceil$ gelegt.
-Das entspricht also der Funktion $f: B \to M \quad$ mit $\quad f(b) = M_{j,i} \mapsto b$.
+Das entspricht der Funktion $f: B \to M \quad$ mit $\quad f(b) = M_{j,i} \mapsto b$.
 Zusätzlich wird für jeden Zeilenindex $j \in \{0,\ldots,q-1\}$ eine Hilfsvariable $v_j$ und jeden Spaltenindex $i \in \{0,\ldots,p-1\}$ eine Hilfsvariable $u_i$ angelegt,
 welche repräsentiert, ob in der jeweiligen Zeile $j$ oder Spalte $i$ mindestens ein $b \in B$ wahr ist.
 Fasst man die Hilfsvariablen zu $U = \{ u_0,\ldots, u_{p-1} \}$ und $V = \{ v_0,\ldots, v_{q-1} \}$ zusammen, beschreibt folgende Gleichung,
 dass höchstens eine der $n$ Unbekannten wahr ist:
 
-\[
-    productEncoding(1,B) = atMost(1,U) \land atMost(1,V) \land \bigwedge_{0 \leq i \leq p-1, 0 \leq j \leq q-1}^{0 \leq x \leq n-1, x = (i-1)(q-1)+j} ((b_x \rightarrow u_i) \land (b_x \rightarrow v_j) )
-\]
+\begin{multline*}
+    productEncoding(B) = \\
+    atMost(1,U) \land atMost(1,V) \land \bigwedge_{0 \leq i \leq p-1, 0 \leq j \leq q-1}^{0 \leq x \leq n-1, x = (i-1)(q-1)+j} ((\neg b_x \lor u_i) \land (\neg b_x \lor v_j) )
+\end{multline*}
 
-Aus softwaretechnischer Sicht und wie später in Abschnitt \ref{subsec:implCardinality} demonstriert, wäre eine pure Kodierung ohne Hilfsvariablen von Vorteil.
+Daraus folgen $2 \sqrt{n} + \mathcal{O}(\sqrt[4]{n})$ Hilfsvariablen und $2n + 4\sqrt{n} + \mathcal{O}(\sqrt[4]{n})$ Klauseln.
+Das ist die nachweisbar minimale notwendige Anzahl an Klauseln für das At-Most-One-Constraint \cite{amoChen, lowerBoundAMO}.
+
+% TODO: Forcing bei denen und bei mir?
+
+Aus softwaretechnischer Sicht und wie später in Abschnitt \ref{subsec:implCardinality} demonstriert, wäre eine Kodierung ohne Hilfsvariablen von Vorteil.
 Die Produkt-Kodierung kann dazu einfach angepasst werden, indem alle Hilfsvariablen $u_i \in U$ und $v_j \in V$ folgend ersetzt werden:
 
 \[
@@ -87,5 +94,8 @@ Die Produkt-Kodierung kann dazu einfach angepasst werden, indem alle Hilfsvariab
     v_j \mapsto \bigvee_{m_{j,i} \in M^{q \times p}, 0 \leq i \leq p-1} m_{j,i}
 \]
 
-\section{Optimierung - Optimization Modulo Theories}
+Das eliminiert die Hilfsvariablen und behält die Klauselanzahl bei.
+Allerdings sind die entstehenden Klauseln um $\mathcal{O}(\sqrt{n})$ größer.
+
+\section{Optimierung von SMT-Problemen}
 nuZ3 Paper hier sehr hilfreich \cite{nuz3}

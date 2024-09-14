@@ -1,0 +1,33 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{count}\PYG{+w}{ }\PYG{o+ow}{::}\PYG{+w}{ }\PYG{n}{forall}\PYG{+w}{ }\PYG{n}{t}\PYG{+w}{ }\PYG{n}{f}\PYG{o}{.}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{Functor}\PYG{+w}{ }\PYG{n}{f}\PYG{p}{,}\PYG{+w}{ }\PYG{k+kt}{Foldable}\PYG{+w}{ }\PYG{n}{f}\PYG{p}{,}\PYG{+w}{ }\PYG{k+kt}{Num}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{Expr}\PYG{+w}{ }\PYG{n}{t}\PYG{p}{))}
+\PYG{+w}{  }\PYG{o+ow}{=\PYGZgt{}}\PYG{+w}{ }\PYG{n}{f}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{Expr}\PYG{+w}{ }\PYG{k+kt}{BoolSort}\PYG{p}{)}\PYG{+w}{ }\PYG{o+ow}{\PYGZhy{}\PYGZgt{}}\PYG{+w}{ }\PYG{k+kt}{Expr}\PYG{+w}{ }\PYG{n}{t}
+\PYG{n+nf}{count}\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }\PYG{n}{sum}\PYG{+w}{ }\PYG{o}{.}\PYG{+w}{ }\PYG{n}{fmap}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nf}{\PYGZbs{}}\PYG{n}{b}\PYG{+w}{ }\PYG{o+ow}{\PYGZhy{}\PYGZgt{}}\PYG{+w}{ }\PYG{n}{ite}\PYG{+w}{ }\PYG{n}{b}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{)}
+
+\PYG{n+nf}{atMost}\PYG{+w}{  }\PYG{o+ow}{::}\PYG{+w}{ }\PYG{n}{forall}\PYG{+w}{ }\PYG{n}{t}\PYG{+w}{ }\PYG{n}{f}\PYG{o}{.}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{Functor}\PYG{+w}{ }\PYG{n}{f}\PYG{p}{,}\PYG{+w}{ }\PYG{k+kt}{Foldable}\PYG{+w}{ }\PYG{n}{f}\PYG{p}{,}\PYG{+w}{ }\PYG{k+kt}{KnownSMTSort}\PYG{+w}{ }\PYG{n}{t}
+\PYG{+w}{  }\PYG{p}{,}\PYG{+w}{ }\PYG{k+kt}{Num}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{HaskellType}\PYG{+w}{ }\PYG{n}{t}\PYG{p}{),}\PYG{+w}{ }\PYG{k+kt}{Ord}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{HaskellType}\PYG{+w}{ }\PYG{n}{t}\PYG{p}{))}
+\PYG{+w}{  }\PYG{o+ow}{=\PYGZgt{}}\PYG{+w}{ }\PYG{k+kt}{Expr}\PYG{+w}{ }\PYG{n}{t}\PYG{+w}{ }\PYG{o+ow}{\PYGZhy{}\PYGZgt{}}\PYG{+w}{ }\PYG{n}{f}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{Expr}\PYG{+w}{ }\PYG{k+kt}{BoolSort}\PYG{p}{)}\PYG{+w}{ }\PYG{o+ow}{\PYGZhy{}\PYGZgt{}}\PYG{+w}{ }\PYG{k+kt}{Expr}\PYG{+w}{ }\PYG{k+kt}{BoolSort}
+\PYG{n+nf}{atMost}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }\PYG{n}{nand}
+\PYG{n+nf}{atMost}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }\PYG{n}{amoSqrt}
+\PYG{n+nf}{atMost}\PYG{+w}{ }\PYG{n}{k}\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }\PYG{p}{(}\PYG{o}{\PYGZlt{}=?}\PYG{+w}{ }\PYG{n}{k}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{.}\PYG{+w}{ }\PYG{n}{count}
+
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} Pure product\PYGZhy{}encoding}
+\PYG{n+nf}{amoSqrt}\PYG{+w}{ }\PYG{o+ow}{::}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{Foldable}\PYG{+w}{ }\PYG{n}{f}\PYG{p}{,}\PYG{+w}{ }\PYG{k+kt}{Boolean}\PYG{+w}{ }\PYG{n}{b}\PYG{p}{)}\PYG{+w}{ }\PYG{o+ow}{=\PYGZgt{}}\PYG{+w}{ }\PYG{n}{f}\PYG{+w}{ }\PYG{n}{b}\PYG{+w}{ }\PYG{o+ow}{\PYGZhy{}\PYGZgt{}}\PYG{+w}{ }\PYG{n}{b}
+\PYG{n+nf}{amoSqrt}\PYG{+w}{ }\PYG{n}{xs}
+\PYG{+w}{  }\PYG{o}{|}\PYG{+w}{ }\PYG{n}{length}\PYG{+w}{ }\PYG{n}{xs}\PYG{+w}{ }\PYG{o}{\PYGZlt{}}\PYG{+w}{ }\PYG{l+m+mi}{10}\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }\PYG{n}{amoQuad}\PYG{+w}{ }\PYG{o}{\PYGZdl{}}\PYG{+w}{ }\PYG{n}{toList}\PYG{+w}{ }\PYG{n}{xs}
+\PYG{+w}{  }\PYG{o}{|}\PYG{+w}{ }\PYG{n}{otherwise}\PYG{+w}{ }\PYG{o+ow}{=}
+\PYG{+w}{      }\PYG{k+kr}{let}\PYG{+w}{ }\PYG{n}{n}\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }\PYG{n}{toInteger}\PYG{+w}{ }\PYG{o}{\PYGZdl{}}\PYG{+w}{ }\PYG{n}{length}\PYG{+w}{ }\PYG{n}{xs}
+\PYG{+w}{          }\PYG{n}{p}\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }\PYG{n}{ceiling}\PYG{+w}{ }\PYG{o}{\PYGZdl{}}\PYG{+w}{ }\PYG{n}{sqrt}\PYG{+w}{ }\PYG{o}{\PYGZdl{}}\PYG{+w}{ }\PYG{n}{fromInteger}\PYG{+w}{ }\PYG{n}{n}
+\PYG{+w}{          }\PYG{n}{rows}\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }\PYG{n}{splitEvery}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{fromInteger}\PYG{+w}{ }\PYG{n}{p}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{\PYGZdl{}}\PYG{+w}{ }\PYG{n}{toList}\PYG{+w}{ }\PYG{n}{xs}
+\PYG{+w}{          }\PYG{n}{columns}\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }\PYG{n}{transpose}\PYG{+w}{ }\PYG{n}{rows}
+\PYG{+w}{          }\PYG{n}{vs}\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }\PYG{n}{or}\PYG{+w}{ }\PYG{o}{\PYGZlt{}\PYGZdl{}\PYGZgt{}}\PYG{+w}{ }\PYG{n}{rows}
+\PYG{+w}{          }\PYG{n}{us}\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }\PYG{n}{or}\PYG{+w}{ }\PYG{o}{\PYGZlt{}\PYGZdl{}\PYGZgt{}}\PYG{+w}{ }\PYG{n}{columns}
+\PYG{+w}{       }\PYG{k+kr}{in}\PYG{+w}{ }\PYG{n}{amoSqrt}\PYG{+w}{ }\PYG{n}{vs}\PYG{+w}{ }\PYG{o}{\PYGZam{}\PYGZam{}}\PYG{+w}{ }\PYG{n}{amoSqrt}\PYG{+w}{ }\PYG{n}{us}\PYG{+w}{ }\PYG{o}{\PYGZam{}\PYGZam{}}
+\PYG{+w}{          }\PYG{n}{and}\PYG{+w}{ }\PYG{p}{(}
+\PYG{+w}{            }\PYG{n}{imap}
+\PYG{+w}{            }\PYG{p}{(}\PYG{n+nf}{\PYGZbs{}}\PYG{n}{j}\PYG{+w}{ }\PYG{n}{r}\PYG{+w}{ }\PYG{o+ow}{\PYGZhy{}\PYGZgt{}}\PYG{+w}{ }\PYG{n}{and}\PYG{+w}{ }\PYG{o}{\PYGZdl{}}
+\PYG{+w}{                }\PYG{n}{imap}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nf}{\PYGZbs{}}\PYG{n}{i}\PYG{+w}{ }\PYG{n}{x}\PYG{+w}{ }\PYG{o+ow}{\PYGZhy{}\PYGZgt{}}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{x}\PYG{+w}{ }\PYG{o}{==\PYGZgt{}}\PYG{+w}{ }\PYG{n}{us}\PYG{+w}{ }\PYG{o}{!!}\PYG{+w}{ }\PYG{n}{i}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{\PYGZam{}\PYGZam{}}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{x}\PYG{+w}{ }\PYG{o}{==\PYGZgt{}}\PYG{+w}{ }\PYG{n}{vs}\PYG{+w}{ }\PYG{o}{!!}\PYG{+w}{ }\PYG{n}{j}\PYG{p}{))}\PYG{+w}{ }\PYG{n}{r}\PYG{p}{)}
+\PYG{+w}{            }\PYG{n}{rows}
+\PYG{+w}{          }\PYG{p}{)}
+\PYG{+w}{  }\PYG{k+kr}{where}
+\PYG{+w}{    }\PYG{n}{splitEvery}\PYG{+w}{ }\PYG{n}{n}\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }\PYG{n}{takeWhile}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{not}\PYG{+w}{ }\PYG{o}{.}\PYG{+w}{ }\PYG{n}{null}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{.}\PYG{+w}{ }\PYG{n}{map}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{take}\PYG{+w}{ }\PYG{n}{n}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{.}\PYG{+w}{ }\PYG{n}{iterate}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{drop}\PYG{+w}{ }\PYG{n}{n}\PYG{p}{)}
+\end{Verbatim}
