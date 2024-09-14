@@ -121,13 +121,13 @@ Weiter werden boolesche als auch arithmetische Operatoren vorausgesetzt und in d
                 \begin{aligned}
                     \Sigma_{F}^{P} = \left\{
                     \begin{aligned}
-                        & (id, & P \rightarrow \mathbb{Z}), \\
-                        & (minLength, & P \rightarrow \mathbb{Z}), \\
-                        & (maxLength, & P \rightarrow \mathbb{Z}), \\
-                        & (length, & P \rightarrow \mathbb{Z}), \\
-                        & (minHeight, & P \rightarrow \mathbb{Z}), \\
-                        & (maxHeight, & P \rightarrow \mathbb{Z}), \\
-                        & (height, & P \rightarrow \mathbb{Z}), \\
+                        & (id, & P \rightarrow \mathbb{N}_0), \\
+                        & (minLength, & P \rightarrow \mathbb{N}_0), \\
+                        & (maxLength, & P \rightarrow \mathbb{N}_0), \\
+                        & (length, & P \rightarrow \mathbb{N}_0), \\
+                        & (minHeight, & P \rightarrow \mathbb{N}_0), \\
+                        & (maxHeight, & P \rightarrow \mathbb{N}_0), \\
+                        & (height, & P \rightarrow \mathbb{N}_0), \\
                         & (layers, & P \rightarrow L_P \subseteq L)\; \\
                     \end{aligned} \right\} \\[5pt]
                 \end{aligned}
@@ -139,10 +139,10 @@ Weiter werden boolesche als auch arithmetische Operatoren vorausgesetzt und in d
                 \begin{aligned}
                     \Sigma_{F}^{L} = \left\{
                     \begin{aligned}
-                        & (id, & L \rightarrow \mathbb{Z}), \\
-                        & (length, & L \rightarrow \mathbb{Z}), \\
-                        & (height, & L \rightarrow \mathbb{Z}), \\
-                        & (waste, & L \rightarrow \mathbb{Z}), \\
+                        & (id, & L \rightarrow \mathbb{N}_0), \\
+                        & (length, & L \rightarrow \mathbb{N}_0), \\
+                        & (height, & L \rightarrow \mathbb{N}_0), \\
+                        & (waste, & L \rightarrow \mathbb{N}_0), \\
                         & (isEmpty, & L \rightarrow \mathbb{B})\; \\
                     \end{aligned} \right\} \\[5pt]
                 \end{aligned}
@@ -154,8 +154,8 @@ Weiter werden boolesche als auch arithmetische Operatoren vorausgesetzt und in d
                 \begin{aligned}
                     \Sigma_{F}^{C} &= \left\{
                     \begin{aligned}
-                        & (length, & C \rightarrow \mathbb{Z}), \\
-                        & (height, & C \rightarrow \mathbb{Z})\; \\
+                        & (length, & C \rightarrow \mathbb{N}_0), \\
+                        & (height, & C \rightarrow \mathbb{N}_0)\; \\
                     \end{aligned} \right\} \\
                 \end{aligned}
                 &
@@ -190,8 +190,7 @@ Damit lassen sich folgende Constraints formulieren:
     \begin{cases}
         length(c) & \text{, } InLayer(c,l) \\
         0 & \text{, sonst}
-    \end{cases} \\[10pt]
-    & \forall l \in L: waste(l) \geq 0
+    \end{cases}
 \end{align}
 
 \section{Optimierung}
