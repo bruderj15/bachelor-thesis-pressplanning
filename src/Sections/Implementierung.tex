@@ -4,20 +4,53 @@ In diesem Kapitel wird gezeigt, wie das Problem der Pressenplanung mit Haskell u
 Dazu werden zunächst die notwendigen Datentypen und die Sorten-Polymorphie der Kodierung erklärt, bevor einige Implementierungen der Constraints aus
 Kapitel \ref{chapter:problem} Abschnitt \ref{sec:modellierung} mithilfe von Quellcode-Ausschnitten dargestellt werden.
 Danach werden Ein- und Ausgabe kurz beschrieben.
-Anschließend wird dargelegt, wie die Implementierung in bestimmten Parametern konfiguriert werden kann.
+Anschließend wird dargelegt, wie die Implementierung mit bestimmten Parametern konfiguriert werden kann.
 Am Ende wird eine Möglichkeit zur Parallelisierung des Programms demonstriert.
 
 \section{Datentypen}
+Schedule muss hier auch auftauchen - Codec!
 
 \section{Sorten-polymorphe Kodierung}
+Wie in Kapitel \ref{chapter:smt} gezeigt bietet SMTLib verschiedene Logiken zur Kodierung von SMT-Problemen an.
+Nicht immer ist dabei vorher klar, in welcher Logik ein Problem am effizientesten für Solver kodiert werden kann.
+Das gilt auch für das Pressenplanungsproblem mit den Kandidaten \texttt{QF\_LIA}, \texttt{QF\_LRA} und \texttt{QF\_BV}.
+\texttt{Hasmtlibs} Ausdrucks-Typ \texttt{Expr t} kann dafür genutzt werden, um das Problem polymorph in der Sorte zu implementieren.
+Betrachten wir folgende Funktion, die für einen Pressenplan und dessen Konfiguration alle Constraints für jenen erstellt:
+
+\begin{listing}[H]
+    \inputminted[linenos=true]{haskell}{Code/Implementierung/SortPoly.hs}
+    \caption{Sorten-Polymorphie bei der Problemdeklaration}
+    \label{listing:implsortpoly}
+\end{listing}
+
+Der Aufrufer wählt die Sorte der Kodierung dann per Typ-Applikation und setzt die Logik mithilfe der Singletons:
+
+\begin{listing}[H]
+    \inputminted[linenos=true]{haskell}{Code/Implementierung/SortPolySetLogic.hs}
+    \caption{Auswahl der Logik nach Sorte}
+    \label{listing:implsortpolylogic}
+\end{listing}
+
+Das ermöglicht die Wahl der Kodierung für den Aufrufer der Schnittstelle und verhindert somit Redundanz in der Implementierung.
 
 \section{Kodierung der Constraints}
 \label{sec:kodierungconstraints}
 
 \section{IO}
+Ein- und Ausgabe sind wenig interessant und werden der Vollständigkeit wegen hier nur kurz erwähnt.
+Germanedge's bisherige heuristische Lösung spezifiziert Ein- und Ausgabeformat als CSV.
+Diese Spezifikation wird hier ebenfalls implementiert.
+Dazu wird die Haskell-Bibliothek \texttt{cassava} \cite{cassava} verwendet.
+Folgend das Lesen eines Auftrages und das Schreiben der Lösungen für diesen:
+
+\begin{listing}[H]
+    \inputminted[linenos=true]{haskell}{Code/Implementierung/CassavaImport.hs}
+    \caption{CSV-Verarbeitung mithilfe der Haskell-Bibliothek \texttt{cassava}}
+    \label{listing:cassavaimport}
+\end{listing}
 
 \section{Konfiguration}
 Hier maxLayers erklären.
-Und Config-Parameter.
+Und Einfluss Config-Parameter.
 
 \section{Parallelisierung}
