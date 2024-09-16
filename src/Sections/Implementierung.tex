@@ -1,102 +1,23 @@
-\chapter{Implementierung in Haskell}
+\chapter{Implementierung}
 \label{chapter:implementierung}
-In diesem Kapitel wird gezeigt, wie das Problem der Pressenplanung mit funktionaler Programmierung in SMTLib kodiert werden kann.
-Dazu werden zunächst einige Grundlagen der funktionalen Programmiersprache Haskell erklärt.
-Danach wird der Kern der Funktionsweise der Haskell-Bibliothek \texttt{Hasmtlib} \cite{hasmtlib} beschrieben.
-Ferner werden einige geeignete Erweiterungen dieser diskutiert.
-Abschließend wird mithilfe von Quellcode-Ausschnitten demonstriert,
-wie das Pressenplanungsproblem in den Dimensionen Länge und Höhe polymorph in der SMT-Sorte in Haskell implementiert werden kann.
+In diesem Kapitel wird gezeigt, wie das Problem der Pressenplanung mit Haskell und \texttt{Hasmtlib} in SMTLib kodiert werden kann.
+Dazu werden zunächst die notwendigen Datentypen und die Sorten-Polymorphie der Kodierung erklärt, bevor einige Implementierungen der Constraints aus
+Kapitel \ref{chapter:problem} Abschnitt \ref{sec:modellierung} mithilfe von Quellcode-Ausschnitten dargestellt werden.
+Danach werden Ein- und Ausgabe kurz beschrieben.
+Anschließend wird dargelegt, wie die Implementierung in bestimmten Parametern konfiguriert werden kann.
+Am Ende wird eine Möglichkeit zur Parallelisierung des Programms demonstriert.
 
-\section{Funktionale Programmierung mit Haskell}
-\label{sec:haskell}
-Was ist ein ADT?
-Polymorphismus.
-Pattern-Matching.
-Was ist ein GADT und was kann er besser als ein ADT?
-Typ- und Kind-System anreißen - Phasentrennung.
-Typklassen.
-Typeoperators.
-Was ist eine pure Funktion?
-Wie kann man Nebenwirkungen dennoch modellieren - was ist eine Monade?
-Was ist Lazy?
-Speicher-Aspekte: Referentielle Integrität, \ldots
+\section{Datentypen}
 
-\section{Hasmtlib - Haskell-Bibliothek für SMTLib}
-Die Haskell-Bibliothek \texttt{Hasmtlib} \cite{hasmtlib} ist eine eingebettete domänenspezifische Sprache
-(englisch \textit{embedded domain-specific language} - kurz \textit{eDSL}) für den SMTLib-Standard Version 2.6 \cite{smtlib} in Haskell.
-Eine eDSL ist eine, in einer Gastsprache eingebettete, anwendungsspezifische Sprache, welche auf Grundkonstrukten der Gastsprache aufbaut und somit den
-Implementierungsaufwand einer eDSL erheblich reduziert \cite{eDSL}.
+\section{Sorten-polymorphe Kodierung}
 
-Haskell wird aufgrund seines starken Typsystems oft als Gastsprache für solche eingebetteten Sprachen verwendet \cite{eDSL2}.
-Listing \ref{listing:hasmtlibexprgadt} zeigt beispielsweise, wie \texttt{Hasmtlib} SMTLib-Ausdrücke als abstrakten Syntaxbaum mit einem GADT repräsentiert.
+\section{Kodierung der Constraints}
+\label{sec:kodierungconstraints}
 
-\begin{listing}[H]
-    \inputminted[linenos=true]{haskell}{Code/Implementierung/Hasmtlib/ExprGADT.hs}
-    \caption{Repräsentation von SMTLib-Ausdrücken mithilfe eines GADTs in \texttt{Hasmtlib} \cite{hasmtlibExpr}}
-    \label{listing:hasmtlibexprgadt}
-\end{listing}
+\section{IO}
 
-Dabei ist der GADT \texttt{Expr t} polymorph in der \texttt{SMTSort}, sodass dessen Kind \texttt{Expr t :: SMTSort -> Type} ist.
-Da Werte des Datentyps \texttt{SMTSort} hier als Typen verwendet werden, nennt man \texttt{SMTSort} auch \textit{Data-Kind} oder \textit{Promoted-Type} \cite{singletons}.
-Besonders relevant dafür ist das in \ref{sec:haskell} erklärte \textit{Type-Refinement}.
-So weist beispielsweise ein Pattern-Match auf den Konstruktor \texttt{Sqrt} bereits zur Übersetzungszeit nach, dass \texttt{t \raisebox{-0.6ex}{\textasciitilde} RealSort} gilt.
-Bei anderen Konstruktoren wie \texttt{And} kann die Belegung des \texttt{t} in \texttt{Expr t} mithilfe von Singletons ermittelt werden.
-Ein \textit{Singleton} ist ein Laufzeit-Zeuge (Wert) für genau einen Übersetzungszeit-Typen \cite{singletons}.
-Diese Abhängigkeit ist aufgrund Haskell's strenger Phasentrennung notwendig und ermöglicht eine \textit{dependent}-ähnliche Kodierung
-wie in den Dependently-Typed Programmiersprachen Idris \cite{idris} und Agda \cite{agda}.
+\section{Konfiguration}
+Hier maxLayers erklären.
+Und Config-Parameter.
 
-Jeder Typ vom Kind \texttt{SMTSort} erhält also einen Singleton (Wert).
-Wie in Listing \ref{listing:hasmtlibssmtsort} zu sehen, stellt \texttt{Hasmtlib} den Singleton-Typen \texttt{SSMTSort} ebenfalls als GADT dar.
-
-\begin{listing}[H]
-    \inputminted[linenos=true]{haskell}{Code/Implementierung/Hasmtlib/SSMTSort.hs}
-    \caption{Repräsentation des Singleton-Typs SSMTSort in \texttt{Hasmtlib} \cite{hasmtlibSSMTSort}}
-    \label{listing:hasmtlibssmtsort}
-\end{listing}
-
-Die Verbindung zwischen Typ und Wert wird mit der in Listing \ref{listing:hasmtlibknownsmtsort} dargestellten Typklasse \texttt{KnownSMTSort} erreicht.
-
-\begin{listing}[H]
-    \inputminted[linenos=true]{haskell}{Code/Implementierung/Hasmtlib/KnownSMTSort.hs}
-    \caption{Typklasse zur Verbindung von Typ SMTSort zu Wert SSMTSort in \texttt{Hasmtlib} \cite{hasmtlibSSMTSort}}
-    \label{listing:hasmtlibknownsmtsort}
-\end{listing}
-
-Mit den genannten Mechanismen garantiert \texttt{Hasmtlib} die ausschließliche Erzeugung von sauber typisierten (englisch \textit{well-typed}) Ausdrücken \cite{gadts}.
-Diese werden anschließend von der Bibliothek in SMTLib-Syntax übersetzt und an einen SMT-Solver gegeben.
-Dessen Antwort parst und übersetzt \texttt{Hasmtlib} dann zurück in die entsprechenden Haskell-Typen.
-Folgend ein kleines Programm zur Erläuterung:
-
-\begin{listing}[H]
-    \inputminted[linenos=true]{haskell}{Code/Implementierung/Hasmtlib/BeispielSimple.hs}
-    \caption{Beispielhafte Verwendung von Hasmtlib}
-    \label{listing:hasmtlibsimplexample}
-\end{listing}
-
-Das Beispiel in Listing \ref{listing:hasmtlibsimplexample} demonstriert mit der Funktion \texttt{barLength} außerdem die pure Formelkonstruktion in \texttt{Hasmtlib}.
-Lediglich Variablenerzeugung (Zeile 20) und Formel-Assertion (Zeile 22) sind monadisch.
-Dadurch lassen sich viele Funktionalitäten der Gastsprache wiederverwenden, zum Beispiel die Funktion \texttt{sum} aus \texttt{Data.Foldable}:
-\texttt{sum :: (Foldable t, Num a) => t a -> a}.
-
-\subsection{Ergänzung um Anzahl-Constraints}
-\label{subsec:implCardinality}
-\texttt{Hasmtlib} unterstützte bis zum Zeitpunkt dieser Arbeit keine Anzahl-Constraints.
-Daher werden diese im Rahmen dieser Arbeit der Bibliothek hinzugefügt.
-Die Implementierung erfolgt analog zu den in \ref{sec:smtcardinality} präsentierten Kodierungen.
-Folgend ein Ausschnitt für das At-Most-Constraint:
-
-\begin{listing}[H]
-    \inputminted[linenos=true]{haskell}{Code/Implementierung/Hasmtlib/Cardinality.hs}
-    \caption{ITE-Kodierung von Anzahl-Constraints in \texttt{Hasmtlib} \cite{hasmtlibCardinality}}
-    \label{listing:hasmtlibcardinality}
-\end{listing}
-
-\subsection{Ergänzung um Incremental Refinement}
-
-\section{Kodierung des Pressenplanungsproblems}
-\label{sec:kodierung}
-Zwei Modelle erschweren hier möglicherweise Verständnis für den Leser.
-Für ein Modell entscheiden: Relationales Modell begründend wegwerfen, auf Laufzeitmessung verweisen.
-Ebenso Unterscheidung Incremental Refinement/OMT, OMT wegwerfen, weil Laufzeit.
-Geeignete Programmauszüge: Polymorphe Kodierung in Sorte (damit Logik), vereinzelt Datentypen und Constraints analog zu Modellierung.
-Minimal IO erklären.
+\section{Parallelisierung}
