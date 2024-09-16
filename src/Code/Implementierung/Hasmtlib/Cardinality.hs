@@ -12,7 +12,7 @@ atMost k = (<=? k) . count
 -- Pure product-encoding
 amoSqrt :: (Foldable f, Boolean b) => f b -> b
 amoSqrt xs
-  | length xs < 10 = amoQuad $ toList xs
+  | length xs < 10 = amoQuad $ toList xs -- pair-wise encoding
   | otherwise =
       let n = toInteger $ length xs
           p = ceiling $ sqrt $ fromInteger n

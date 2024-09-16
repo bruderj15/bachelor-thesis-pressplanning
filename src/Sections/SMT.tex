@@ -36,7 +36,7 @@ Dabei existieren die folgenden drei Restriktionen:
 Anzahl-Constraints sind nicht Teil des SMTLib-Standards Version 2.6 \cite{smtlib}, sodass nur wenige Solver wie Z3 solche Kodierungen direkt unterstützen \cite{z3Cardinality}.
 Daher wird zur manuellen Kodierung oft die ITE-Kodierung verwendet \cite{kovasznai}.
 Dabei werden die einzelnen booleschen Unbekannten mithilfe eines If-Then-Else-Ausdrucks (kurz ITE) in numerische Ausdrücke umgewandelt, anschließend summiert und verglichen.
-Mithilfe der Hilfsfunktion $count(\{b_0, b_1, \ldots, b_{n-1}\})$ lassen sich die Anzahl-Constraints einfach kodieren:
+Mit der Hilfsfunktion $count(\{b_0, b_1, \ldots, b_{n-1}\})$ lassen sich die Anzahl-Constraints einfach kodieren:
 
 \[
     \begin{aligned}
@@ -63,7 +63,7 @@ Einige davon sind folgende:
     \item $atLeast(0,B) = True$
     \item $atLeast(1,B) = \bigvee\limits_{\substack{b \in B}} b $
     \item $atMost(0,B) = \neg\bigwedge\limits_{\substack{b \in B}} b$
-    \item $atMost(1,B) = productEncoding(1,B)$
+    \item $atMost(1,B) = productEncoding(B)$
     \item $exactly(0,B) = \neg\bigwedge\limits_{\substack{b \in B}} b$
     \item $exactly(1,B) = atLeast(1,B) \land atMost(1,B)$
 \end{itemize}

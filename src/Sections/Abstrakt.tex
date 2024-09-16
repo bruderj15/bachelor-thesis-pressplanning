@@ -4,7 +4,7 @@
 Die Pressenplanung von Holzbalken aus Bauteilen erfordert eine fein abgestimmte Konfiguration, um die Pressen optimal auszulasten und den Verschnitt der Balken zu minimieren.
 Dafür hat die Germanedge Solutions GmbH\footnote{https://www.germanedge.com/, abgerufen am 21.08.2024}, Industriepartner dieser Arbeit, bereits eine unternehmensinterne Heuristik, welche aufgrund ihrer Natur allerdings möglicherweise (optimale) Lösungen nicht berücksichtigt.
 Im Rahmen dieser Arbeit wird daher eine prototypische Lösung mithilfe der Methoden der Constraint-Programmierung, speziell jener der Satisfiability Modulo Theories (SMT), erarbeitet, welche optimale Lösungen finden soll.
-Dazu werden die Constraints der Domäne zunächst mithilfe der Prädikatenlogik (FOL) modelliert und anschließend in einer konkreten Repräsentation des Modells implementiert.
+Dazu werden die Constraints der Domäne zunächst mithilfe der Prädikatenlogik modelliert und anschließend in einer konkreten Repräsentation des Modells implementiert.
 
 Dabei wird ein Programm entwickelt, welches aus den textuellen Eingaben der Pressen- und Bauteilspezifikationen ein Constraint-System erzeugt, das anschließend von einem externen Constraint-Solver gelöst wird.
 Das Programm wandelt die Lösung des Solvers in eine, zu den bereits existenten Schnittstellen passende, textuelle Ausgabe um.

@@ -13,7 +13,7 @@
 \PYG{c+c1}{\PYGZhy{}\PYGZhy{} Pure product\PYGZhy{}encoding}
 \PYG{n+nf}{amoSqrt}\PYG{+w}{ }\PYG{o+ow}{::}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{Foldable}\PYG{+w}{ }\PYG{n}{f}\PYG{p}{,}\PYG{+w}{ }\PYG{k+kt}{Boolean}\PYG{+w}{ }\PYG{n}{b}\PYG{p}{)}\PYG{+w}{ }\PYG{o+ow}{=\PYGZgt{}}\PYG{+w}{ }\PYG{n}{f}\PYG{+w}{ }\PYG{n}{b}\PYG{+w}{ }\PYG{o+ow}{\PYGZhy{}\PYGZgt{}}\PYG{+w}{ }\PYG{n}{b}
 \PYG{n+nf}{amoSqrt}\PYG{+w}{ }\PYG{n}{xs}
-\PYG{+w}{  }\PYG{o}{|}\PYG{+w}{ }\PYG{n}{length}\PYG{+w}{ }\PYG{n}{xs}\PYG{+w}{ }\PYG{o}{\PYGZlt{}}\PYG{+w}{ }\PYG{l+m+mi}{10}\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }\PYG{n}{amoQuad}\PYG{+w}{ }\PYG{o}{\PYGZdl{}}\PYG{+w}{ }\PYG{n}{toList}\PYG{+w}{ }\PYG{n}{xs}
+\PYG{+w}{  }\PYG{o}{|}\PYG{+w}{ }\PYG{n}{length}\PYG{+w}{ }\PYG{n}{xs}\PYG{+w}{ }\PYG{o}{\PYGZlt{}}\PYG{+w}{ }\PYG{l+m+mi}{10}\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }\PYG{n}{amoQuad}\PYG{+w}{ }\PYG{o}{\PYGZdl{}}\PYG{+w}{ }\PYG{n}{toList}\PYG{+w}{ }\PYG{n}{xs}\PYG{+w}{ }\PYG{c+c1}{\PYGZhy{}\PYGZhy{} pair\PYGZhy{}wise encoding}
 \PYG{+w}{  }\PYG{o}{|}\PYG{+w}{ }\PYG{n}{otherwise}\PYG{+w}{ }\PYG{o+ow}{=}
 \PYG{+w}{      }\PYG{k+kr}{let}\PYG{+w}{ }\PYG{n}{n}\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }\PYG{n}{toInteger}\PYG{+w}{ }\PYG{o}{\PYGZdl{}}\PYG{+w}{ }\PYG{n}{length}\PYG{+w}{ }\PYG{n}{xs}
 \PYG{+w}{          }\PYG{n}{p}\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }\PYG{n}{ceiling}\PYG{+w}{ }\PYG{o}{\PYGZdl{}}\PYG{+w}{ }\PYG{n}{sqrt}\PYG{+w}{ }\PYG{o}{\PYGZdl{}}\PYG{+w}{ }\PYG{n}{fromInteger}\PYG{+w}{ }\PYG{n}{n}
