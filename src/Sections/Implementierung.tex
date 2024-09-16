@@ -2,12 +2,12 @@
 \label{chapter:implementierung}
 In diesem Kapitel wird gezeigt, wie das Problem der Pressenplanung mit Haskell und \texttt{Hasmtlib} in SMTLib kodiert werden kann.
 Dazu werden zunächst die notwendigen Datentypen und die Sorten-Polymorphie der Kodierung erklärt, bevor einige konkrete Repräsentationen der Constraints aus
-Kapitel \ref{chapter:problem} Abschnitt \ref{sec:modellierung} mithilfe von Quellcode-Ausschnitten dargestellt werden.
+Abschnitt \ref{sec:modellierung} mithilfe von Quellcode-Ausschnitten dargestellt werden.
 Danach werden Ein- und Ausgabe kurz beschrieben.
 Anschließend wird dargelegt, wie die Implementierung mit bestimmten Parametern konfiguriert werden kann und wie diese die Laufzeit des Solvers beeinflussen.
 Am Ende wird eine Möglichkeit zur Parallelisierung des Programms demonstriert.
 
-\section{Datentypen und Variablen}
+\section{Datentypen und Unbekannte}
 Analog zur Problemdomäne aus Kapitel \ref{chapter:problem} sind hier Bauteile (Components), Schichten (Layers) und Pressen (Presses)
 die Entitäten von Bedeutung.
 Deren Repräsentation erfolgt jeweils durch Record-Datenstrukturen.
@@ -25,7 +25,7 @@ Folgend deren Haskell-Repräsentation:
 
 Der Ausdruck \texttt{\$(makeLenses ''DATATYPE)} taucht dabei mehrmals auf.
 Dieser erzeugt \textit{Lenses} für die Datentypen.
-Da im Weiteren Lenses häufig in der Implementierung verwendet werden, ist der Leser angeraten, folgende Quelle bei Fragen zu Lenses zu konsultieren: \cite{lenses}.
+Da im Weiteren Lenses häufig in der Implementierung verwendet werden, wird dem Leser empfohlen, folgende Quelle bei Fragen zu Lenses zu konsultieren: \cite{lenses}.
 
 Ferner ist auffällig, dass alle Typen polymorph sind, sodass \texttt{Layer a b} beispielsweise zwei Typen \texttt{a} und \texttt{b} nimmt.
 Das \texttt{a} repräsentiert einen Zahlentypen und das \texttt{b} einen Bool-Typen.
@@ -69,7 +69,7 @@ Weiter könnte eine obere Schranke für die Anzahl an Pressen basierend auf der 
 Allerdings bedeutet jede weitere Presse weitere Unbekannte und weitere Constraints, sodass die Komplexität des Problems erhöht wird,
 was letztendlich zu einer ineffizienteren Lösung des Solvers führt.
 Daher wird jeder Auftrag mehrmals kodiert - mit jeweils unterschiedlich fester Anzahl an Pressen.
-Diese werden dann als separate Probleminstanzen auf verschiedene Kerne aufgeteilt, mehr dazu in Abschnitt \ref{parallelisierung}.
+Diese werden dann als separate Probleminstanzen auf verschiedene Prozessor-Kerne aufgeteilt, mehr dazu in Abschnitt \ref{parallelisierung}.
 
 \section{Vorverarbeitung}
 \label{sec:vorverarbeitung}
@@ -115,7 +115,3 @@ Folgend das Lesen eines Auftrages und das Schreiben der Lösungen für diesen:
 
 \section{Parallelisierung}
 \label{parallelisierung}
-
-\section{Modifikation und Konfiguration der Kodierung}
-Welche vielversprechenden Anpassungen habe ich noch probiert,
-die aber keine signifikanten Verbesserungen der Solver-Laufzeit gegeben haben?

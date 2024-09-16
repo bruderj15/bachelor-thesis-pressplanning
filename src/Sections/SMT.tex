@@ -70,7 +70,6 @@ Einige davon sind folgende:
 
 Die Produkt-Kodierung (englisch \textit{product-encoding}) ist eine aus SAT bekannte Kodierung für $atMost(1,B)$ \cite{amoChen}.
 Dabei werden die $n = \lvert B \rvert$ Unbekannten in eine Matrix $M^{q \times p}$ mit $p = \lceil \sqrt {n} \rceil$ und $q = \lceil n/p \rceil$ gelegt.
-Das entspricht der Funktion $f: B \to M \quad$ mit $\quad f(b) = M_{j,i} \mapsto b$.
 Zusätzlich wird für jeden Zeilenindex $j \in \{0,\ldots,q-1\}$ eine Hilfsvariable $v_j$ und jeden Spaltenindex $i \in \{0,\ldots,p-1\}$ eine Hilfsvariable $u_i$ angelegt,
 welche repräsentiert, ob in der jeweiligen Zeile $j$ oder Spalte $i$ mindestens ein $b \in B$ wahr ist.
 Fasst man die Hilfsvariablen zu $U = \{ u_0,\ldots, u_{p-1} \}$ und $V = \{ v_0,\ldots, v_{q-1} \}$ zusammen, beschreibt folgende Gleichung,
