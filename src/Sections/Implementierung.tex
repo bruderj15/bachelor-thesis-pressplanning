@@ -1,14 +1,78 @@
 \chapter{Implementierung}
 \label{chapter:implementierung}
 In diesem Kapitel wird gezeigt, wie das Problem der Pressenplanung mit Haskell und \texttt{Hasmtlib} in SMTLib kodiert werden kann.
-Dazu werden zunächst die notwendigen Datentypen und die Sorten-Polymorphie der Kodierung erklärt, bevor einige Implementierungen der Constraints aus
+Dazu werden zunächst die notwendigen Datentypen und die Sorten-Polymorphie der Kodierung erklärt, bevor einige konkrete Repräsentationen der Constraints aus
 Kapitel \ref{chapter:problem} Abschnitt \ref{sec:modellierung} mithilfe von Quellcode-Ausschnitten dargestellt werden.
 Danach werden Ein- und Ausgabe kurz beschrieben.
-Anschließend wird dargelegt, wie die Implementierung mit bestimmten Parametern konfiguriert werden kann.
+Anschließend wird dargelegt, wie die Implementierung mit bestimmten Parametern konfiguriert werden kann und wie diese die Laufzeit des Solvers beeinflussen.
 Am Ende wird eine Möglichkeit zur Parallelisierung des Programms demonstriert.
 
-\section{Datentypen}
-Schedule muss hier auch auftauchen - Codec!
+\section{Datentypen und Variablen}
+Analog zur Problemdomäne aus Kapitel \ref{chapter:problem} sind hier Bauteile (Components), Schichten (Layers) und Pressen (Presses)
+die Entitäten von Bedeutung.
+Deren Repräsentation erfolgt jeweils durch Record-Datenstrukturen.
+Bei Pressen wird zusätzlich in statische und symbolische Pressen unterschieden.
+Statische Pressen (\texttt{StaticPress}) beschreiben die konstanten Eigenschaften von Pressen wie beispielsweise deren maximale Höhe.
+Symbolische Pressen (\texttt{Press}) haben die Konstanten einer statischen Presse und beschreiben weiter symbolische Eigenschaften wie die geplante Länge in einem Pressenplan.
+Diese Unterscheidung ist für die Trennung von Eingabe (Einlesen der Pressenspezifikationen) und Verarbeitung der Pressen im Constraint-System sinnvoll.
+Folgend deren Haskell-Repräsentation:
+
+\begin{listing}[H]
+    \inputminted[linenos=true]{haskell}{Code/Implementierung/Datatypes.hs}
+    \caption{Haskell-Datentypen der Domäne Pressenplanung}
+    \label{listing:datatypes}
+\end{listing}
+
+Der Ausdruck \texttt{\$(makeLenses ''DATATYPE)} taucht dabei mehrmals auf.
+Dieser erzeugt \textit{Lenses} für die Datentypen.
+Da im Weiteren Lenses häufig in der Implementierung verwendet werden, ist der Leser angeraten, folgende Quelle bei Fragen zu Lenses zu konsultieren: \cite{lenses}.
+
+Ferner ist auffällig, dass alle Typen polymorph sind, sodass \texttt{Layer a b} beispielsweise zwei Typen \texttt{a} und \texttt{b} nimmt.
+Das \texttt{a} repräsentiert einen Zahlentypen und das \texttt{b} einen Bool-Typen.
+Das vereinfacht später die Kodierung und Dekodierung der symbolischen Werte.
+So könnte die symbolische Schicht mit \texttt{type SLayer t = Layer (Expr t) (Expr BoolSort)}
+und die konkrete Schicht mit \texttt{type CLayer t = Layer (HaskellType t) Bool} dargestellt werden.
+
+Mit diesen Grundtypen kann nun der Typ \texttt{Pressenplan} definiert werden:
+
+\begin{listing}[H]
+    \inputminted[linenos=true]{haskell}{Code/Implementierung/Datatypes2.hs}
+    \caption{Haskell-Datentyp des Pressenplans}
+    \label{listing:datatypes2}
+\end{listing}
+
+Dieser enthält alle symbolischen Komponenten, Schichten, Pressen und auch die Relation \textit{InLayer} aus Abschnitt \ref{sec:modellierung}.
+Als Index für diese wird das Tupel \texttt{(cId, lId)} aus Komponenten-ID und Schicht-ID verwendet.
+
+Die Erzeugung eines symbolischen Pressenplans ist monadisch (\texttt{setupPressPlan :: MonadSMT s m => ... -> m (PressPlan t)}), da dort alle notwendigen Variablen angelegt werden.
+Identisch zur Variablenmenge $\mathbb{X}$ in Abschnitt \ref{sec:modellierung} sind das:
+
+\begin{itemize}
+    \item \texttt{\_pressLength} und \texttt{\_pressHeight} für jede Presse,
+    \item \texttt{\_layerLength}, \texttt{\_layerHeight}, \texttt{\_waste} und \texttt{\_layerEmpty} für jede Schicht und
+    \item ein symbolischer Wahrheitswert für jedes mögliche Element der Relation \texttt{InLayer}
+\end{itemize}
+
+Bei weiterer Betrachtung des Typs \texttt{Pressenplan} fällt auf, dass Komponenten, Schichten und Pressen im Typ Liste vorliegen.
+Der Listentyp ist der von Haskell, also konkret in Haskell und nicht symbolisch im SMT-Problem.
+Das erklärt die Nutzung der Liste für die Komponenten, da diese eine Eingabe sind, welche konkret darstellbar ist.
+Aber wie ist der Listentyp für Schichten und Pressen zu erklären?
+
+Das Modell in Abschnitt \ref{sec:modellierung} all-quantifiziert Schichten und Pressen.
+Das wäre analog auch in SMT möglich.
+Im Allgemeinen werden solche Probleme aber grundinstanziiert,
+um die Verwendung ineffizient (oder gar nicht) entscheidbarer Quantoren-Logiken zu vermeiden \cite{smtquantifiersarehard, smtquantifiersarehard2}.
+Für jede Presse wird dabei im Voraus die höchstmögliche Anzahl an Schichten basierend auf der Eingabe an Komponenten ermittelt, genauer in \ref{sec:vorverarbeitung}.
+Da Schichten leer sein können haben sie das Attribut \texttt{\_layerEmpty :: b} (Listing \ref{listing:datatypes}, Zeile 13).
+Identisch könnten Pressenpläne leere Pressen enthalten.
+Weiter könnte eine obere Schranke für die Anzahl an Pressen basierend auf der Eingabe an Komponenten ermittelt werden.
+Allerdings bedeutet jede weitere Presse weitere Unbekannte und weitere Constraints, sodass die Komplexität des Problems erhöht wird,
+was letztendlich zu einer ineffizienteren Lösung des Solvers führt.
+Daher wird jeder Auftrag mehrmals kodiert - mit jeweils unterschiedlich fester Anzahl an Pressen.
+Diese werden dann als separate Probleminstanzen auf verschiedene Kerne aufgeteilt, mehr dazu in Abschnitt \ref{parallelisierung}.
+
+\section{Vorverarbeitung}
+\label{sec:vorverarbeitung}
 
 \section{Sorten-polymorphe Kodierung}
 Wie in Kapitel \ref{chapter:smt} gezeigt bietet SMTLib verschiedene Logiken zur Kodierung von SMT-Problemen an.
@@ -49,8 +113,9 @@ Folgend das Lesen eines Auftrages und das Schreiben der Lösungen für diesen:
     \label{listing:cassavaimport}
 \end{listing}
 
-\section{Konfiguration}
-Hier maxLayers erklären.
-Und Einfluss Config-Parameter.
-
 \section{Parallelisierung}
+\label{parallelisierung}
+
+\section{Modifikation und Konfiguration der Kodierung}
+Welche vielversprechenden Anpassungen habe ich noch probiert,
+die aber keine signifikanten Verbesserungen der Solver-Laufzeit gegeben haben?

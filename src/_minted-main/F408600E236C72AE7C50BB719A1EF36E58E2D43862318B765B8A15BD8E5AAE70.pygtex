@@ -1,0 +1,9 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kr}{data}\PYG{+w}{ }\PYG{k+kt}{PressPlan}\PYG{+w}{ }\PYG{n}{t}\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }\PYG{k+kt}{PressPlan}
+\PYG{+w}{  }\PYG{p}{\PYGZob{}}\PYG{+w}{ }\PYG{n}{\PYGZus{}components}\PYG{+w}{ }\PYG{o+ow}{::}\PYG{+w}{ }\PYG{p}{[}\PYG{k+kt}{Component}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{Expr}\PYG{+w}{ }\PYG{n}{t}\PYG{p}{)]}
+\PYG{+w}{  }\PYG{p}{,}\PYG{+w}{ }\PYG{n}{\PYGZus{}layers}\PYG{+w}{     }\PYG{o+ow}{::}\PYG{+w}{ }\PYG{p}{[}\PYG{k+kt}{Layer}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{Expr}\PYG{+w}{ }\PYG{n}{t}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{Expr}\PYG{+w}{ }\PYG{k+kt}{BoolSort}\PYG{p}{)]}
+\PYG{+w}{  }\PYG{p}{,}\PYG{+w}{ }\PYG{n}{\PYGZus{}presses}\PYG{+w}{    }\PYG{o+ow}{::}\PYG{+w}{ }\PYG{p}{[}\PYG{k+kt}{Press}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{Expr}\PYG{+w}{ }\PYG{n}{t}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{Expr}\PYG{+w}{ }\PYG{k+kt}{BoolSort}\PYG{p}{)]}
+\PYG{+w}{  }\PYG{p}{,}\PYG{+w}{ }\PYG{n}{\PYGZus{}inLayer}\PYG{+w}{    }\PYG{o+ow}{::}\PYG{+w}{ }\PYG{k+kt}{Relation}\PYG{+w}{ }\PYG{k+kt}{Integer}\PYG{+w}{ }\PYG{k+kt}{Integer}
+\PYG{+w}{  }\PYG{p}{\PYGZcb{}}\PYG{+w}{ }\PYG{k+kr}{deriving}\PYG{+w}{ }\PYG{n}{stock}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{Generic}\PYG{p}{)}
+\PYG{o}{\PYGZdl{}}\PYG{p}{(}\PYG{n}{makeLenses}\PYG{+w}{ }\PYG{k+kt}{\PYGZsq{}\PYGZsq{}PressPlan}\PYG{p}{)}
+\end{Verbatim}

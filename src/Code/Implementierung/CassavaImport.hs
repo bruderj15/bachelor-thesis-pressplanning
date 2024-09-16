@@ -14,12 +14,13 @@ data ComponentOut = ComponentOut
   } deriving stock (Generic)
     deriving anyclass (ToRecord, ToNamedRecord, DefaultOrdered)
 
+-- Schedule is the representation for the decoded Solution
 fromSchedule :: Schedule -> [ComponentOut]
 fromSchedule = ...
 
 main :: IO ()
 main = do
-  csvOrder <- ByteString.Lazy.readFile "input/optimal2.txt"
+  csvOrder <- ByteString.Lazy.readFile "input/order.csv"
   let order = case Csv.decode @ComponentIn Csv.HasHeader csvOrder of
             Left err -> error err
             Right v -> toList v

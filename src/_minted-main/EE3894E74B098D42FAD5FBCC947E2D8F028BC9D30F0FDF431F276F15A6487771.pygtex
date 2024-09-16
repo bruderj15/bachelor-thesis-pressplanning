@@ -1,0 +1,39 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kr}{data}\PYG{+w}{ }\PYG{k+kt}{Component}\PYG{+w}{ }\PYG{n}{a}\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }\PYG{k+kt}{Component}
+\PYG{+w}{  }\PYG{p}{\PYGZob{}}\PYG{+w}{ }\PYG{n}{\PYGZus{}cId}\PYG{+w}{        }\PYG{o+ow}{::}\PYG{+w}{ }\PYG{k+kt}{Integer}
+\PYG{+w}{  }\PYG{p}{,}\PYG{+w}{ }\PYG{n}{\PYGZus{}compLength}\PYG{+w}{ }\PYG{o+ow}{::}\PYG{+w}{ }\PYG{n}{a}
+\PYG{+w}{  }\PYG{p}{,}\PYG{+w}{ }\PYG{n}{\PYGZus{}compHeight}\PYG{+w}{ }\PYG{o+ow}{::}\PYG{+w}{ }\PYG{n}{a}
+\PYG{+w}{  }\PYG{p}{\PYGZcb{}}\PYG{+w}{ }\PYG{k+kr}{deriving}\PYG{+w}{ }\PYG{n}{stock}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{Show}\PYG{p}{,}\PYG{+w}{ }\PYG{k+kt}{Eq}\PYG{p}{,}\PYG{+w}{ }\PYG{k+kt}{Ord}\PYG{p}{,}\PYG{+w}{ }\PYG{k+kt}{Functor}\PYG{p}{,}\PYG{+w}{ }\PYG{k+kt}{Foldable}\PYG{p}{,}\PYG{+w}{ }\PYG{k+kt}{Traversable}\PYG{p}{,}\PYG{+w}{ }\PYG{k+kt}{Generic}\PYG{p}{)}
+\PYG{+w}{    }\PYG{k+kr}{deriving}\PYG{+w}{ }\PYG{n}{anyclass}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{Codec}\PYG{p}{)}
+\PYG{o}{\PYGZdl{}}\PYG{p}{(}\PYG{n}{makeLenses}\PYG{+w}{ }\PYG{k+kt}{\PYGZsq{}\PYGZsq{}Component}\PYG{p}{)}
+
+\PYG{k+kr}{data}\PYG{+w}{ }\PYG{k+kt}{Layer}\PYG{+w}{ }\PYG{n}{a}\PYG{+w}{ }\PYG{n}{b}\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }\PYG{k+kt}{Layer}
+\PYG{+w}{  }\PYG{p}{\PYGZob{}}\PYG{+w}{ }\PYG{n}{\PYGZus{}lId}\PYG{+w}{         }\PYG{o+ow}{::}\PYG{+w}{ }\PYG{k+kt}{Integer}
+\PYG{+w}{  }\PYG{p}{,}\PYG{+w}{ }\PYG{n}{\PYGZus{}layerLength}\PYG{+w}{ }\PYG{o+ow}{::}\PYG{+w}{ }\PYG{n}{a}
+\PYG{+w}{  }\PYG{p}{,}\PYG{+w}{ }\PYG{n}{\PYGZus{}layerHeight}\PYG{+w}{ }\PYG{o+ow}{::}\PYG{+w}{ }\PYG{n}{a}
+\PYG{+w}{  }\PYG{p}{,}\PYG{+w}{ }\PYG{n}{\PYGZus{}layerEmpty}\PYG{+w}{  }\PYG{o+ow}{::}\PYG{+w}{ }\PYG{n}{b}
+\PYG{+w}{  }\PYG{p}{,}\PYG{+w}{ }\PYG{n}{\PYGZus{}waste}\PYG{+w}{       }\PYG{o+ow}{::}\PYG{+w}{ }\PYG{n}{a}
+\PYG{+w}{  }\PYG{p}{\PYGZcb{}}\PYG{+w}{ }\PYG{k+kr}{deriving}\PYG{+w}{ }\PYG{n}{stock}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{Show}\PYG{p}{,}\PYG{+w}{ }\PYG{k+kt}{Eq}\PYG{p}{,}\PYG{+w}{ }\PYG{k+kt}{Ord}\PYG{p}{,}\PYG{+w}{ }\PYG{k+kt}{Generic}\PYG{p}{)}
+\PYG{+w}{    }\PYG{k+kr}{deriving}\PYG{+w}{ }\PYG{n}{anyclass}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{Codec}\PYG{p}{)}
+\PYG{o}{\PYGZdl{}}\PYG{p}{(}\PYG{n}{makeLenses}\PYG{+w}{ }\PYG{k+kt}{\PYGZsq{}\PYGZsq{}Layer}\PYG{p}{)}
+
+\PYG{k+kr}{data}\PYG{+w}{ }\PYG{k+kt}{StaticPress}\PYG{+w}{ }\PYG{n}{a}\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }\PYG{k+kt}{StaticPress}
+\PYG{+w}{  }\PYG{p}{\PYGZob{}}\PYG{+w}{ }\PYG{n}{\PYGZus{}pId}\PYG{+w}{            }\PYG{o+ow}{::}\PYG{+w}{ }\PYG{k+kt}{Integer}
+\PYG{+w}{  }\PYG{p}{,}\PYG{+w}{ }\PYG{n}{\PYGZus{}pressName}\PYG{+w}{      }\PYG{o+ow}{::}\PYG{+w}{ }\PYG{k+kt}{String}
+\PYG{+w}{  }\PYG{p}{,}\PYG{+w}{ }\PYG{n}{\PYGZus{}pressMinLength}\PYG{+w}{ }\PYG{o+ow}{::}\PYG{+w}{ }\PYG{n}{a}
+\PYG{+w}{  }\PYG{p}{,}\PYG{+w}{ }\PYG{n}{\PYGZus{}pressMaxLength}\PYG{+w}{ }\PYG{o+ow}{::}\PYG{+w}{ }\PYG{n}{a}
+\PYG{+w}{  }\PYG{p}{,}\PYG{+w}{ }\PYG{n}{\PYGZus{}pressMinHeight}\PYG{+w}{ }\PYG{o+ow}{::}\PYG{+w}{ }\PYG{n}{a}
+\PYG{+w}{  }\PYG{p}{,}\PYG{+w}{ }\PYG{n}{\PYGZus{}pressMaxHeight}\PYG{+w}{ }\PYG{o+ow}{::}\PYG{+w}{ }\PYG{n}{a}
+\PYG{+w}{  }\PYG{p}{\PYGZcb{}}\PYG{+w}{ }\PYG{k+kr}{deriving}\PYG{+w}{ }\PYG{n}{stock}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{Show}\PYG{p}{,}\PYG{+w}{ }\PYG{k+kt}{Eq}\PYG{p}{,}\PYG{+w}{ }\PYG{k+kt}{Ord}\PYG{p}{,}\PYG{+w}{ }\PYG{k+kt}{Functor}\PYG{p}{,}\PYG{+w}{ }\PYG{k+kt}{Foldable}\PYG{p}{,}\PYG{+w}{ }\PYG{k+kt}{Traversable}\PYG{p}{,}\PYG{+w}{ }\PYG{k+kt}{Generic}\PYG{p}{)}
+\PYG{+w}{    }\PYG{k+kr}{deriving}\PYG{+w}{ }\PYG{n}{anyclass}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{Codec}\PYG{p}{)}
+\PYG{o}{\PYGZdl{}}\PYG{p}{(}\PYG{n}{makeLenses}\PYG{+w}{ }\PYG{k+kt}{\PYGZsq{}\PYGZsq{}StaticPress}\PYG{p}{)}
+
+\PYG{k+kr}{data}\PYG{+w}{ }\PYG{k+kt}{Press}\PYG{+w}{ }\PYG{n}{a}\PYG{+w}{ }\PYG{n}{b}\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }\PYG{k+kt}{Press}
+\PYG{+w}{  }\PYG{p}{\PYGZob{}}\PYG{+w}{ }\PYG{n}{\PYGZus{}press}\PYG{+w}{       }\PYG{o+ow}{::}\PYG{+w}{ }\PYG{k+kt}{StaticPress}\PYG{+w}{ }\PYG{n}{a}
+\PYG{+w}{  }\PYG{p}{,}\PYG{+w}{ }\PYG{n}{\PYGZus{}pressLength}\PYG{+w}{ }\PYG{o+ow}{::}\PYG{+w}{ }\PYG{n}{a}
+\PYG{+w}{  }\PYG{p}{,}\PYG{+w}{ }\PYG{n}{\PYGZus{}pressHeight}\PYG{+w}{ }\PYG{o+ow}{::}\PYG{+w}{ }\PYG{n}{a}
+\PYG{+w}{  }\PYG{p}{,}\PYG{+w}{ }\PYG{n}{\PYGZus{}pressLayers}\PYG{+w}{ }\PYG{o+ow}{::}\PYG{+w}{ }\PYG{p}{[}\PYG{k+kt}{Layer}\PYG{+w}{ }\PYG{n}{a}\PYG{+w}{ }\PYG{n}{b}\PYG{p}{]}
+\PYG{+w}{  }\PYG{p}{\PYGZcb{}}\PYG{+w}{ }\PYG{k+kr}{deriving}\PYG{+w}{ }\PYG{n}{stock}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{Show}\PYG{p}{,}\PYG{+w}{ }\PYG{k+kt}{Eq}\PYG{p}{,}\PYG{+w}{ }\PYG{k+kt}{Ord}\PYG{p}{,}\PYG{+w}{ }\PYG{k+kt}{Generic}\PYG{p}{)}
+\PYG{+w}{    }\PYG{k+kr}{deriving}\PYG{+w}{ }\PYG{n}{anyclass}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{Codec}\PYG{p}{)}
+\PYG{o}{\PYGZdl{}}\PYG{p}{(}\PYG{n}{makeLenses}\PYG{+w}{ }\PYG{k+kt}{\PYGZsq{}\PYGZsq{}Press}\PYG{p}{)}
+\end{Verbatim}

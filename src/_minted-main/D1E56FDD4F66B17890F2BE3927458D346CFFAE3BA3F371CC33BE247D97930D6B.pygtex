@@ -1,6 +1,6 @@
 \begin{Verbatim}[commandchars=\\\{\}]
 \PYG{n+nf}{problem}\PYG{+w}{ }\PYG{o+ow}{::}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{Orderable}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{Expr}\PYG{+w}{ }\PYG{n}{t}\PYG{p}{),}\PYG{+w}{ }\PYG{k+kt}{Num}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{Expr}\PYG{+w}{ }\PYG{n}{t}\PYG{p}{))}
-\PYG{+w}{    }\PYG{o+ow}{=\PYGZgt{}}\PYG{+w}{ }\PYG{k+kt}{PressPlan}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{Expr}\PYG{+w}{ }\PYG{n}{t}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{Expr}\PYG{+w}{ }\PYG{k+kt}{BoolSort}\PYG{p}{)}
+\PYG{+w}{    }\PYG{o+ow}{=\PYGZgt{}}\PYG{+w}{ }\PYG{k+kt}{PressPlan}\PYG{+w}{ }\PYG{n}{t}
 \PYG{+w}{    }\PYG{o+ow}{\PYGZhy{}\PYGZgt{}}\PYG{+w}{ }\PYG{k+kt}{Config}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{Expr}\PYG{+w}{ }\PYG{n}{t}\PYG{p}{)}
 \PYG{+w}{    }\PYG{o+ow}{\PYGZhy{}\PYGZgt{}}\PYG{+w}{ }\PYG{p}{[}\PYG{k+kt}{Expr}\PYG{+w}{ }\PYG{k+kt}{BoolSort}\PYG{p}{]}
 \PYG{n+nf}{problem}\PYG{+w}{ }\PYG{n}{pp}\PYG{+w}{ }\PYG{n}{cfg}\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }\PYG{o}{...}
