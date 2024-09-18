@@ -1,0 +1,13 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{o}{(}set\PYGZhy{}option\PYG{+w}{ }:produce\PYGZhy{}models\PYG{+w}{ }True\PYG{o}{)}
+\PYG{o}{(}set\PYGZhy{}logic\PYG{+w}{ }QF\PYGZus{}LRA\PYG{o}{)}
+
+\PYG{o}{(}declare\PYGZhy{}fun\PYG{+w}{ }x\PYG{+w}{ }\PYG{o}{()}\PYG{+w}{ }Real\PYG{o}{)}
+\PYG{o}{(}declare\PYGZhy{}fun\PYG{+w}{ }y\PYG{+w}{ }\PYG{o}{()}\PYG{+w}{ }Real\PYG{o}{)}
+
+\PYG{o}{(}assert\PYG{+w}{ }\PYG{o}{(=}\PYG{+w}{ }\PYG{l+m}{5}\PYG{+w}{ }\PYG{o}{(}+\PYG{+w}{ }x\PYG{+w}{ }y\PYG{o}{)))}
+
+\PYG{o}{(}check\PYGZhy{}sat\PYG{o}{)}
+\PYG{o}{(}get\PYGZhy{}model\PYG{o}{)}
+\PYG{o}{(}\PYG{n+nb}{exit}\PYG{o}{)}
+\end{Verbatim}

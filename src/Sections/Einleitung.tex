@@ -73,12 +73,12 @@ Die Bibliothek erzeugt dann das Constraint-System in der Constraint-Sprache SMTL
 Folgend ein Ausschnitt der erzeugten SMTLib-Kodierung für das Constraint aus Listing \ref{listing:barLengthCode}:
 
 \begin{listing}[H]
-    \inputminted{bash}{Code/Einleitung/PressenlängeConstraintSMTLib.smt2}
+    \inputminted[linenos=true]{bash}{Code/Einleitung/PressenlängeConstraintSMTLib.smt2}
     \caption{Ausschnitt der Kodierung eines Pressenplanungsproblems}
     \label{listing:barLengthSMTlib}
 \end{listing}
 
-Die Kodierung wird an einen SMT-Solver gegeben, welcher die Erfüllbarkeit des Problems bestimmt und für den Fall \textit{erfüllbar} eine erfüllende Belegung für die Variablen des Problems ermittelt.
+Die Kodierung wird an einen SMT-Solver gegeben, welcher die Erfüllbarkeit des Problems bestimmt und für den Fall Erfüllbar eine erfüllende Belegung für die Variablen des Problems ermittelt.
 Zum Beispiel:
 
 \begin{listing}[H]

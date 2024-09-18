@@ -2,7 +2,7 @@
 \label{chapter:smt}
 
 In diesem Kapitel wird zuerst das Erfüllbarkeitsproblem der Satisfiability Module Theories - kurz SMT - vorgestellt.
-Danach wird auf die Kernelemente des Sprachstandards SMTLib Version 2.6 \cite{smtlib} eingegangen.
+Dabei wird auch kurz die Kernelemente des Sprachstandards SMTLib Version 2.6 \cite{smtlib} eingegangen.
 Dieser ermöglicht die Kodierung von SMT-Problemen für SMT-Solver \cite{smt}.
 Ein SMT-Solver - kurz Solver - ist ein Programm, welches für ein kodiertes Problem die Erfüllbarkeit dieses und für den
 Fall \textit{erfüllbar} (englisch \textit{satisfiable} - kurz \textit{sat}) ein Modell für jenes bestimmen kann.
@@ -13,14 +13,40 @@ Nach dem Überblick über SMTLib werden Anzahl-Constraints in SMT betrachtet,
 bevor am Ende dieses Kapitels beleuchtet wird, wie SMT-Probleme nach Zielfunktionen optimiert werden können.
 
 \section{Einführung in das Erfüllbarkeitsproblem SMT}
-Logiken, Sorten erklären.
-Welche Logiken hier relevant?
-Wie lösen die Solver die Probleme der Logiken?
-Wie performant lösen die Solver diese - Komplexität?
-Aktuelle SMT-Comp - beste Solver für relevante Kategorien nennen.
+Satisfiability Module Theories beschreibt das Erfüllbarkeitsproblem prädikatenlogischer Formeln unter spezifischen Theorien \cite{smt}.
+Damit ermöglicht es im Gegensatz zum Erfüllbarkeitsproblem SAT, bei welchem ausschließlich boolesche Unbekannte aussagenlogisch verknüpft werden können,
+die realitätsnahe Kodierung von Problemen wie beispielsweise Ressourcenzuordnungsproblemen \cite{rcpsp}.
+Jene sind nachweislich stark NP-schwere kombinatorische Probleme, sodass sie nicht in polynomieller Zeit lösbar sind. \cite{rcpspnp}.
+Im Allgemeinen ist die Erfüllbarkeit prädikatenlogischer Formeln unentscheidbar \cite{smt}.
+Die Eingrenzung von Syntax und Semantik (Interpretation von Funktionssymbolen) der Prädikatenlogik in Modellen von SMT-Problemen
+ermöglicht allerdings die Entscheidbarkeit und erlaubt spezifische Lösungsverfahren unter einer bestimmten Hintergrund-Theorie (englisch \textit{background-theory}).
+Diese Theorien werden zu SMT-Logiken wie beispielsweise \texttt{QF\_LRA} kombiniert.
+Bei der Logik der quantorenfreien (QF) linearen (L) Real(R)-Arithmetik(A) sind das die Theorien der reellen Zahlen, linearen Arithmetik und Gleichheit/Ungleichheit.
+Der diesjährige Sieger in jener Logik der SMT-COMP 2024 \texttt{OpenSMT} \cite{smtcomp2024results} implementiert als Lösungsverfahren eine Kombination aus DPLL(T) und modifiziertem Simplex \cite{opensmt}.
+DPLL(T) is ein vollständiges Lösungsverfahren für prädikatenlogische Probleme unter einer Theorie \textit{T} und ersetzt alle Atome einer Formel mit booleschen Unbekannten \cite{smt}.
+Dieses - nun SAT - Problem wird an einen SAT-Solver gegeben, welcher die Erfüllbarkeit prüft und für den Fall Erfüllbar eine erfüllende Belegung ermittelt.
+Für jene Belegung überprüft ein (möglicherweise auch mehrere) Theory-Solver dann die Konsistenz in der Theorie \textit{T}.
+Im Fall der T-Inkonsistenz wird der SAT-Solver erneut aufgerufen.
 
-\section{Sprachstandard SMTLib Version 2.6}
-Standard Version 2.6: \cite{smtlib}
+Für das Pressenplanungsproblem sind neben \texttt{QF\_LRA} auch \texttt{QF\_LIA} und \texttt{QF\_BV} relevante Logiken.
+In der SMT-COMP 2024 siegte \texttt{OpenSMT} in den Logiken \texttt{QF\_LRA} und \texttt{QF\_LIA}, während \texttt{Bitwuzla} in der Logik \texttt{QF\_BV} Platz eins belegte \cite{smtcomp2024results}.
+
+Die Kodierung der SMT-Probleme und damit Eingabe für die Solver ist im Standard SMTLib Version 2.6 festgehalten \cite{smtlib}.
+Folgend die Darstellung relevanter Kernelemente des Sprachstandards anhand des Beispiels
+$\exists x \in \mathbb{R}, \exists y \in \mathbb{R}: 5 = x + y$:
+
+\begin{listing}[H]
+    \inputminted[linenos=true]{bash}{Code/SMT/SMTLibSimple.smt2}
+    \caption{Kodierung von $\exists x \in \mathbb{R}, \exists y \in \mathbb{R}: 5 = x + y$ in SMTLib-Syntax}
+    \label{listing:smtlibsimple}
+\end{listing}
+
+In Zeile 1 wird der Solver angewiesen, im Fall der Erfüllbarkeit ein erfüllendes Modell zu erstellen.
+Zeile zwei setzt die Logik für die darauffolgende Problemdeklaration.
+In den Zeilen 4 und 5 werden Unbekannte der Sorte \texttt{Real} mit den Bezeichnern \texttt{x} und \texttt{y} angelegt.
+Zeile 7 zeigt die Assertion eines Constraints auf den Unbekannten \texttt{x} und \texttt{y} und der Konstanten \texttt{5}.
+Zeile 9 weist den Solver an, das deklarierte Problem auf Erfüllbarkeit zu überprüfen, während Zeile 10 für den Fall Erfüllbar ein Modell für das Problem ausgibt.
+In Zeile 11 wird die Interaktion mit dem Solver beendet.
 
 \section{SMT-Kodierung von Anzahl-Constraints}
 \label{sec:smtcardinality}
@@ -80,7 +106,7 @@ dass höchstens eine der $n$ Unbekannten wahr ist:
     atMost(1,U) \land atMost(1,V) \land \bigwedge_{0 \leq i \leq p-1, 0 \leq j \leq q-1}^{0 \leq x \leq n-1, x = (i-1)(q-1)+j} ((\neg b_x \lor u_i) \land (\neg b_x \lor v_j) )
 \end{multline*}
 
-Daraus folgen $2 \sqrt{n} + \mathcal{O}(\sqrt[4]{n})$ Hilfsvariablen und $2n + 4\sqrt{n} + \mathcal{O}(\sqrt[4]{n})$ Klauseln.
+Daraus folgen $2 \sqrt{n} + \mathcal{O}(\sqrt[4]{n})$ Hilfsvariablen und $2n + 4\sqrt{n} + \mathcal{O}(\sqrt[4]{n})$ Klauseln (konjugierte Disjunktionen).
 Das ist die nachweisbar minimale notwendige Anzahl an Klauseln für das At-Most-One-Constraint \cite{amoChen, lowerBoundAMO}.
 
 % TODO: Forcing bei denen und bei mir?
