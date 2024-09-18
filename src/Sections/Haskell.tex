@@ -84,8 +84,11 @@ Folgend ein Ausschnitt für das At-Most-Constraint:
 
 \begin{listing}[H]
     \inputminted[linenos=true]{haskell}{Code/Implementierung/Hasmtlib/Cardinality.hs}
-    \caption{ITE-Kodierung von Anzahl-Constraints in \texttt{Hasmtlib} \cite{hasmtlibCardinality}}
+    \caption{At-Most-One-Constraint in \texttt{Hasmtlib} \cite{hasmtlibCardinality}}
     \label{listing:hasmtlibcardinality}
 \end{listing}
 
 \subsection{Ergänzung um Incremental Refinement}
+Wir wollen Optimierung mit bestem SMT-Solver in unseren Kategorien: OpenSMT und Bitwuzla.
+Aber die können das nicht.
+Also bauen wir Schleife nach, wie Mensch das schon immer gemacht hat \cite{nuz3}.

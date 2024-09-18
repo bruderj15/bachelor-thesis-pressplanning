@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{o}{(}set\PYGZhy{}logic\PYG{+w}{ }QF\PYGZus{}LIA\PYG{o}{)}
+\PYG{o}{(}declare\PYGZhy{}fun\PYG{+w}{ }x\PYG{+w}{ }\PYG{o}{()}\PYG{+w}{ }Int\PYG{o}{)}
+\PYG{o}{(}declare\PYGZhy{}fun\PYG{+w}{ }y\PYG{+w}{ }\PYG{o}{()}\PYG{+w}{ }Int\PYG{o}{)}
+\PYG{o}{(}assert\PYG{+w}{ }\PYG{o}{(}and\PYG{+w}{ }\PYG{o}{(}\PYGZlt{}\PYG{+w}{ }x\PYG{+w}{ }\PYG{l+m}{10}\PYG{o}{)}\PYG{+w}{ }\PYG{o}{(}and\PYG{+w}{ }\PYG{o}{(}\PYGZlt{}\PYG{+w}{ }y\PYG{+w}{ }\PYG{l+m}{5}\PYG{o}{)}\PYG{+w}{ }\PYG{o}{(=}\PYGZgt{}\PYG{+w}{ }\PYG{o}{(}\PYGZlt{}\PYG{+w}{ }y\PYG{+w}{ }\PYG{l+m}{7}\PYG{o}{)}\PYG{+w}{ }\PYG{o}{(=}\PYG{+w}{ }x\PYG{+w}{ }\PYG{l+m}{1}\PYG{o}{)))))}
+\PYG{o}{(}maximize\PYG{+w}{ }\PYG{o}{(}+\PYG{+w}{ }x\PYG{+w}{ }y\PYG{o}{))}
+\end{Verbatim}

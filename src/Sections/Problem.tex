@@ -116,7 +116,7 @@ Weiter werden boolesche als auch arithmetische Operatoren vorausgesetzt und in d
 
 \[
     \begin{aligned}
-        \text{Folgend die Signatur } \Sigma = \left( \Sigma_{F}^{P} \cup \Sigma_{F}^{L} \cup \Sigma_{F}^{C}, \Sigma_{R} \right) \text{ mit Variablen } \mathbb{X} = \mathbb{X}^{P} \cup \mathbb{X}^{L} \cup \mathbb{X}^{C} \text{ wobei } \\[5pt]
+        \text{Folgend die Signatur } \Sigma = \left( \Sigma_{F}^{P} \cup \Sigma_{F}^{L} \cup \Sigma_{F}^{C}, \Sigma_{R} \right) \text{ mit Variablen } \mathbb{X} = \mathbb{X}^{P} \cup \mathbb{X}^{L} \cup \mathbb{X}^{C} \cup \mathbb{X}^{InLayer}  \\[5pt]
             \begin{array}{ll}
                 \begin{aligned}
                     \Sigma_{F}^{P} = \left\{
@@ -194,6 +194,7 @@ Damit lassen sich folgende Constraints formulieren:
 \end{align}
 
 \section{Optimierung}
+\label{sec:optimierung}
 Das obige Modell beschreibt beliebige Lösungen für das Problem der Pressenplanung.
 Um Kosten- und Zeitaufwand beim Pressen zu reduzieren, sind Pressenpläne zusätzlich nach folgenden Kriterien lexikografisch zu optimieren (Vorgabe Germanedge):
 \begin{enumerate}

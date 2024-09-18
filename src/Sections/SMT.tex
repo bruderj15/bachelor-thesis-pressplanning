@@ -123,4 +123,22 @@ Das eliminiert die Hilfsvariablen und behält die Klauselanzahl bei.
 Allerdings sind die entstehenden Klauseln um $\mathcal{O}(\sqrt{n})$ größer.
 
 \section{Optimierung von SMT-Problemen}
-nuZ3 Paper hier sehr hilfreich \cite{nuz3}
+Häufig sind bei SMT-Problemen zusätzlich auch spezifische Zielfunktionen von Interesse.
+Diese haben besonders in der Industrie 4.0 eine große Relevanz \cite{omt}, so auch beim Pressenplanungsproblem.
+Die Anzahl unverplanter Bauteile, eingesetzter Pressen und notwendigen Rests soll minimiert werden, siehe Abschnitt \ref{sec:optimierung}.
+
+SMT-Probleme, bei denen zusätzlich nach bestimmten Zielfunktionen optimiert wird, fallen in eine neue Problemklasse,
+jene der Optimization Module Theories (kurz OMT) \cite{omt}.
+Genau wie die lineare Optimierung unterstützt auch OMT die Optimierung nach linearen Zielfunktionen.
+Im Gegensatz zu ersterer, erlaubt OMT zusätzlich auch beliebige boolesche Kombinationen aus Atomen, wodurch die Modellierung komplexer (industrieller) Probleme vereinfacht wird.
+
+Wenige SMT-Solver wie beispielsweise \texttt{Z3} unterstützen die direkte Kodierung von OMT-Zielfunktionen in SMTLib-Syntax \cite{nuz3}.
+Folgend die Maximierung des Terms $x + y$ unter der Formel $\exists x \in \mathbb{Z}, \exists y \in \mathbb{Z}: x < 10 \land y < 5 \land (y < 7 \rightarrow x = 1)$:
+
+\begin{listing}[H]
+    \inputminted[linenos=true]{bash}{Code/SMT/OMTSimple.smt2}
+    \caption{Maximierung von $x + y$ unter $\exists x \in \mathbb{Z}, \exists y \in \mathbb{Z}: x < 10 \land y < 5 \land (y < 7 \rightarrow x = 1)$}
+    \label{listing:omtsimple}
+\end{listing}
+
+Der Solver (hier \texttt{Z3}) ermittelt korrekt die optimale Lösung $x \coloneqq 1, y \coloneqq 4$.
