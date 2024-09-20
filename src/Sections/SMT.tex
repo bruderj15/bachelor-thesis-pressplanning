@@ -16,20 +16,21 @@ bevor am Ende dieses Kapitels beleuchtet wird, wie SMT-Probleme nach Zielfunktio
 Satisfiability Module Theories beschreibt das Erfüllbarkeitsproblem prädikatenlogischer Formeln unter spezifischen Theorien \cite{smt}.
 Damit ermöglicht es im Gegensatz zum Erfüllbarkeitsproblem SAT, bei welchem ausschließlich boolesche Unbekannte aussagenlogisch verknüpft werden können,
 die realitätsnahe Kodierung von Problemen wie beispielsweise Ressourcenzuordnungsproblemen \cite{rcpsp}.
-Jene sind nachweislich stark NP-schwere kombinatorische Probleme, sodass sie nicht in polynomieller Zeit lösbar sind. \cite{rcpspnp}.
+Jene sind nachweislich stark NP-schwere kombinatorische Probleme, sodass sie nicht in polynomieller Zeit lösbar sind \cite{rcpspnp}.
 Im Allgemeinen ist die Erfüllbarkeit prädikatenlogischer Formeln unentscheidbar \cite{smt}.
 Die Eingrenzung von Syntax und Semantik (Interpretation von Funktionssymbolen) der Prädikatenlogik in Modellen von SMT-Problemen
-ermöglicht allerdings die Entscheidbarkeit und erlaubt spezifische Lösungsverfahren unter einer bestimmten Hintergrund-Theorie (englisch \textit{background-theory}).
+ermöglicht die Entscheidbarkeit und erlaubt spezifische Lösungsverfahren unter bestimmten Hintergrund-Theorien (englisch \textit{background-theory}).
 Diese Theorien werden zu SMT-Logiken wie beispielsweise \texttt{QF\_LRA} kombiniert.
 Bei der Logik der quantorenfreien (QF) linearen (L) Real(R)-Arithmetik(A) sind das die Theorien der reellen Zahlen, linearen Arithmetik und Gleichheit/Ungleichheit.
 Der diesjährige Sieger in jener Logik der SMT-COMP 2024 \texttt{OpenSMT} \cite{smtcomp2024results} implementiert als Lösungsverfahren eine Kombination aus DPLL(T) und modifiziertem Simplex \cite{opensmt}.
 DPLL(T) is ein vollständiges Lösungsverfahren für prädikatenlogische Probleme unter einer Theorie \textit{T} und ersetzt alle Atome einer Formel mit booleschen Unbekannten \cite{smt}.
 Dieses - nun SAT - Problem wird an einen SAT-Solver gegeben, welcher die Erfüllbarkeit prüft und für den Fall Erfüllbar eine erfüllende Belegung ermittelt.
-Für jene Belegung überprüft ein (möglicherweise auch mehrere) Theory-Solver dann die Konsistenz in der Theorie \textit{T}.
-Im Fall der T-Inkonsistenz wird der SAT-Solver erneut aufgerufen.
+Für jene Belegung überprüft ein (möglicherweise auch mehrere) Theorie-Solver dann deren Konsistenz in der Theorie \textit{T}.
+Wenn diese Belegung \textit{T}-konsistent ist, so ist sie auch Modell für das prädikatenlogische Problem unter der Theorie \textit{T}.
+Im Fall der \textit{T}-Inkonsistenz wird der SAT-Solver erneut aufgerufen.
 
 Für das Pressenplanungsproblem sind neben \texttt{QF\_LRA} auch \texttt{QF\_LIA} und \texttt{QF\_BV} relevante Logiken.
-In der SMT-COMP 2024 siegte \texttt{OpenSMT} in den Logiken \texttt{QF\_LRA} und \texttt{QF\_LIA}, während \texttt{Bitwuzla} in der Logik \texttt{QF\_BV} Platz eins belegte \cite{smtcomp2024results}.
+In der SMT-COMP 2024 siegte \texttt{OpenSMT} in den Logiken \texttt{QF\_LRA} und \texttt{QF\_LIA}, während \texttt{Bitwuzla} in der Logik \texttt{QF\_BV} den ersten Platz belegte \cite{smtcomp2024results}.
 
 Die Kodierung der SMT-Probleme und damit Eingabe für die Solver ist im Standard SMTLib Version 2.6 festgehalten \cite{smtlib}.
 Folgend die Darstellung relevanter Kernelemente des Sprachstandards anhand des Beispiels

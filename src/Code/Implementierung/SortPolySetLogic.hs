@@ -1,4 +1,6 @@
-runProblem = forall t. (KnownSMTSort t, MonadSMT s m) => ... -> m ()
+runProblem = forall t. (KnownSMTSort t, Orderable (Expr t)
+  , Num (Expr t), MonadSMT s m)
+  => ... -> m ()
 runProblem ... = do
   ...
   setLogic $ case sortSing @t of
@@ -8,3 +10,4 @@ runProblem ... = do
     _           -> "ALL"
   ...
   forM_ (problem @t _ _) assert
+  ...
