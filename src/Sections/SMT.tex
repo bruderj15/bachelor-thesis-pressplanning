@@ -55,47 +55,47 @@ Oftmals werden zur Kodierung von SMT-Problemen auch Anzahl-Constraints benötigt
 Auf einer Menge von $n$ gegebenen booleschen Variablen $\{b_0, b_1, \ldots, b_{n-1}\}$ soll dabei die Anzahl wahr belegter Variablen nach $k$ restriktiert werden.
 Dabei existieren die folgenden drei Restriktionen:
 \begin{itemize}
-    \item Mindestens $k$: $atLeast(k, \{b_0, b_1, \ldots, b_{n-1}\})$
-    \item Genau $k$: $exactly(k, \{b_0, b_1, \ldots, b_{n-1}\})$
-    \item Höchstens $k$: $atMost(k, \{b_0, b_1, \ldots, b_{n-1}\})$
+    \item Mindestens $k$: $\text{atLeast}(k, \{b_0, b_1, \ldots, b_{n-1}\})$
+    \item Genau $k$: $\text{exactly}(k, \{b_0, b_1, \ldots, b_{n-1}\})$
+    \item Höchstens $k$: $\text{atMost}(k, \{b_0, b_1, \ldots, b_{n-1}\})$
 \end{itemize}
 
 Anzahl-Constraints sind nicht Teil des SMTLib-Standards Version 2.6 \cite{smtlib}, sodass nur wenige Solver wie Z3 solche Kodierungen direkt unterstützen \cite{z3Cardinality}.
 Daher wird zur manuellen Kodierung oft die ITE-Kodierung verwendet \cite{kovasznai}.
 Dabei werden die einzelnen booleschen Unbekannten mithilfe eines If-Then-Else-Ausdrucks (kurz ITE) in numerische Ausdrücke umgewandelt, anschließend summiert und verglichen.
-Mit der Hilfsfunktion $count(\{b_0, b_1, \ldots, b_{n-1}\})$ lassen sich die Anzahl-Constraints einfach kodieren:
+Mit der Hilfsfunktion $\text{count}(\{b_0, b_1, \ldots, b_{n-1}\})$ lassen sich die Anzahl-Constraints einfach kodieren:
 
 \[
     \begin{aligned}
-        & count(B) = \sum_{\substack{b \in B}}
+        & \text{count}(B) = \sum_{\substack{b \in B}}
             \left(
                 \begin{cases}
                     1 & \text{, } b \\
                     0 & \text{, sonst}
                 \end{cases}
             \right) \\[5pt]
-        & atLeast(k, B) = k \leq count(B) \\[5pt]
-        & exactly(k, B) = k = count(B) \\[5pt]
-        & atMost(k, B) = k \geq count(B)
+        & \text{atLeast}(k, B) = k \leq count(B) \\[5pt]
+        & \text{exactly}(k, B) = k = count(B) \\[5pt]
+        & \text{atMost}(k, B) = k \geq count(B)
     \end{aligned}
 \]
 
 Je nach gewählter Logik erfolgt die Summierung in der entsprechenden Sorte.
-Ist für das SMT-Problem beispielsweise die Logik QF\_LRA gewählt, dann summiert $count(B)$ Terme der Sorte \texttt{Real}.
+Ist für das SMT-Problem beispielsweise die Logik QF\_LRA gewählt, dann summiert $\text{count}(B)$ Terme der Sorte \texttt{Real}.
 Dabei entstehen für jedes Anzahl-Constraint offensichtlich $n$ ITE-Ausdrücke, $n-1$ binäre Additionen und ein Vergleich.
 
 Für bestimmte $k$ wie beispielsweise $k = 0$ oder $k = 1$ können Anzahl-Constraints allerdings von spezialisierten Kodierungen profitieren.
 Einige davon sind folgende:
 \begin{itemize}
-    \item $atLeast(0,B) = True$
-    \item $atLeast(1,B) = \bigvee\limits_{\substack{b \in B}} b $
-    \item $atMost(0,B) = \neg\bigwedge\limits_{\substack{b \in B}} b$
-    \item $atMost(1,B) = productEncoding(B)$
-    \item $exactly(0,B) = \neg\bigwedge\limits_{\substack{b \in B}} b$
-    \item $exactly(1,B) = atLeast(1,B) \land atMost(1,B)$
+    \item $\text{atLeast}(0,B) = \text{True}$
+    \item $\text{atLeast}(1,B) = \bigvee\limits_{\substack{b \in B}} b $
+    \item $\text{atMost}(0,B) = \neg\bigwedge\limits_{\substack{b \in B}} b$
+    \item $\text{atMost}(1,B) = \text{productEncoding}(B)$
+    \item $\text{exactly}(0,B) = \neg\bigwedge\limits_{\substack{b \in B}} b$
+    \item $\text{exactly}(1,B) = \text{atLeast}(1,B) \land \text{atMost}(1,B)$
 \end{itemize}
 
-Die Produkt-Kodierung (englisch \textit{product-encoding}) ist eine aus SAT bekannte Kodierung für $atMost(1,B)$ \cite{amoChen}.
+Die Produkt-Kodierung (englisch \textit{product-encoding}) ist eine aus SAT bekannte Kodierung für $\text{atMost}(1,B)$ \cite{amoChen}.
 Dabei werden die $n = \lvert B \rvert$ Unbekannten in eine Matrix $M^{q \times p}$ mit $p = \lceil \sqrt {n} \rceil$ und $q = \lceil n/p \rceil$ gelegt.
 Zusätzlich wird für jeden Zeilenindex $j \in \{0,\ldots,q-1\}$ eine Hilfsvariable $v_j$ und jeden Spaltenindex $i \in \{0,\ldots,p-1\}$ eine Hilfsvariable $u_i$ angelegt,
 welche repräsentiert, ob in der jeweiligen Zeile $j$ oder Spalte $i$ mindestens ein $b \in B$ wahr ist.
@@ -103,14 +103,12 @@ Fasst man die Hilfsvariablen zu $U = \{ u_0,\ldots, u_{p-1} \}$ und $V = \{ v_0,
 dass höchstens eine der $n$ Unbekannten wahr ist:
 
 \begin{multline*}
-    productEncoding(B) = \\
-    atMost(1,U) \land atMost(1,V) \land \bigwedge_{0 \leq i \leq p-1, 0 \leq j \leq q-1}^{0 \leq x \leq n-1, x = (i-1)(q-1)+j} ((\neg b_x \lor u_i) \land (\neg b_x \lor v_j) )
+    \text{productEncoding}(B) = \\
+    \text{atMost}(1,U) \land \text{atMost}(1,V) \land \bigwedge_{0 \leq i \leq p-1, 0 \leq j \leq q-1}^{0 \leq x \leq n-1, x = (i-1)(q-1)+j} ((\neg b_x \lor u_i) \land (\neg b_x \lor v_j))
 \end{multline*}
 
 Daraus folgen $2 \sqrt{n} + \mathcal{O}(\sqrt[4]{n})$ Hilfsvariablen und $2n + 4\sqrt{n} + \mathcal{O}(\sqrt[4]{n})$ Klauseln (konjugierte Disjunktionen).
 Das ist die nachweisbar minimale notwendige Anzahl an Klauseln für das At-Most-One-Constraint \cite{amoChen, lowerBoundAMO}.
-
-% TODO: Forcing bei denen und bei mir?
 
 Aus softwaretechnischer Sicht und wie später in Abschnitt \ref{subsec:implCardinality} demonstriert, wäre eine Kodierung ohne Hilfsvariablen von Vorteil.
 Die Produkt-Kodierung kann dazu einfach angepasst werden, indem alle Hilfsvariablen $u_i \in U$ und $v_j \in V$ folgend ersetzt werden:
