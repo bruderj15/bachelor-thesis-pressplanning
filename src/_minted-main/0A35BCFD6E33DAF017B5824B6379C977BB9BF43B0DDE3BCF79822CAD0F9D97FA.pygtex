@@ -1,0 +1,29 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{solveMinimized}\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }\PYG{n}{solveOptimized}\PYG{+w}{ }\PYG{p}{(}\PYG{o}{\PYGZlt{}?}\PYG{p}{)}
+\PYG{n+nf}{solveMaximized}\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }\PYG{n}{solveOptimized}\PYG{+w}{ }\PYG{p}{(}\PYG{o}{\PYGZgt{}?}\PYG{p}{)}
+
+\PYG{n+nf}{solveOptimized}\PYG{+w}{ }\PYG{o+ow}{::}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{MonadIncrSMT}\PYG{+w}{ }\PYG{k+kt}{Pipe}\PYG{+w}{ }\PYG{n}{m}\PYG{p}{,}\PYG{+w}{ }\PYG{k+kt}{MonadIO}\PYG{+w}{ }\PYG{n}{m}\PYG{p}{,}\PYG{+w}{ }\PYG{k+kt}{KnownSMTSort}\PYG{+w}{ }\PYG{n}{t}\PYG{p}{)}
+\PYG{+w}{  }\PYG{o+ow}{=\PYGZgt{}}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{Expr}\PYG{+w}{ }\PYG{n}{t}\PYG{+w}{ }\PYG{o+ow}{\PYGZhy{}\PYGZgt{}}\PYG{+w}{ }\PYG{k+kt}{Expr}\PYG{+w}{ }\PYG{n}{t}\PYG{+w}{ }\PYG{o+ow}{\PYGZhy{}\PYGZgt{}}\PYG{+w}{ }\PYG{k+kt}{Expr}\PYG{+w}{ }\PYG{k+kt}{BoolSort}\PYG{p}{)}\PYG{+w}{ }\PYG{c+c1}{\PYGZhy{}\PYGZhy{} optimization comparison}
+\PYG{+w}{  }\PYG{o+ow}{\PYGZhy{}\PYGZgt{}}\PYG{+w}{ }\PYG{k+kt}{Expr}\PYG{+w}{ }\PYG{n}{t}\PYG{+w}{                              }\PYG{c+c1}{\PYGZhy{}\PYGZhy{} term to optimize}
+\PYG{+w}{  }\PYG{o+ow}{\PYGZhy{}\PYGZgt{}}\PYG{+w}{ }\PYG{k+kt}{Maybe}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{Expr}\PYG{+w}{ }\PYG{n}{t}\PYG{+w}{ }\PYG{o+ow}{\PYGZhy{}\PYGZgt{}}\PYG{+w}{ }\PYG{k+kt}{Expr}\PYG{+w}{ }\PYG{n}{t}\PYG{p}{)}\PYG{+w}{            }\PYG{c+c1}{\PYGZhy{}\PYGZhy{} step\PYGZhy{}size\PYGZhy{}adjustment}
+\PYG{+w}{  }\PYG{o+ow}{\PYGZhy{}\PYGZgt{}}\PYG{+w}{ }\PYG{n}{m}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{Result}\PYG{p}{,}\PYG{+w}{ }\PYG{k+kt}{Solution}\PYG{p}{)}
+\PYG{n+nf}{solveOptimized}\PYG{+w}{ }\PYG{n}{op}\PYG{+w}{ }\PYG{n}{goal}\PYG{+w}{ }\PYG{n}{mStep}\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }\PYG{n}{refine}\PYG{+w}{ }\PYG{k+kt}{Unsat}\PYG{+w}{ }\PYG{n}{mempty}\PYG{+w}{ }\PYG{n}{goal}
+\PYG{+w}{  }\PYG{k+kr}{where}
+\PYG{+w}{    }\PYG{n}{refine}\PYG{+w}{ }\PYG{n}{oldRes}\PYG{+w}{ }\PYG{n}{oldSol}\PYG{+w}{ }\PYG{n}{target}\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }\PYG{k+kr}{do}
+\PYG{+w}{      }\PYG{n}{res}\PYG{+w}{ }\PYG{o+ow}{\PYGZlt{}\PYGZhy{}}\PYG{+w}{ }\PYG{n}{checkSat}
+\PYG{+w}{      }\PYG{k+kr}{case}\PYG{+w}{ }\PYG{n}{res}\PYG{+w}{ }\PYG{k+kr}{of}
+\PYG{+w}{        }\PYG{k+kt}{Sat}\PYG{+w}{   }\PYG{o+ow}{\PYGZhy{}\PYGZgt{}}\PYG{+w}{ }\PYG{k+kr}{do}
+\PYG{+w}{          }\PYG{n}{sol}\PYG{+w}{ }\PYG{o+ow}{\PYGZlt{}\PYGZhy{}}\PYG{+w}{ }\PYG{n}{getModel}
+\PYG{+w}{          }\PYG{k+kr}{case}\PYG{+w}{ }\PYG{n}{decode}\PYG{+w}{ }\PYG{n}{sol}\PYG{+w}{ }\PYG{n}{target}\PYG{+w}{ }\PYG{k+kr}{of}
+\PYG{+w}{            }\PYG{k+kt}{Nothing}\PYG{+w}{        }\PYG{o+ow}{\PYGZhy{}\PYGZgt{}}\PYG{+w}{ }\PYG{n}{return}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{Sat}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{mempty}\PYG{p}{)}
+\PYG{+w}{            }\PYG{k+kt}{Just}\PYG{+w}{ }\PYG{n}{targetSol}\PYG{+w}{ }\PYG{o+ow}{\PYGZhy{}\PYGZgt{}}\PYG{+w}{ }\PYG{k+kr}{do}
+\PYG{+w}{              }\PYG{n}{push}
+\PYG{+w}{              }\PYG{k+kr}{let}\PYG{+w}{ }\PYG{n}{step}\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }\PYG{n}{fromMaybe}\PYG{+w}{ }\PYG{n}{id}\PYG{+w}{ }\PYG{n}{mStep}
+\PYG{+w}{              }\PYG{n}{assert}\PYG{+w}{ }\PYG{o}{\PYGZdl{}}\PYG{+w}{ }\PYG{n}{target}\PYG{+w}{ }\PYG{p}{`}\PYG{n}{op}\PYG{p}{`}\PYG{+w}{ }\PYG{n}{step}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{encode}\PYG{+w}{ }\PYG{n}{targetSol}\PYG{p}{)}
+\PYG{+w}{              }\PYG{n}{refine}\PYG{+w}{ }\PYG{n}{res}\PYG{+w}{ }\PYG{n}{sol}\PYG{+w}{ }\PYG{n}{target}
+\PYG{+w}{        }\PYG{k+kr}{\PYGZus{}}\PYG{+w}{ }\PYG{o+ow}{\PYGZhy{}\PYGZgt{}}\PYG{+w}{ }\PYG{k+kr}{do}
+\PYG{+w}{          }\PYG{n}{pop}
+\PYG{+w}{          }\PYG{k+kr}{case}\PYG{+w}{ }\PYG{n}{mStep}\PYG{+w}{ }\PYG{k+kr}{of}
+\PYG{+w}{            }\PYG{k+kt}{Nothing}\PYG{+w}{ }\PYG{o+ow}{\PYGZhy{}\PYGZgt{}}\PYG{+w}{ }\PYG{n}{return}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{oldRes}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{oldSol}\PYG{p}{)}
+\PYG{+w}{            }\PYG{k+kt}{Just}\PYG{+w}{ }\PYG{k+kr}{\PYGZus{}}\PYG{+w}{  }\PYG{o+ow}{\PYGZhy{}\PYGZgt{}}\PYG{+w}{ }\PYG{n}{solveOptimized}\PYG{+w}{ }\PYG{n}{op}\PYG{+w}{ }\PYG{n}{goal}\PYG{+w}{ }\PYG{k+kt}{Nothing}
+\end{Verbatim}

@@ -89,6 +89,21 @@ Folgend ein Ausschnitt für das At-Most-Constraint:
 \end{listing}
 
 \subsection{Ergänzung um Incremental Refinement}
-Wir wollen Optimierung mit bestem SMT-Solver in unseren Kategorien: OpenSMT und Bitwuzla.
-Aber die können das nicht.
-Also bauen wir Schleife nach, wie Mensch das schon immer gemacht hat \cite{nuz3}.
+\texttt{Hasmtlib} kann aufbauend auf SMT-Problemen auch OMT-Probleme kodieren.
+Da dies allerdings nur wenige SMT-Solver wie \texttt{Z3} direkt unterstützen, verwendet man häufig sogenannte Optimierungsschleifen \cite{nuz3}.
+Dabei werden iterativ bessere Lösungen gesucht, indem obere Schranken für Maxima oder untere Schranken für Minima verfeinert werden.
+SMT-Solver haben einen Incremental-Stack, welcher die Wiederverwendung von bereits definierten Problemen und auch erlernten Lemmas ermöglicht,
+sodass \textit{Incremental Refinement} wesentlich effizienter als das Starten eines neuen Solver-Prozesses für jede Verfeinerung ist \cite{incremental}.
+
+Im Rahmen dieser Arbeit wird \texttt{Hasmtlib} daher um eine solche Optimierungsschleife folgend erweitert:
+
+\begin{listing}[H]
+    \inputminted[linenos=true]{haskell}{Code/Implementierung/Hasmtlib/IncrementalRefinement.hs}
+    \caption{Incremental Refinement in \texttt{Hasmtlib} \cite{hasmtlibCardinality}}
+    \label{listing:incrementalrefinement}
+\end{listing}
+
+Wie in Listing \ref{listing:incrementalrefinement} zu erkennen ist, wurde außerdem eine Schrittweite für das Anpassen der verfeinerten Schranken hinzugefügt.
+Um nicht über die optimale Lösung zu schreiten, ruft Zeile 27 die Optimierungsschleife nochmals - aber ohne Schrittweite - auf.
+Die letzte bekannte optimale Schranke liegt dabei noch auf dem Incremental-Stack, sodass der rekursive Aufruf in Zeile 27 mit dieser als neue Schranke startet.
+Das garantiert das Finden der optimalen Lösung.

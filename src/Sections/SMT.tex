@@ -22,12 +22,12 @@ Die Eingrenzung von Syntax und Semantik (Interpretation von Funktionssymbolen) d
 ermöglicht die Entscheidbarkeit und erlaubt spezifische Lösungsverfahren unter bestimmten Hintergrund-Theorien (englisch \textit{background-theory}).
 Diese Theorien werden zu SMT-Logiken wie beispielsweise \texttt{QF\_LRA} kombiniert.
 Bei der Logik der quantorenfreien (QF) linearen (L) Real(R)-Arithmetik(A) sind das die Theorien der reellen Zahlen, linearen Arithmetik und Gleichheit/Ungleichheit.
-Der diesjährige Sieger in jener Logik der SMT-COMP 2024 \texttt{OpenSMT} \cite{smtcomp2024results} implementiert als Lösungsverfahren eine Kombination aus DPLL(T) und modifiziertem Simplex \cite{opensmt}.
-DPLL(T) is ein vollständiges Lösungsverfahren für prädikatenlogische Probleme unter einer Theorie \textit{T} und ersetzt alle Atome einer Formel mit booleschen Unbekannten \cite{smt}.
+Der diesjährige Sieger in jener Logik der SMT-COMP 2024 \texttt{OpenSMT} \cite{smtcomp2024results} implementiert als Lösungsverfahren eine Kombination aus CDCL(T) und modifiziertem Simplex \cite{opensmt}.
+CDCL(T) is ein vollständiges Lösungsverfahren für prädikatenlogische Probleme unter einer Theorie \textit{T} und ersetzt alle Atome einer Formel mit booleschen Unbekannten \cite{smt}.
 Dieses - nun SAT - Problem wird an einen SAT-Solver gegeben, welcher die Erfüllbarkeit prüft und für den Fall Erfüllbar eine erfüllende Belegung ermittelt.
 Für jene Belegung überprüft ein (möglicherweise auch mehrere) Theorie-Solver dann deren Konsistenz in der Theorie \textit{T}.
 Wenn diese Belegung \textit{T}-konsistent ist, so ist sie auch Modell für das prädikatenlogische Problem unter der Theorie \textit{T}.
-Im Fall der \textit{T}-Inkonsistenz wird der SAT-Solver erneut aufgerufen.
+Im Fall der \textit{T}-Inkonsistenz wird der SAT-Solver erneut aufgerufen, wobei abgeleitete Lemmas hinzugefügt werden.
 
 Für das Pressenplanungsproblem sind neben \texttt{QF\_LRA} auch \texttt{QF\_LIA} und \texttt{QF\_BV} relevante Logiken.
 In der SMT-COMP 2024 siegte \texttt{OpenSMT} in den Logiken \texttt{QF\_LRA} und \texttt{QF\_LIA}, während \texttt{Bitwuzla} in der Logik \texttt{QF\_BV} den ersten Platz belegte \cite{smtcomp2024results}.
