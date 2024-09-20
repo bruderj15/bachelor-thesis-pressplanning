@@ -34,7 +34,7 @@ Folgend eine Abbildung eines Balkens aus drei Bauteilen mit Rest:
 \end{figure}
 
 Balken werden vertikal in Pressen gestapelt und anschließend gepresst.
-Eine mit Balken befüllte Presse, bei der festgelegt ist wie die Balken zu Bauteilen nach der Pressung zersägt werden müssen, nennt man auch Pressenplan.
+Eine mit Balken befüllte Presse, bei der festgelegt ist, wie die Balken zu Bauteilen nach der Pressung zersägt werden müssen, nennt man auch Pressenplan.
 In einem Pressenplan ist jedem Bauteil höchstens eine Position in einer Schicht (von unten gezählter Balken) einer Presse zugeordnet.
 Folgend die Visualisierung eines Pressenplans für eine Presse:
 
@@ -108,7 +108,7 @@ An einen Pressenplan bestehen folgende Anforderungen:
 
 \section{Modellierung}
 \label{sec:modellierung}
-In diesem Abschnitt \ref{uno} wird das Modell zur Modellierung des Pressenplanungsproblems erläutert.
+In diesem Abschnitt wird das Modell zur Modellierung des Pressenplanungsproblems erläutert.
 Alle Namen von Funktionen in jenem Modell werden englisch formuliert, um die Nähe zur später in Abschnitt \ref{sec:kodierungconstraints} gezeigten Implementierung zu wahren.
 Pressen heißen also \textit{Press}, Balken (Schichten) werden \textit{Layer} genannt und Bauteile erhalten den Namen \textit{Component}.
 Die Menge aller Pressen wird mit $P$, die Menge aller Schichten mit $L$ und die Menge aller Bauteile mit $C$ abgekürzt.
@@ -176,7 +176,7 @@ Weiter werden boolesche als auch arithmetische Operatoren vorausgesetzt und in d
             \end{array}\\[5pt]
     \end{aligned}
 \]
-Damit lassen sich folgende Constraints formulieren:
+Damit werden folgende Anforderungen an einen Pressenplan realisiert:
 \begin{align}
     & \forall p \in P: \text{minHeight}(p) \leq \text{height}(p) \leq \text{maxHeight}(p) \\[10pt]
     & \forall p \in P: \text{minLength}(p) \leq \text{length}(p) \leq \text{maxLength}(p) \\[10pt]

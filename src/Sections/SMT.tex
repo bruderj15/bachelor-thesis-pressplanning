@@ -27,7 +27,8 @@ CDCL(T) is ein vollständiges Lösungsverfahren für prädikatenlogische Problem
 Dieses - nun SAT - Problem wird an einen SAT-Solver gegeben, welcher die Erfüllbarkeit prüft und für den Fall Erfüllbar eine erfüllende Belegung ermittelt.
 Für jene Belegung überprüft ein (möglicherweise auch mehrere) Theorie-Solver dann deren Konsistenz in der Theorie \textit{T}.
 Wenn diese Belegung \textit{T}-konsistent ist, so ist sie auch Modell für das prädikatenlogische Problem unter der Theorie \textit{T}.
-Im Fall der \textit{T}-Inkonsistenz wird der SAT-Solver erneut aufgerufen, wobei abgeleitete Lemmas hinzugefügt werden.
+Im Fall der \textit{T}-Inkonsistenz wird der SAT-Solver erneut aufgerufen.
+Erwähnenswert sind hier zahlreiche integrierte Verfahren zur Effizienzsteigerung wie zum Beispiel das Lernen abgeleiteter Lemmas.
 
 Für das Pressenplanungsproblem sind neben \texttt{QF\_LRA} auch \texttt{QF\_LIA} und \texttt{QF\_BV} relevante Logiken.
 In der SMT-COMP 2024 siegte \texttt{OpenSMT} in den Logiken \texttt{QF\_LRA} und \texttt{QF\_LIA}, während \texttt{Bitwuzla} in der Logik \texttt{QF\_BV} den ersten Platz belegte \cite{smtcomp2024results}.
@@ -97,6 +98,7 @@ Einige davon sind folgende:
 
 Die Produkt-Kodierung (englisch \textit{product-encoding}) ist eine aus SAT bekannte Kodierung für $\text{atMost}(1,B)$ \cite{amoChen}.
 Dabei werden die $n = \lvert B \rvert$ Unbekannten in eine Matrix $M^{q \times p}$ mit $p = \lceil \sqrt {n} \rceil$ und $q = \lceil n/p \rceil$ gelegt.
+Wenn $n < pq$ gilt, dann werden die übrigen Matrixeinträge mit \texttt{False} belegt.
 Zusätzlich wird für jeden Zeilenindex $j \in \{0,\ldots,q-1\}$ eine Hilfsvariable $v_j$ und jeden Spaltenindex $i \in \{0,\ldots,p-1\}$ eine Hilfsvariable $u_i$ angelegt,
 welche repräsentiert, ob in der jeweiligen Zeile $j$ oder Spalte $i$ mindestens ein $b \in B$ wahr ist.
 Fasst man die Hilfsvariablen zu $U = \{ u_0,\ldots, u_{p-1} \}$ und $V = \{ v_0,\ldots, v_{q-1} \}$ zusammen, beschreibt folgende Gleichung,
@@ -107,8 +109,8 @@ dass höchstens eine der $n$ Unbekannten wahr ist:
     \text{atMost}(1,U) \land \text{atMost}(1,V) \land \bigwedge_{0 \leq i \leq p-1, 0 \leq j \leq q-1}^{0 \leq x \leq n-1, x = (i-1)(q-1)+j} ((\neg b_x \lor u_i) \land (\neg b_x \lor v_j))
 \end{multline*}
 
-Daraus folgen $2 \sqrt{n} + \mathcal{O}(\sqrt[4]{n})$ Hilfsvariablen und $2n + 4\sqrt{n} + \mathcal{O}(\sqrt[4]{n})$ Klauseln (konjugierte Disjunktionen).
-Das ist die nachweisbar minimale notwendige Anzahl an Klauseln für das At-Most-One-Constraint \cite{amoChen, lowerBoundAMO}.
+Daraus folgen $2 \sqrt{n} + \mathcal{O}(\sqrt[4]{n})$ existentiell quantifizierte Hilfsvariablen und $2n + 4\sqrt{n} + \mathcal{O}(\sqrt[4]{n})$ Klauseln (konjugierte Disjunktionen).
+Das ist die nachweisbar minimal notwendige Anzahl an Klauseln für das At-Most-One-Constraint \cite{amoChen, lowerBoundAMO}.
 
 Aus softwaretechnischer Sicht und wie später in Abschnitt \ref{subsec:implCardinality} demonstriert, wäre eine Kodierung ohne Hilfsvariablen von Vorteil.
 Die Produkt-Kodierung kann dazu einfach angepasst werden, indem alle Hilfsvariablen $u_i \in U$ und $v_j \in V$ folgend ersetzt werden:
