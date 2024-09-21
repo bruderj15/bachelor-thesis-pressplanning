@@ -98,9 +98,36 @@ Der Aufrufer wählt die Sorte der Kodierung dann per Typ-Applikation und setzt d
 \end{listing}
 
 Das ermöglicht die Wahl der Kodierung für den Aufrufer der Schnittstelle und verhindert somit Redundanz in der Implementierung.
+Insbesondere begünstigt das die einfache Testung verschiedener Kombinationen von Solvern und Kodierungen in verschiedenen Logiken wie später bei der Auswertung in Kapitel \ref{chapter:auswertung}.
 
 \section{Kodierung der Constraints}
 \label{sec:kodierungconstraints}
+Die Constraints aus Abschnitt \ref{sec:modellierung} lassen sich dank \texttt{Hasmtlib} analog in Haskell formulieren.
+Betrachten wir die Kodierung weniger Constraints wie \ref{constraint:pressHeight} und \ref{constraint:pressLength} aus Abschnitt \ref{sec:modellierung}:
+
+\begin{listing}[H]
+    \inputminted[linenos=true]{haskell}{Code/Implementierung/ConstraintPressenDimensionen.hs}
+    \caption{Haskell-Kodierung der Constraints \ref{constraint:pressHeight} und \ref{constraint:pressLength} aus Abschnitt \ref{sec:modellierung}}
+    \label{listing:constraintimplpressdim}
+\end{listing}
+
+Erneut ist hier darauf hinzuweisen, dass die Funktion \texttt{all} in Zeile 2 nicht all-quantifiziert, sondern über allen Pressen des Problems grundinstanziiert.
+Dabei entsteht also aus der Konjunktion der Anforderungen an jede einzelne Presse eine Formel, welche die Anforderung für alle Pressen kodiert.
+Das bezeugt auch der Rückgabetyp \texttt{Expr BoolSort} der Funktion \texttt{pressBounds}.
+
+Betrachten wir folgend das Constraint \ref{constraint:amoLayer}:
+
+\begin{listing}[H]
+    \inputminted[linenos=true]{haskell}{Code/Implementierung/ConstraintCompInAmoLayer.hs}
+    \caption{Haskell-Kodierung des Constraints \ref{constraint:amoLayer}}
+    \label{listing:constraintimplamolayer}
+\end{listing}
+
+Es beschreibt, dass jede Komponente in höchstens einer Schicht auftaucht.
+Die Funktion \texttt{atMost} in Zeile 3 ist dabei die in Abschnitt \ref{sec:smtcardinality} erklärte und in Abschnitt \ref{subsec:implCardinality} implementierte
+At-Most-Kodierung.
+
+% TODO: Falls ich undebingt nochmal zeigen will, dass man für die Kodierung eine Gastsprache braucht, dann wäre obiges das perfekte Beispiel an diesem Punkt.
 
 \section{Optimierung}
 Incremental Refinement/OMT, Schrittweite
