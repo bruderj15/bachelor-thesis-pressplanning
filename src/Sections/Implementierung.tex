@@ -76,7 +76,7 @@ Diese werden dann als separate Probleminstanzen auf verschiedene Prozessor-Kerne
 \section{Vorverarbeitung}
 \label{sec:vorverarbeitung}
 
-\section{Sorten-polymorphe Kodierung}
+\section{Sorten-Polymorphie}
 Wie in Kapitel \ref{chapter:smt} gezeigt bietet SMTLib verschiedene Logiken zur Kodierung von SMT-Problemen an.
 Nicht immer ist dabei vorher klar, in welcher Logik ein Problem am effizientesten für Solver kodiert werden kann.
 Das gilt auch für das Pressenplanungsproblem mit den Kandidaten \texttt{QF\_LIA}, \texttt{QF\_LRA} und \texttt{QF\_BV}.
@@ -100,6 +100,17 @@ Der Aufrufer wählt die Sorte der Kodierung dann per Typ-Applikation und setzt d
 Das ermöglicht die Wahl der Kodierung für den Aufrufer der Schnittstelle und verhindert somit Redundanz in der Implementierung.
 Insbesondere begünstigt das die einfache Testung verschiedener Kombinationen von Solvern und Kodierungen in verschiedenen Logiken wie später bei der Auswertung in Kapitel \ref{chapter:auswertung}.
 
+Für die Sorte \texttt{Real} werden alle Längenangaben in der Einheit Meter kodiert, sodass dabei offensichtlich keine Lösungen aufgrund von unzureichender Genauigkeit verloren gehen kann.
+Bei den Sorten \texttt{Int} und \texttt{BitVec} wird hingegen die Einheit Millimeter verwendet.
+Da alle Eingaben durch natürliche Zahlen in Millimetern dargestellt werden und im Constraint-System keine Division erfolgt, geht auch hier keine Lösung aufgrund von Ungenauigkeit verloren.
+Für \texttt{BitVec} reichen 15 Bit bei vorzeichenloser Interpretation aus, da die größten Werte die Längen der Pressen (höchstens 25000 mm) immer kleiner als $2^{15} = 32768$ sind.
+Wie in \cite{bitblasting} beschrieben, skalieren Bitvektor-Kodierungen allerdings schlecht in Bezug auf die Bitbreite.
+Bei deren Reduktion auf äquivalente SAT-Kodierungen entstehen dabei besonders für arithmetische Operationen große Formeln.
+Obwohl für den Anwendungsfall Pressenplanung hier nur Bitvektoren der Länge 15 verwendet werden, führt die Verwendung von zahlreichen arithmetischen Operationen
+vermutlich zu ineffizienten Kodierungen.
+Diese Vermutung konnte durch - in dieser Arbeit nicht dokumentierte - Testfälle bestätigt werden.
+Daher werden im folgenden der Arbeit Bitvektoren nicht weiter für die Kodierung in Betracht gezogen.
+
 \section{Kodierung der Constraints}
 \label{sec:kodierungconstraints}
 Die Constraints aus Abschnitt \ref{sec:modellierung} lassen sich dank \texttt{Hasmtlib} analog in Haskell formulieren.
@@ -111,26 +122,81 @@ Betrachten wir die Kodierung weniger Constraints wie \ref{constraint:pressHeight
     \label{listing:constraintimplpressdim}
 \end{listing}
 
-Erneut ist hier darauf hinzuweisen, dass die Funktion \texttt{all} in Zeile 2 nicht all-quantifiziert, sondern über allen Pressen des Problems grundinstanziiert.
+Hier ist darauf hinzuweisen, dass die Funktion \texttt{all} in Zeile 2 nicht all-quantifiziert, sondern über allen Pressen des Problems grundinstanziiert.
 Dabei entsteht also aus der Konjunktion der Anforderungen an jede einzelne Presse eine Formel, welche die Anforderung für alle Pressen kodiert.
-Das bezeugt auch der Rückgabetyp \texttt{Expr BoolSort} der Funktion \texttt{pressBounds}.
+Das bestätigt auch der Rückgabetyp \texttt{Expr BoolSort} der Funktion \texttt{pressBounds}.
 
-Betrachten wir folgend das Constraint \ref{constraint:amoLayer}:
+Betrachten wir weiter folgend das Constraint \ref{constraint:eoLayer}:
 
 \begin{listing}[H]
     \inputminted[linenos=true]{haskell}{Code/Implementierung/ConstraintCompInAmoLayer.hs}
-    \caption{Haskell-Kodierung des Constraints \ref{constraint:amoLayer}}
+    \caption{Haskell-Kodierung des Constraints \ref{constraint:eoLayer}}
     \label{listing:constraintimplamolayer}
 \end{listing}
 
-Es beschreibt, dass jede Komponente in höchstens einer Schicht auftaucht.
-Die Funktion \texttt{atMost} in Zeile 3 ist dabei die in Abschnitt \ref{sec:smtcardinality} erklärte und in Abschnitt \ref{subsec:implCardinality} implementierte
-At-Most-Kodierung.
+Es beschreibt, dass jede Komponente genau einer Schicht zugeordnet wird.
+Die Funktion \texttt{exactly} in Zeile 3 ist dabei die in Abschnitt \ref{sec:smtcardinality} erklärte und in Abschnitt \ref{subsec:implCardinality} implementierte
+Exactly-One-Kodierung.
 
-% TODO: Falls ich undebingt nochmal zeigen will, dass man für die Kodierung eine Gastsprache braucht, dann wäre obiges das perfekte Beispiel an diesem Punkt.
+Zusätzlich zu den Constraints des Modells in Abschnitt \ref{sec:modellierung} muss zusätzlich folgendes Constraint hinzugefügt werden.
 
-\section{Optimierung}
-Incremental Refinement/OMT, Schrittweite
+\begin{listing}[H]
+    \inputminted[linenos=true]{haskell}{Code/Implementierung/ConstraintCompInAmoLayer.hs}
+    \caption{Haskell-Kodierung des Constraints \ref{constraint:eoLayer}}
+    \label{listing:constraintpositivewaste}
+\end{listing}
+
+Im Modell sind die Unbekannten Elemente der Menge $\mathbb{N}_0$.
+In SMTLib repräsentieren die Sorten \texttt{Int} und \texttt{Real} jedoch die Mengen $\mathbb{Z}$ und $\mathbb{R}$.
+Daher muss sichergestellt werden, dass alle Unbekannten nicht-negativ sind.
+Sowohl für Pressenlänge und Pressenhöhe als auch Schichtlänge und Schichthöhe ergibt sich das bereits aus den Constraints in Abschnitt \ref{sec:modellierung}.
+Wie aus Listing \ref{listing:constraintpositivewaste} zu schließen allerdings nicht für den Schichtrest, sodass obiges Constraint hinzugefügt werden muss.
+
+\section{Parallelisierung und Optimierung}
+%Incremental Refinement/OMT, Schrittweite
+% TODO: Das hier könnte man viel schöner als formale Folgerungskette schreiben
+In Abschnitt \ref{sec:optimierung} wurden drei Optimierungsziele genannt.
+Optimierungsziel 1, die Minimierung unverplanter Komponenten ist wie dort bereits beschrieben immer durch einen Pressenplan mit genau null übrigen Komponenten erfüllbar.
+Optimierungsziel 2 ist die Minimierung der Anzahl geplanter Pressen.
+Da erfahrungsgemäß selbst bei den größten Aufträgen höchstens zehn Pressen pro Auftrag geplant werden, gilt also $1 \leq \lvert P \rvert \leq 10$.
+Wird ein Auftrag also zehnmal mit jeweils unterschiedlicher Pressen-Anzahl kodiert, dann enthält eine jener Kodierungen die optimale Belegung.
+Optimal ist jene Belegung in entsprechender Kodierung genau dann, wenn der Gesamtrest unter der Belegung minimal ist (Optimierungsziel 3).
+Das kleinste Optimum des Gesamtrests liegt bestenfalls bei null.
+Durch das Hinzufügen des Constraints $\forall p \in P: 0 = \sum_{l \in \text{layers}(P)} \text{waste}(l)$ zur Kodierung mit der minimalen Pressen-Anzahl
+kann dieses Optimum forciert werden.
+Ist das Problem nach Hinzufügen des Constraints noch immer erfüllbar, dann ist jede erfüllende Belegung des Problems optimal.
+Ein solches zusätzliches Constraint schränkt den Lösungsraum des Problems erheblich ein, sodass die Lösung des Problems durch den Solver wesentlich effizienter wird.
+Hier nicht dokumentierte Testfälle bestätigen diese Annahme.
+
+Allerdings kann nicht garantiert werden, dass es eine Lösung ohne Rest gibt.
+Daher wird ein Auftrag 20 Mal kodiert: Auf zehn verschiedene Pressen-Anzahlen in jeweils zwei Variationen:
+Mit dem extra Constraint, welches den Gesamtrest auf null fixiert und ohne dieses.
+Diese 20 verschiedenen Kodierungen eines Auftrages werden bestenfalls auf 20 verschiedene Kerne einer CPU (oder mehrere) verteilt.
+Die Maschine des Kunden, welcher Germanedge mit dem Pressenplanungsproblem beauftragt hat, verfügt allerdings nur über eine CPU mit acht Kernen.
+Daher wird ein Auftrag mit vier verschiedenen Pressen-Anzahlen kodiert, sodass insgesamt acht Kodierungen des Auftrags entstehen.
+Ein Eingabeparameter $p \in \mathbb{N}^+$ des Programms bestimmt dabei die Mindestanzahl an Pressen.
+Für ein bestimmtes $p$ wird ein Auftrag dann für $p$, $p+1$, $p+2$ und $p+3$ kodiert.
+Dabei könnte offensichtlich die optimale Lösung mit Pressen-Anzahl $p\prime$ verloren gehen, da $p\prime < p \oplus p\prime > p + 3$ gelten könnte.
+Ähnlich wie bei der Ermittlung der maximalen Schichtanzahl pro Presse in Abschnitt \ref{sec:vorverarbeitung} könnte auch hier ein
+(vermutlich linearer) Algorithmus entwickelt werden, der die Mindestanzahl an Pressen ermittelt.
+Da in dieser Arbeit allerdings lediglich ein Prototyp und kein vollständiges Produkt zur optimalen Lösung des Pressenplanungsproblems erarbeitet werden soll,
+wird als Eingabeparameter ein niedriges $p$ basierend auf Germanedge's interner Heuristik gewählt.
+Dennoch kann auch damit teilweise die Optimalität einer Lösung nachgewiesen werden.
+Zum Beispiel, wenn die Kodierung eines Auftrages mit $p$ unerfüllbar und mit $p+1$ erfüllbar ist.
+Dann ist $p+1$ die minimale Pressen-Anzahl.
+
+Symbolisch wird also nur der Gesamtrest optimiert (Optimierungsziel 3).
+Das geschieht entweder durch inkrementelles Verfeinern (SMT) mit der Implementierung aus Abschnitt \ref{subsec:incrementalrefinement} oder durch
+die linearen Optimierungsverfahren von Z3 (OMT).
+Um bei ersterer realistische Verbesserungen der Lösung zu gewährleisten, wird als Schrittweite ein Millimeter der Kodierung verwendet.
+Also $0.001$ Einheiten (Meter) bei Kodierung in der Sorte \texttt{Real} und $1$ Einheit (Millimeter) bei der Kodierung in der Sorte \texttt{Int}.
+Der Aufruf der Optimierungsfunktion aus Abschnitt \ref{subsec:incrementalrefinement} sieht somit folgenderweise aus:
+
+\begin{listing}[H]
+    \inputminted[linenos=true]{haskell}{Code/Implementierung/OptimizationTotalWaste.hs}
+    \caption{Aufruf der Optimierungsfunktion \texttt{solveMinimized} für den Gesamtrest}
+    \label{listing:solveminimized}
+\end{listing}
 
 \section{Benutzerschnittstelle}
 Germanedge's bisherige heuristische Lösung spezifiziert Ein- und Ausgabeformat als CSV.
@@ -144,7 +210,13 @@ Folgend das Lesen eines Auftrages und das Schreiben der Lösungen für diesen:
     \label{listing:cassavaimport}
 \end{listing}
 
-% TODO: CLI und wie/wo Ausgabe
+Der Aufruf des Programms erfolgt über die Kommandozeile mit wenigen Konfigurationsparametern.
+Konfiguriert werden können:
 
-\section{Parallelisierung}
-\label{parallelisierung}
+\begin{itemize}
+    \item Timeout: Maximale Laufzeit des Programms
+    \item Art der Kodierung: \texttt{Int} mit \texttt{QF\_LIA} (\texttt{OpenSMT}), \texttt{Real} mit \texttt{QF\_LRA} (\texttt{OpenSMT}) oder \texttt{BitVec 15 (Unsigned)} mit \texttt{QF\_BV} (\texttt{Bitwuzla})
+    \item Pressen-Anzahl $p$: Kodiert wird dann mit $p$, $p+1$, $p+2$ und $p+3$
+    \item Constraints: Maximaler Gesamtrest, maximaler Rest pro Schicht. Hier könnten optimale Lösungen verloren gehen. Der Kunde wünscht sich diese Parameter dennoch.
+    \item Ausgabe-Verzeichnis: Verzeichnis, in welches die Lösungen der verschiedenen Pressen ausgegeben werden
+\end{itemize}

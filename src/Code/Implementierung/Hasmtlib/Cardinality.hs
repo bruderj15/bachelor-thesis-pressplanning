@@ -9,6 +9,13 @@ atMost 0 = nand
 atMost 1 = amoSqrt
 atMost k = (<=? k) . count
 
+exactly  :: forall t f. (Functor f, Foldable f, KnownSMTSort t
+  , Num (HaskellType t), Ord (HaskellType t))
+  => Expr t -> f (Expr BoolSort) -> Expr BoolSort
+exactly 0 xs = nand xs
+exactly 1 xs = atMost @t 1 xs && or xs
+exactly k xs = count xs === k
+
 -- Pure product-encoding
 amoSqrt :: (Foldable f, Boolean b) => f b -> b
 amoSqrt xs

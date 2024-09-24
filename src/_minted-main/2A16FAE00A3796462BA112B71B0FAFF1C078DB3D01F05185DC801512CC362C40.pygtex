@@ -10,6 +10,13 @@
 \PYG{n+nf}{atMost}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }\PYG{n}{amoSqrt}
 \PYG{n+nf}{atMost}\PYG{+w}{ }\PYG{n}{k}\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }\PYG{p}{(}\PYG{o}{\PYGZlt{}=?}\PYG{+w}{ }\PYG{n}{k}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{.}\PYG{+w}{ }\PYG{n}{count}
 
+\PYG{n+nf}{exactly}\PYG{+w}{  }\PYG{o+ow}{::}\PYG{+w}{ }\PYG{n}{forall}\PYG{+w}{ }\PYG{n}{t}\PYG{+w}{ }\PYG{n}{f}\PYG{o}{.}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{Functor}\PYG{+w}{ }\PYG{n}{f}\PYG{p}{,}\PYG{+w}{ }\PYG{k+kt}{Foldable}\PYG{+w}{ }\PYG{n}{f}\PYG{p}{,}\PYG{+w}{ }\PYG{k+kt}{KnownSMTSort}\PYG{+w}{ }\PYG{n}{t}
+\PYG{+w}{  }\PYG{p}{,}\PYG{+w}{ }\PYG{k+kt}{Num}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{HaskellType}\PYG{+w}{ }\PYG{n}{t}\PYG{p}{),}\PYG{+w}{ }\PYG{k+kt}{Ord}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{HaskellType}\PYG{+w}{ }\PYG{n}{t}\PYG{p}{))}
+\PYG{+w}{  }\PYG{o+ow}{=\PYGZgt{}}\PYG{+w}{ }\PYG{k+kt}{Expr}\PYG{+w}{ }\PYG{n}{t}\PYG{+w}{ }\PYG{o+ow}{\PYGZhy{}\PYGZgt{}}\PYG{+w}{ }\PYG{n}{f}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{Expr}\PYG{+w}{ }\PYG{k+kt}{BoolSort}\PYG{p}{)}\PYG{+w}{ }\PYG{o+ow}{\PYGZhy{}\PYGZgt{}}\PYG{+w}{ }\PYG{k+kt}{Expr}\PYG{+w}{ }\PYG{k+kt}{BoolSort}
+\PYG{n+nf}{exactly}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{+w}{ }\PYG{n}{xs}\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }\PYG{n}{nand}\PYG{+w}{ }\PYG{n}{xs}
+\PYG{n+nf}{exactly}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{+w}{ }\PYG{n}{xs}\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }\PYG{n}{atMost}\PYG{+w}{ }\PYG{o}{@}\PYG{n}{t}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{+w}{ }\PYG{n}{xs}\PYG{+w}{ }\PYG{o}{\PYGZam{}\PYGZam{}}\PYG{+w}{ }\PYG{n}{or}\PYG{+w}{ }\PYG{n}{xs}
+\PYG{n+nf}{exactly}\PYG{+w}{ }\PYG{n}{k}\PYG{+w}{ }\PYG{n}{xs}\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }\PYG{n}{count}\PYG{+w}{ }\PYG{n}{xs}\PYG{+w}{ }\PYG{o}{===}\PYG{+w}{ }\PYG{n}{k}
+
 \PYG{c+c1}{\PYGZhy{}\PYGZhy{} Pure product\PYGZhy{}encoding}
 \PYG{n+nf}{amoSqrt}\PYG{+w}{ }\PYG{o+ow}{::}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{Foldable}\PYG{+w}{ }\PYG{n}{f}\PYG{p}{,}\PYG{+w}{ }\PYG{k+kt}{Boolean}\PYG{+w}{ }\PYG{n}{b}\PYG{p}{)}\PYG{+w}{ }\PYG{o+ow}{=\PYGZgt{}}\PYG{+w}{ }\PYG{n}{f}\PYG{+w}{ }\PYG{n}{b}\PYG{+w}{ }\PYG{o+ow}{\PYGZhy{}\PYGZgt{}}\PYG{+w}{ }\PYG{n}{b}
 \PYG{n+nf}{amoSqrt}\PYG{+w}{ }\PYG{n}{xs}

@@ -1,4 +1,100 @@
-\section{Beispiel 1}
-\vdots
-\section{Beispiel n}
+\section{Vergleich der Kodierung mit realistischem Timeout}
+\begin{landscape}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{|c|c|c|c|l|c|c|c|c|c|c|c|c|c|}
+            \hline
+            \multicolumn{3}{|c|}{\textbf{Eingabe}} & \multicolumn{6}{|c|}{\textbf{Problem}} & \multicolumn{5}{|c|}{\textbf{Lösung}} \\
+            \hline
+            \textbf{Instanz} & \textbf{$\lvert C \rvert$} & \textbf{$\lvert C_{Spec} \rvert$} & \textbf{Typ} & \textbf{Kodierung} & \textbf{Solver} & \textbf{Größe} & \textbf{\#$\mathbb{B}$} & \textbf{\#$\mathbb{Z}$} & \textbf{Zeit in s} & \textbf{$\lvert C_{Not} \rvert$} & \textbf{$\lvert P \rvert$} & \textbf{Rest in mm} & \textbf{Zertifikat} \\
+            \hline
+            \multirow{4}{*}{1 (Trivial)} & \multirow{4}{*}{15} & \multirow{4}{*}{1} & SMT & QF\_LRA & OpenSMT & ?? & ?? & ?? & 1 & 0 & 1 & 0 & Optimal \\
+            & & & SMT & QF\_LIA & OpenSMT & ?? & ?? & ?? & 1 & 0 & 1 & 0 & Optimal \\
+            & & & OMT & QF\_LRA & Z3 & ?? & ?? & ?? & ?? & ?? & ?? & ?? & ?? \\
+            & & & OMT & QF\_LIA & Z3 & ?? & ?? & ?? & ?? & ?? & ?? & ?? & ?? \\
+            \hline
+            \multirow{4}{*}{2 (Simple)} & \multirow{4}{*}{20} & \multirow{4}{*}{2} & SMT & QF\_LRA & OpenSMT & ?? & ?? & ?? & 18 & 0 & 1 & 0 & Optimal \\
+            & & & SMT & QF\_LIA & OpenSMT & ?? & ?? & ?? & 10 & 0 & 1 & 0 & Optimal \\
+            & & & OMT & QF\_LRA & Z3 & ?? & ?? & ?? & ?? & ?? & ?? & ?? & ?? \\
+            & & & OMT & QF\_LIA & Z3 & ?? & ?? & ?? & ?? & ?? & ?? & ?? & ?? \\
+            \hline
+            \multirow{4}{*}{3 (Simple 2)} & \multirow{4}{*}{40} & \multirow{4}{*}{2} & SMT & QF\_LRA & OpenSMT & ?? & ?? & ?? & 49 & 0 & 1 & 0 & Optimal \\
+            & & & SMT & QF\_LIA & OpenSMT & ?? & ?? & ?? & 50 & 0 & 1 & 0 & Optimal \\
+            & & & OMT & QF\_LRA & Z3 & ?? & ?? & ?? & ?? & ?? & ?? & ?? & ?? \\
+            & & & OMT & QF\_LIA & Z3 & ?? & ?? & ?? & ?? & ?? & ?? & ?? & ?? \\
+            \hline
+            \multirow{4}{*}{4 (Small)} & \multirow{4}{*}{27} & \multirow{4}{*}{6} & SMT & QF\_LRA & OpenSMT & ?? & ?? & ?? & TO & 0 & 3 & 298 & Nein \\
+            & & & SMT & QF\_LIA & OpenSMT & ?? & ?? & ?? & TO & 0 & 3 & 298 & Nein \\
+            & & & OMT & QF\_LRA & Z3 & ?? & ?? & ?? & ?? & ?? & ?? & ?? & ?? \\
+            & & & OMT & QF\_LIA & Z3 & ?? & ?? & ?? & ?? & ?? & ?? & ?? & ?? \\
+            \hline
+            \multirow{4}{*}{5 (Optimal)} & \multirow{4}{*}{41} & \multirow{4}{*}{6} & SMT & QF\_LRA & OpenSMT & ?? & ?? & ?? & 2 & 0 & 1 & 0 & Optimal \\
+            & & & SMT & QF\_LIA & OpenSMT & ?? & ?? & ?? & 1 & 0 & 1 & 0 & Optimal \\
+            & & & OMT & QF\_LRA & Z3 & ?? & ?? & ?? & ?? & ?? & ?? & ?? & ?? \\
+            & & & OMT & QF\_LIA & Z3 & ?? & ?? & ?? & ?? & ?? & ?? & ?? & ?? \\
+            \hline
+            \multirow{4}{*}{6 (Optimal 2)} & \multirow{4}{*}{82} & \multirow{4}{*}{6} & SMT & QF\_LRA & OpenSMT & ?? & ?? & ?? & TO & 0 & 2 & 58034 & Nein \\
+            & & & SMT & QF\_LIA & OpenSMT & ?? & ?? & ?? & TO & 0 & 2 & 6000 & Nein \\
+            & & & OMT & QF\_LRA & Z3 & ?? & ?? & ?? & ?? & ?? & ?? & ?? & ?? \\
+            & & & OMT & QF\_LIA & Z3 & ?? & ?? & ?? & ?? & ?? & ?? & ?? & ?? \\
+            \hline % p = 2
+            \multirow{4}{*}{7 (2082510)} & \multirow{4}{*}{39} & \multirow{4}{*}{8} & SMT & QF\_LRA & OpenSMT & ?? & ?? & ?? & TO & 0 & 4 & 16114 & Nein \\
+            & & & SMT & QF\_LIA & OpenSMT & ?? & ?? & ?? & TO & 0 & 4 & 5359 & Nein \\
+            & & & OMT & QF\_LRA & Z3 & ?? & ?? & ?? & ?? & ?? & ?? & ?? & ?? \\
+            & & & OMT & QF\_LIA & Z3 & ?? & ?? & ?? & ?? & ?? & ?? & ?? & ?? \\
+            \hline % p = 2
+            \multirow{4}{*}{8 (2082539)} & \multirow{4}{*}{82} & \multirow{4}{*}{6} & SMT & QF\_LRA & OpenSMT & ?? & ?? & ?? & TO & 0 & 2 & 13600 & Nein \\
+            & & & SMT & QF\_LIA & OpenSMT & ?? & ?? & ?? & TO & 0 & 2 & 14996 & Nein \\
+            & & & OMT & QF\_LRA & Z3 & ?? & ?? & ?? & ?? & ?? & ?? & ?? & ?? \\
+            & & & OMT & QF\_LIA & Z3 & ?? & ?? & ?? & ?? & ?? & ?? & ?? & ?? \\
+            \hline % p = 7
+            \multirow{4}{*}{9 (2082518)} & \multirow{4}{*}{103} & \multirow{4}{*}{10} & SMT & QF\_LRA & OpenSMT & ?? & ?? & ?? & TO & 0 & 8 & 83362 & Nein \\
+            & & & SMT & QF\_LIA & OpenSMT & ?? & ?? & ?? & TO & 0 & 8 & 83363 & Nein \\
+            & & & OMT & QF\_LRA & Z3 & ?? & ?? & ?? & ?? & ?? & ?? & ?? & ?? \\
+            & & & OMT & QF\_LIA & Z3 & ?? & ?? & ?? & ?? & ?? & ?? & ?? & ?? \\
+            \hline
+        \end{tabular}
+        \caption{Vergleich verschiedener Kodierungen und Solver}
+        \label{tab:vglkodierungreal}
+    \end{table}
+\end{landscape}
 
+\section{Vergleich der Kodierung mit liberalem Timeout}
+\begin{landscape}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{|c|c|c|c|l|c|c|c|c|c|c|c|c|c|}
+            \hline
+            \multicolumn{3}{|c|}{\textbf{Eingabe}} & \multicolumn{6}{|c|}{\textbf{Problem}} & \multicolumn{5}{|c|}{\textbf{Lösung}} \\
+            \hline
+            \textbf{Instanz} & \textbf{$\lvert C \rvert$} & \textbf{$\lvert C_{Spec} \rvert$} & \textbf{Typ} & \textbf{Kodierung} & \textbf{Solver} & \textbf{Größe} & \textbf{\#$\mathbb{B}$} & \textbf{\#$\mathbb{Z}$} & \textbf{Zeit in s} & \textbf{$\lvert C_{Not} \rvert$} & \textbf{$\lvert P \rvert$} & \textbf{Rest in mm} & \textbf{Zertifikat} \\
+            \hline
+%            \multirow{4}{*}{4 (Small)} & \multirow{4}{*}{27} & \multirow{4}{*}{6} & SMT & QF\_LRA & OpenSMT & ?? & ?? & ?? & TO & 0 & 3 & 298 & Nein \\
+%            & & & SMT & QF\_LIA & OpenSMT & ?? & ?? & ?? & TO & 0 & 3 & 298 & Nein \\
+%            & & & OMT & QF\_LRA & Z3 & ?? & ?? & ?? & ?? & ?? & ?? & ?? & ?? \\
+%            & & & OMT & QF\_LIA & Z3 & ?? & ?? & ?? & ?? & ?? & ?? & ?? & ?? \\
+            \hline
+            5 (Optimal 2) & 82 & 6 & SMT & QF\_LIA & OpenSMT & ?? & ?? & ?? & 668 & 0 & 2 & 0 & Optimal \\
+%            & & & OMT & QF\_LRA & Z3 & ?? & ?? & ?? & ?? & ?? & ?? & ?? & ?? \\
+%            & & & OMT & QF\_LIA & Z3 & ?? & ?? & ?? & ?? & ?? & ?? & ?? & ?? \\
+            \hline
+%            \multirow{4}{*}{6 (2082510)} & \multirow{4}{*}{39} & \multirow{4}{*}{8} & SMT & QF\_LRA & OpenSMT & ?? & ?? & ?? & TO & 0 & 4 & 16114 & Nein \\
+%            & & & SMT & QF\_LIA & OpenSMT & ?? & ?? & ?? & TO & - & - & - & - \\
+%            & & & OMT & QF\_LRA & Z3 & ?? & ?? & ?? & ?? & ?? & ?? & ?? & ?? \\
+%            & & & OMT & QF\_LIA & Z3 & ?? & ?? & ?? & ?? & ?? & ?? & ?? & ?? \\
+            \hline
+%            \multirow{4}{*}{7 (2082539)} & \multirow{4}{*}{82} & \multirow{4}{*}{6} & SMT & QF\_LRA & OpenSMT & ?? & ?? & ?? & TO & 0 & 3 & 19000 & Nein \\
+%            & & & SMT & QF\_LIA & OpenSMT & ?? & ?? & ?? & TO & 0 & 3 & 17900 & Nein \\
+%            & & & OMT & QF\_LRA & Z3 & ?? & ?? & ?? & ?? & ?? & ?? & ?? & ?? \\
+%            & & & OMT & QF\_LIA & Z3 & ?? & ?? & ?? & ?? & ?? & ?? & ?? & ?? \\
+            \hline
+%            \multirow{4}{*}{7 (2082539)} & \multirow{4}{*}{103} & \multirow{4}{*}{10} & SMT & QF\_LRA & OpenSMT & ?? & ?? & ?? & TO & 0 & 3 & 19000 & Nein \\
+%            & & & SMT & QF\_LIA & OpenSMT & ?? & ?? & ?? & TO & 0 & 3 & 17900 & Nein \\
+%            & & & OMT & QF\_LRA & Z3 & ?? & ?? & ?? & ?? & ?? & ?? & ?? & ?? \\
+%            & & & OMT & QF\_LIA & Z3 & ?? & ?? & ?? & ?? & ?? & ?? & ?? & ?? \\
+            \hline
+        \end{tabular}
+        \caption{Vergleich verschiedener Kodierungen und Solver}
+        \label{tab:vglkodierungliberal}
+    \end{table}
+\end{landscape}

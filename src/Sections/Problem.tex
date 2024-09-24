@@ -183,7 +183,7 @@ Die Anforderungen an einen Presseplan werden damit folgend realisiert:
     & \forall p \in P: \text{minLength}(p) \leq \text{length}(p) \leq \text{maxLength}(p) \label{constraint:pressLength} \\[10pt]
     & \forall p \in P,\; \forall l \in \text{layers}(P): \neg \text{isEmpty}(l) \rightarrow \text{length}(p) = \text{length}(l) \label{constraint:layerLength} \\[10pt]
     & \forall c \in C,\; \forall l \in L: \text{InLayer}(c,l) \rightarrow \text{height}(c) = \text{height}(l) \label{constraint:layerHeight} \\[10pt]
-    & \forall c \in C: \text{atMost}(1,\{ \text{InLayer}(c,l) \mid l \in L \}) \label{constraint:amoLayer} \\[10pt]
+    & \forall c \in C: \text{exactly}(1,\{ \text{InLayer}(c,l) \mid l \in L \}) \label{constraint:eoLayer} \\[10pt]
     & \forall l \in L: \text{isEmpty}(l) \leftrightarrow \neg\bigvee_{c \in C} \text{InLayer}(c,l) \label{constraint:emptyLayer1} \\[10pt]
     & \forall l \in L: \text{isEmpty}(l) \leftrightarrow (\text{length}(l) = 0 \land \text{height}(l) = 0) \label{constraint:emptyLayer2} \\[10pt]
     & \forall p \in P: \text{height}(p) = \sum_{\substack{l \in \text{layers}(P)}} \text{height}(l) \label{constraint:computePressHeight} \\[10pt]
@@ -195,7 +195,7 @@ Die Anforderungen an einen Presseplan werden damit folgend realisiert:
 \end{align}
 Constraint \ref{constraint:pressHeight} erfüllt Anforderung 1 aus Abschnitt \ref{sec:anforderungen}, während Constraint \ref{constraint:pressLength} Anforderung 2 erfüllt.
 Anforderung 3 wird durch Constraint \ref{constraint:layerLength} und Anforderung 4 durch Constraint \ref{constraint:layerHeight} abgedeckt.
-Weiter erfüllt Constraint \ref{constraint:amoLayer} Anforderung 5.
+Constraint \ref{constraint:eoLayer} verhärtet Anforderung 5 aus Optimierungszwecken, siehe Abschnitt \ref{sec:optimierung}.
 Anforderung 6 ist in diesem Modell mehr Konstruktionsvorschrift als Constraint und ergibt sich aus \ref{constraint:disjointLayers}.
 Die Constraints \ref{constraint:emptyLayer1} und \ref{constraint:emptyLayer2} definieren, wann eine Presse leer ist.
 Constraints \ref{constraint:computePressHeight} und \ref{constraint:computeLayerLength} liefern die Definition für Pressenhöhe und Schichtlänge.
@@ -209,3 +209,8 @@ Um den Kostenaufwand beim Pressen zu reduzieren, sind Pressenpläne zusätzlich 
     \item $ \min (\lvert P \rvert) $
     \item $ \min \left(\sum\limits_{\substack{l \in L}} \text{waste}(l) \right) $
 \end{enumerate}
+
+Bei Ziel 1, der Minimierung der Anzahl unverplanter Komponenten ist das Optimum immer Null.
+Für jede Eingabe an Bauteilen existiert eine Lösung, bei welcher alle Bauteile verplant werden.
+Der Beweis dafür ist Hausaufgabe für den Leser. % TODO: Naja, bestenfalls schreib ich den hier noch hin!
+Diese Optimierung ist mit Constraint \ref{constraint:eoLayer} bereits im Modell festgehalten.
