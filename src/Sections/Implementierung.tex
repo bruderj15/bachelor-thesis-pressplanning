@@ -138,7 +138,7 @@ Es beschreibt, dass jede Komponente genau einer Schicht zugeordnet wird.
 Die Funktion \texttt{exactly} in Zeile 3 ist dabei die in Abschnitt \ref{sec:smtcardinality} erklärte und in Abschnitt \ref{subsec:implCardinality} implementierte
 Exactly-One-Kodierung.
 
-Zusätzlich zu den Constraints des Modells in Abschnitt \ref{sec:modellierung} muss zusätzlich folgendes Constraint hinzugefügt werden.
+Zusätzlich zu den Constraints des Modells in Abschnitt \ref{sec:modellierung} muss folgendes Constraint hinzugefügt werden.
 
 \begin{listing}[H]
     \inputminted[linenos=true]{haskell}{Code/Implementierung/ConstraintCompInAmoLayer.hs}
@@ -202,13 +202,6 @@ Der Aufruf der Optimierungsfunktion aus Abschnitt \ref{subsec:incrementalrefinem
 Germanedge's bisherige heuristische Lösung spezifiziert Ein- und Ausgabeformat als CSV.
 Diese Spezifikation wird hier ebenfalls implementiert.
 Dazu wird die Haskell-Bibliothek \texttt{cassava} \cite{cassava} verwendet.
-Folgend das Lesen eines Auftrages und das Schreiben der Lösungen für diesen:
-
-\begin{listing}[H]
-    \inputminted[linenos=true]{haskell}{Code/Implementierung/CassavaImport.hs}
-    \caption{CSV-Verarbeitung mithilfe der Haskell-Bibliothek \texttt{cassava}}
-    \label{listing:cassavaimport}
-\end{listing}
 
 Der Aufruf des Programms erfolgt über die Kommandozeile mit wenigen Konfigurationsparametern.
 Konfiguriert werden können:

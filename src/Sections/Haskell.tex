@@ -97,7 +97,7 @@ SMT-Solver haben einen Incremental-Stack, welcher die Wiederverwendung von berei
 sodass \textit{Incremental Refinement} wesentlich effizienter als das Starten eines neuen Solver-Prozesses für jede Verfeinerung ist \cite{incremental}.
 
 Im Rahmen dieser Arbeit wird \texttt{Hasmtlib} daher um eine solche Optimierungsschleife folgend erweitert:
-
+% TODO: Mittlerweile erweitert, sollte vermutlich lieber in Appendix, weil lang
 \begin{listing}[H]
     \inputminted[linenos=true]{haskell}{Code/Implementierung/Hasmtlib/IncrementalRefinement.hs}
     \caption{Incremental Refinement in \texttt{Hasmtlib} \cite{hasmtlibCardinality}}
