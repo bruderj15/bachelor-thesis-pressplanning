@@ -1,12 +1,20 @@
 \section{Vergleich der Kodierung mit realistischem Timeout}
 \begin{landscape}
-    \begin{table}[H]
-        \centering
-        \begin{tabular}{|c|c|c|c|c|l|c|c|c|c|c|c|c|c|c|c|}
+    \begin{longtable}{|c|c|c|c|c|l|c|c|c|c|c|c|c|c|c|c|}
             \hline
-            \multicolumn{4}{|c|}{\textbf{Eingabe}} & \multicolumn{7}{|c|}{\textbf{Problem}} & \multicolumn{5}{|c|}{\textbf{Lösung}} \\
+            \multicolumn{4}{|c|}{\textbf{Eingabe}} & \multicolumn{7}{c|}{\textbf{Problem}} & \multicolumn{5}{c|}{\textbf{Lösung}} \\
             \hline
             \textbf{Nr.} & \textbf{Name} & \textbf{$\lvert C \rvert$} & \textbf{$\lvert C_{Spec} \rvert$} & \textbf{Typ} & \textbf{Kod.} & \textbf{Solver} & \textbf{$p$} & \textbf{Größe} & \textbf{\#$\mathbb{B}$} & \textbf{\#$\mathbb{Z}$} & \textbf{Zeit in s} & \textbf{$\lvert C_{Not} \rvert$} & \textbf{$\lvert P \rvert$} & \textbf{Rest in mm} & \textbf{Zert.} \\
+            \hline
+            \endfirsthead
+
+            \hline
+            \multicolumn{4}{|c|}{\textbf{Eingabe}} & \multicolumn{7}{c|}{\textbf{Problem}} & \multicolumn{5}{c|}{\textbf{Lösung}} \\
+            \hline
+            \textbf{Nr.} & \textbf{Name} & \textbf{$\lvert C \rvert$} & \textbf{$\lvert C_{Spec} \rvert$} & \textbf{Typ} & \textbf{Kod.} & \textbf{Solver} & \textbf{$p$} & \textbf{Größe} & \textbf{\#$\mathbb{B}$} & \textbf{\#$\mathbb{Z}$} & \textbf{Zeit in s} & \textbf{$\lvert C_{Not} \rvert$} & \textbf{$\lvert P \rvert$} & \textbf{Rest in mm} & \textbf{Zert.} \\
+            \hline
+            \endhead
+
             \hline
             \multirow{3}{*}{1} & \multirow{3}{*}{Trivial} & \multirow{3}{*}{15} & \multirow{3}{*}{1} & SMT & QF\_LRA & OpenSMT & \multirow{3}{*}{1} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & 1 & \multirow{3}{*}{0} & 1 & 0 & \cmark \\
             & & & & SMT & QF\_LIA & OpenSMT & & & & & 1 & & 1 & 0 & \cmark \\
@@ -89,8 +97,7 @@
             & & & & SMT & QF\_LIA & OpenSMT & & & & & ?? & & ?? & ?? & ?? \\
             & & & & OMT & QF\_LIA & Z3 & & & & & ?? & & ?? & ?? & ?? \\
             \hline
-        \end{tabular}
-        \caption{Vergleich verschiedener Kodierungen und Solver}
+        \caption{Vergleich Kodierungen mit Timeout nach 10 Minuten}
         \label{tab:vglkodierungreal}
-    \end{table}
+    \end{longtable}
 \end{landscape}
