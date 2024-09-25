@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{noSpareComponents}\PYG{+w}{ }\PYG{o+ow}{::}\PYG{+w}{ }\PYG{n}{forall}\PYG{+w}{ }\PYG{n}{t}\PYG{o}{.}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{Orderable}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{Expr}\PYG{+w}{ }\PYG{n}{t}\PYG{p}{),}\PYG{+w}{ }\PYG{k+kt}{Num}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{Expr}\PYG{+w}{ }\PYG{n}{t}\PYG{p}{))}
+\PYG{+w}{  }\PYG{o+ow}{=\PYGZgt{}}\PYG{+w}{ }\PYG{k+kt}{PressPlan}\PYG{+w}{ }\PYG{n}{t}\PYG{+w}{ }\PYG{o+ow}{\PYGZhy{}\PYGZgt{}}\PYG{+w}{ }\PYG{k+kt}{Expr}\PYG{+w}{ }\PYG{k+kt}{BoolSort}
+\PYG{n+nf}{noSpareComponents}\PYG{+w}{ }\PYG{n}{pp}\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }\PYG{n}{all}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{exactly}\PYG{+w}{ }\PYG{o}{@}\PYG{n}{t}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{+w}{ }\PYG{o}{.}\PYG{+w}{ }\PYG{n}{image}\PYG{+w}{ }\PYG{n}{rel}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{domain}\PYG{+w}{ }\PYG{n}{rel}\PYG{p}{)}
+\PYG{+w}{  }\PYG{k+kr}{where}
+\PYG{+w}{    }\PYG{n}{rel}\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }\PYG{n}{pp}\PYG{o}{\PYGZca{}.}\PYG{n}{inLayer}
+\end{Verbatim}

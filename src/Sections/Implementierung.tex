@@ -153,7 +153,6 @@ Sowohl für Pressenlänge und Pressenhöhe als auch Schichtlänge und Schichthö
 Wie aus Listing \ref{listing:constraintpositivewaste} zu schließen allerdings nicht für den Schichtrest, sodass obiges Constraint hinzugefügt werden muss.
 
 \section{Parallelisierung und Optimierung}
-%Incremental Refinement/OMT, Schrittweite
 % TODO: Das hier könnte man viel schöner als formale Folgerungskette schreiben
 In Abschnitt \ref{sec:optimierung} wurden drei Optimierungsziele genannt.
 Optimierungsziel 1, die Minimierung unverplanter Komponenten ist wie dort bereits beschrieben immer durch einen Pressenplan mit genau null übrigen Komponenten erfüllbar.
@@ -162,7 +161,7 @@ Da erfahrungsgemäß selbst bei den größten Aufträgen höchstens zehn Pressen
 Wird ein Auftrag also zehnmal mit jeweils unterschiedlicher Pressen-Anzahl kodiert, dann enthält eine jener Kodierungen die optimale Belegung.
 Optimal ist jene Belegung in entsprechender Kodierung genau dann, wenn der Gesamtrest unter der Belegung minimal ist (Optimierungsziel 3).
 Das kleinste Optimum des Gesamtrests liegt bestenfalls bei null.
-Durch das Hinzufügen des Constraints $\forall p \in P: 0 = \sum_{l \in \text{layers}(P)} \text{waste}(l)$ zur Kodierung mit der minimalen Pressen-Anzahl
+Durch das Hinzufügen des Constraints $0 = \sum_{l \in L} \text{waste}(l)$ zur Kodierung mit der minimalen Pressen-Anzahl
 kann dieses Optimum forciert werden.
 Ist das Problem nach Hinzufügen des Constraints noch immer erfüllbar, dann ist jede erfüllende Belegung des Problems optimal.
 Ein solches zusätzliches Constraint schränkt den Lösungsraum des Problems erheblich ein, sodass die Lösung des Problems durch den Solver wesentlich effizienter wird.

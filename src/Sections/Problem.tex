@@ -116,7 +116,7 @@ Weiter werden boolesche als auch arithmetische Operatoren vorausgesetzt und in d
 
 \[
     \begin{aligned}
-        \text{Folgend die Signatur } \Sigma = \left( \Sigma_{F}^{P} \cup \Sigma_{F}^{L} \cup \Sigma_{F}^{C}, \Sigma_{R} \right) \text{ mit Variablen } \mathbb{X} = \mathbb{X}^{P} \cup \mathbb{X}^{L} \cup \mathbb{X}^{C} \cup \mathbb{X}^{InLayer}  \\[5pt]
+        \text{Folgend die Signatur } \Sigma = \left( \Sigma_{F}^{P} \cup \Sigma_{F}^{L} \cup \Sigma_{F}^{C}, \Sigma_{R} \right) \text{ mit Variablen } \mathbb{X} = \mathbb{X}_{P} \cup \mathbb{X}_{L} \cup \mathbb{X}_{C} \cup \mathbb{X}_{InLayer}  \\[5pt]
             \begin{array}{ll}
                 \begin{aligned}
                     \Sigma_{F}^{P} = \left\{
@@ -133,7 +133,7 @@ Weiter werden boolesche als auch arithmetische Operatoren vorausgesetzt und in d
                 \end{aligned}
                 &
                 \begin{aligned}
-                    \mathbb{X}^{P} &= \bigcup_{p \in P} \left\{\text{length}(p), \text{height}(p) \right\} \\
+                    \mathbb{X}_{P} &= \bigcup_{p \in P} \left\{\text{length}(p), \text{height}(p) \right\} \\
                 \end{aligned}
                 \\
                 \begin{aligned}
@@ -148,7 +148,7 @@ Weiter werden boolesche als auch arithmetische Operatoren vorausgesetzt und in d
                 \end{aligned}
                 &
                 \begin{aligned}
-                    \mathbb{X}^{L} &= \bigcup_{l \in L} \left\{\text{length}(l), \text{height}(l), \text{waste}(l), \text{isEmpty}(l)\right\} \\
+                    \mathbb{X}_{L} &= \bigcup_{l \in L} \left\{\text{length}(l), \text{height}(l), \text{waste}(l), \text{isEmpty}(l)\right\} \\
                 \end{aligned}
                 \\
                 \begin{aligned}
@@ -160,7 +160,7 @@ Weiter werden boolesche als auch arithmetische Operatoren vorausgesetzt und in d
                 \end{aligned}
                 &
                 \begin{aligned}
-                    \mathbb{X}^{C} &= \emptyset \\
+                    \mathbb{X}_{C} &= \emptyset \\
                 \end{aligned}
                 \\[10pt]
                 \begin{aligned}
@@ -171,7 +171,7 @@ Weiter werden boolesche als auch arithmetische Operatoren vorausgesetzt und in d
                 \end{aligned}
                 &
                 \begin{aligned}
-                    \mathbb{X}^{\text{InLayer}} &= \text{InLayer} \\
+                    \mathbb{X}_{\text{InLayer}} &= \text{InLayer} \\
                 \end{aligned}
             \end{array}\\[5pt]
     \end{aligned}
@@ -199,6 +199,12 @@ Constraint \ref{constraint:eoLayer} verhärtet Anforderung 5 aus Optimierungszwe
 Anforderung 6 ist in diesem Modell mehr Konstruktionsvorschrift als Constraint und ergibt sich aus \ref{constraint:disjointLayers}.
 Die Constraints \ref{constraint:emptyLayer1} und \ref{constraint:emptyLayer2} definieren, wann eine Presse leer ist.
 Constraints \ref{constraint:computePressHeight} und \ref{constraint:computeLayerLength} liefern die Definition für Pressenhöhe und Schichtlänge.
+
+Wird anstelle der Quantifizierung im Modell grundinstanziiert, dann beträgt die Anzahl numerischer Unbekannter
+$\lvert \mathbb{X}_{\mathbb{N}_0} \rvert = 2 \lvert P \rvert + 3 \lvert L \rvert$ und die Anzahl boolescher Unbekannter
+$\lvert \mathbb{X}_{\mathbb{B}} \rvert = \lvert L \rvert + \lvert C \rvert \cdot \lvert L \rvert$.
+Die Anzahl Unbekannter steigt also linear in Abhängigkeit zur Eingabe.
+Das gilt offensichtlich auch für Anzahl und Größe der Constraints.
 
 \section{Optimierung}
 \label{sec:optimierung}
