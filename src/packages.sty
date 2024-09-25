@@ -98,6 +98,12 @@
 \usepackage{textcomp}   % Used in the package "gensymb" (below), which will give warnings if "textcomp" is not imported in advance
 \usepackage{gensymb}    % Adds extra generic symbols for math and text mode, e.g. \degree
 
+% Custom commands for green ticks and red crosses
+\usepackage{pifont} % For tick and cross symbols
+\usepackage{xcolor} % For custom colors
+\newcommand{\cmark}{\textcolor{green}{\ding{51}}} % Green checkmark
+\newcommand{\xmark}{\textcolor{red}{\ding{55}}}   % Red cross
+
 % --- Main matter ---
 % This is the main part of the paper.
 \newcommand{\mainmatter}{
