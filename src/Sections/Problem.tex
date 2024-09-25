@@ -217,6 +217,8 @@ Um den Kostenaufwand beim Pressen zu reduzieren, sind Pressenpläne zusätzlich 
 \end{enumerate}
 
 Bei Ziel 1, der Minimierung der Anzahl unverplanter Komponenten ist das Optimum immer Null.
-Für jede Eingabe an Bauteilen existiert eine Lösung, bei welcher alle Bauteile verplant werden.
-Der Beweis dafür ist Hausaufgabe für den Leser. % TODO: Naja, bestenfalls schreib ich den hier noch hin!
-Diese Optimierung ist mit Constraint \ref{constraint:eoLayer} bereits im Modell festgehalten.
+Für jeden Auftrag existiert ein Pressenplan, bei welchem alle Bauteile verplant sind.
+Der Beweis ist trivial, da für jedes Bauteil des Auftrages eine eigene Presse geplant werden kann, welche so mit Rest aufgefüllt wird,
+dass deren Mindestanforderungen an Länge und Höhe erfüllt werden.
+Die Verplanung aller Bauteile ist mit Constraint \ref{constraint:eoLayer} bereits im Modell festgehalten, sodass alle erfüllenden Belegungen des Modells
+bezüglich Optimierungsziel 1 optimal sind.
