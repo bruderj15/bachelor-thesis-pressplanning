@@ -8,40 +8,85 @@
             \hline
             \textbf{Nr.} & \textbf{Name} & \textbf{$\lvert C \rvert$} & \textbf{$\lvert C_{Spec} \rvert$} & \textbf{Typ} & \textbf{Kod.} & \textbf{Solver} & \textbf{$p$} & \textbf{Größe} & \textbf{\#$\mathbb{B}$} & \textbf{\#$\mathbb{Z}$} & \textbf{Zeit in s} & \textbf{$\lvert C_{Not} \rvert$} & \textbf{$\lvert P \rvert$} & \textbf{Rest in mm} & \textbf{Zert.} \\
             \hline
-            \multirow{3}{*}{1} & \multirow{3}{*}{Trivial} & \multirow{3}{*}{15} & \multirow{3}{*}{1} & SMT & QF\_LRA & OpenSMT & \multirow{3}{*}{??} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & 1 & \multirow{3}{*}{0} & 1 & 0 & \cmark \\
+            \multirow{3}{*}{1} & \multirow{3}{*}{Trivial} & \multirow{3}{*}{15} & \multirow{3}{*}{1} & SMT & QF\_LRA & OpenSMT & \multirow{3}{*}{1} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & 1 & \multirow{3}{*}{0} & 1 & 0 & \cmark \\
             & & & & SMT & QF\_LIA & OpenSMT & & & & & 1 & & 1 & 0 & \cmark \\
             & & & & OMT & QF\_LIA & Z3 & & & & & ?? & & ?? & ?? & ?? \\
             \hline
-            \multirow{3}{*}{2} & \multirow{3}{*}{Simple} & \multirow{3}{*}{20} & \multirow{3}{*}{2} & SMT & QF\_LRA & OpenSMT & \multirow{3}{*}{??} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & 18 & \multirow{3}{*}{0} & 1 & 0 & \cmark \\
+            \multirow{3}{*}{2} & \multirow{3}{*}{Simple} & \multirow{3}{*}{20} & \multirow{3}{*}{2} & SMT & QF\_LRA & OpenSMT & \multirow{3}{*}{1} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & 18 & \multirow{3}{*}{0} & 1 & 0 & \cmark \\
             & & & & SMT & QF\_LIA & OpenSMT & & & & & 10 & & 1 & 0 & \cmark \\
             & & & & OMT & QF\_LIA & Z3 & & & & & ?? & & ?? & ?? & ?? \\
             \hline
-            \multirow{3}{*}{3} & \multirow{3}{*}{Simple2} & \multirow{3}{*}{40} & \multirow{3}{*}{2} & SMT & QF\_LRA & OpenSMT & \multirow{3}{*}{??} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & 49 & \multirow{3}{*}{0} & 1 & 0 & \cmark \\
+            \multirow{3}{*}{3} & \multirow{3}{*}{Simple2} & \multirow{3}{*}{40} & \multirow{3}{*}{2} & SMT & QF\_LRA & OpenSMT & \multirow{3}{*}{1} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & 49 & \multirow{3}{*}{0} & 1 & 0 & \cmark \\
             & & & & SMT & QF\_LIA & OpenSMT & & & & & 50 & & 1 & 0 & \cmark \\
             & & & & OMT & QF\_LIA & Z3 & & & & & ?? & & ?? & ?? & ?? \\
             \hline
-            \multirow{3}{*}{4} & \multirow{3}{*}{Small} & \multirow{3}{*}{27} & \multirow{3}{*}{6} & SMT & QF\_LRA & OpenSMT & \multirow{3}{*}{??} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & TO & \multirow{3}{*}{0} & 3 & 298 & \xmark \\
+            \multirow{3}{*}{4} & \multirow{3}{*}{Small} & \multirow{3}{*}{27} & \multirow{3}{*}{6} & SMT & QF\_LRA & OpenSMT & \multirow{3}{*}{1} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & TO & \multirow{3}{*}{0} & 3 & 298 & \xmark \\
             & & & & SMT & QF\_LIA & OpenSMT & & & & & TO & & 3 & 298 & \xmark \\
             & & & & OMT & QF\_LIA & Z3 & & & & & ?? & & ?? & ?? & ?? \\
             \hline
-            \multirow{3}{*}{5} & \multirow{3}{*}{Optimal} & \multirow{3}{*}{41} & \multirow{3}{*}{6} & SMT & QF\_LRA & OpenSMT & \multirow{3}{*}{??} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & 2 & \multirow{3}{*}{0} & 1 & 0 & \cmark \\
+            \multirow{3}{*}{5} & \multirow{3}{*}{Optimal} & \multirow{3}{*}{41} & \multirow{3}{*}{6} & SMT & QF\_LRA & OpenSMT & \multirow{3}{*}{1} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & 2 & \multirow{3}{*}{0} & 1 & 0 & \cmark \\
             & & & & SMT & QF\_LIA & OpenSMT & & & & & 1 & & 1 & 0 & \cmark \\
             & & & & OMT & QF\_LIA & Z3 & & & & & ?? & & ?? & ?? & ?? \\
             \hline
-            \multirow{3}{*}{6} & \multirow{3}{*}{Optimal2} & \multirow{3}{*}{82} & \multirow{3}{*}{6} & SMT & QF\_LRA & OpenSMT & \multirow{3}{*}{??} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & TO & \multirow{3}{*}{0} & 2 & 58034 & \xmark \\
+            \multirow{3}{*}{6} & \multirow{3}{*}{Optimal2} & \multirow{3}{*}{82} & \multirow{3}{*}{6} & SMT & QF\_LRA & OpenSMT & \multirow{3}{*}{1} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & TO & \multirow{3}{*}{0} & 2 & 58034 & \xmark \\
             & & & & SMT & QF\_LIA & OpenSMT & & & & & TO & & 2 & 6000 & \xmark \\
             & & & & OMT & QF\_LIA & Z3 & & & & & ?? & & ?? & ?? & ?? \\
-            \hline % p = 2
-            \multirow{3}{*}{7} & \multirow{3}{*}{2082510} & \multirow{3}{*}{39} & \multirow{3}{*}{8} & SMT & QF\_LRA & OpenSMT & \multirow{3}{*}{??} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & TO & \multirow{3}{*}{0} & 4 & 16114 & \xmark \\
+            \hline
+            \multirow{3}{*}{7} & \multirow{3}{*}{2082510} & \multirow{3}{*}{39} & \multirow{3}{*}{8} & SMT & QF\_LRA & OpenSMT & \multirow{3}{*}{2} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & TO & \multirow{3}{*}{0} & 4 & 16114 & \xmark \\
             & & & & SMT & QF\_LIA & OpenSMT & & & & & TO & & 4 & 5359 & \xmark \\
             & & & & OMT & QF\_LIA & Z3 & & & & & ?? & & ?? & ?? & ?? \\
-            \hline % p = 2
-            \multirow{3}{*}{8} & \multirow{3}{*}{2082539} & \multirow{3}{*}{82} & \multirow{3}{*}{6} & SMT & QF\_LRA & OpenSMT & \multirow{3}{*}{??} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & TO & \multirow{3}{*}{0} & 2 & 13600 & \xmark \\
+            \hline
+            \multirow{3}{*}{8} & \multirow{3}{*}{2082539} & \multirow{3}{*}{82} & \multirow{3}{*}{6} & SMT & QF\_LRA & OpenSMT & \multirow{3}{*}{2} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & TO & \multirow{3}{*}{0} & 2 & 13600 & \xmark \\
             & & & & SMT & QF\_LIA & OpenSMT & & & & & TO & & 2 & 14996 & \xmark \\
             & & & & OMT & QF\_LIA & Z3 & & & & & ?? & & ?? & ?? & ?? \\
-            \hline % p = 7
-            \multirow{3}{*}{9} & \multirow{3}{*}{2082518} & \multirow{3}{*}{103} & \multirow{3}{*}{10} & SMT & QF\_LRA & OpenSMT & \multirow{3}{*}{??} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & TO & \multirow{3}{*}{0} & 8 & 83362 & \xmark \\
+            \hline
+            \multirow{3}{*}{9} & \multirow{3}{*}{2082518} & \multirow{3}{*}{103} & \multirow{3}{*}{10} & SMT & QF\_LRA & OpenSMT & \multirow{3}{*}{7} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & TO & \multirow{3}{*}{0} & 8 & 83362 & \xmark \\
             & & & & SMT & QF\_LIA & OpenSMT & & & & & TO & & 8 & 83363 & \xmark \\
+            & & & & OMT & QF\_LIA & Z3 & & & & & ?? & & ?? & ?? & ?? \\
+            \hline
+
+            \multirow{3}{*}{10} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & SMT & QF\_LRA & OpenSMT & \multirow{3}{*}{??} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & ?? & \multirow{3}{*}{??} & ?? & ?? & ?? \\
+            & & & & SMT & QF\_LIA & OpenSMT & & & & & ?? & & ?? & ?? & ?? \\
+            & & & & OMT & QF\_LIA & Z3 & & & & & ?? & & ?? & ?? & ?? \\
+            \hline
+            \multirow{3}{*}{11} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & SMT & QF\_LRA & OpenSMT & \multirow{3}{*}{??} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & ?? & \multirow{3}{*}{??} & ?? & ?? & ?? \\
+            & & & & SMT & QF\_LIA & OpenSMT & & & & & ?? & & ?? & ?? & ?? \\
+            & & & & OMT & QF\_LIA & Z3 & & & & & ?? & & ?? & ?? & ?? \\
+            \hline
+            \multirow{3}{*}{12} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & SMT & QF\_LRA & OpenSMT & \multirow{3}{*}{??} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & ?? & \multirow{3}{*}{??} & ?? & ?? & ?? \\
+            & & & & SMT & QF\_LIA & OpenSMT & & & & & ?? & & ?? & ?? & ?? \\
+            & & & & OMT & QF\_LIA & Z3 & & & & & ?? & & ?? & ?? & ?? \\
+            \hline
+            \multirow{3}{*}{13} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & SMT & QF\_LRA & OpenSMT & \multirow{3}{*}{??} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & ?? & \multirow{3}{*}{??} & ?? & ?? & ?? \\
+            & & & & SMT & QF\_LIA & OpenSMT & & & & & ?? & & ?? & ?? & ?? \\
+            & & & & OMT & QF\_LIA & Z3 & & & & & ?? & & ?? & ?? & ?? \\
+            \hline
+            \multirow{3}{*}{14} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & SMT & QF\_LRA & OpenSMT & \multirow{3}{*}{??} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & ?? & \multirow{3}{*}{??} & ?? & ?? & ?? \\
+            & & & & SMT & QF\_LIA & OpenSMT & & & & & ?? & & ?? & ?? & ?? \\
+            & & & & OMT & QF\_LIA & Z3 & & & & & ?? & & ?? & ?? & ?? \\
+            \hline
+            \multirow{3}{*}{15} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & SMT & QF\_LRA & OpenSMT & \multirow{3}{*}{??} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & ?? & \multirow{3}{*}{??} & ?? & ?? & ?? \\
+            & & & & SMT & QF\_LIA & OpenSMT & & & & & ?? & & ?? & ?? & ?? \\
+            & & & & OMT & QF\_LIA & Z3 & & & & & ?? & & ?? & ?? & ?? \\
+            \hline
+            \multirow{3}{*}{16} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & SMT & QF\_LRA & OpenSMT & \multirow{3}{*}{??} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & ?? & \multirow{3}{*}{??} & ?? & ?? & ?? \\
+            & & & & SMT & QF\_LIA & OpenSMT & & & & & ?? & & ?? & ?? & ?? \\
+            & & & & OMT & QF\_LIA & Z3 & & & & & ?? & & ?? & ?? & ?? \\
+            \hline
+            \multirow{3}{*}{17} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & SMT & QF\_LRA & OpenSMT & \multirow{3}{*}{??} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & ?? & \multirow{3}{*}{??} & ?? & ?? & ?? \\
+            & & & & SMT & QF\_LIA & OpenSMT & & & & & ?? & & ?? & ?? & ?? \\
+            & & & & OMT & QF\_LIA & Z3 & & & & & ?? & & ?? & ?? & ?? \\
+            \hline
+            \multirow{3}{*}{18} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & SMT & QF\_LRA & OpenSMT & \multirow{3}{*}{??} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & ?? & \multirow{3}{*}{??} & ?? & ?? & ?? \\
+            & & & & SMT & QF\_LIA & OpenSMT & & & & & ?? & & ?? & ?? & ?? \\
+            & & & & OMT & QF\_LIA & Z3 & & & & & ?? & & ?? & ?? & ?? \\
+            \hline
+            \multirow{3}{*}{19} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & SMT & QF\_LRA & OpenSMT & \multirow{3}{*}{??} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & ?? & \multirow{3}{*}{??} & ?? & ?? & ?? \\
+            & & & & SMT & QF\_LIA & OpenSMT & & & & & ?? & & ?? & ?? & ?? \\
+            & & & & OMT & QF\_LIA & Z3 & & & & & ?? & & ?? & ?? & ?? \\
+            \hline
+            \multirow{3}{*}{20} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & SMT & QF\_LRA & OpenSMT & \multirow{3}{*}{??} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & \multirow{3}{*}{??} & ?? & \multirow{3}{*}{??} & ?? & ?? & ?? \\
+            & & & & SMT & QF\_LIA & OpenSMT & & & & & ?? & & ?? & ?? & ?? \\
             & & & & OMT & QF\_LIA & Z3 & & & & & ?? & & ?? & ?? & ?? \\
             \hline
         \end{tabular}
