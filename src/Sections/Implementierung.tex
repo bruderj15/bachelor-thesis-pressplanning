@@ -226,13 +226,6 @@ Dabei könnte offensichtlich die optimale Lösung mit Pressen-Anzahl $p\prime$ v
 (vermutlich linearer) Algorithmus entwickelt werden, der die Mindestanzahl an Pressen ermittelt.
 Da in dieser Arbeit allerdings lediglich ein Prototyp und kein vollständiges Produkt zur optimalen Lösung des Pressenplanungsproblems erarbeitet werden soll,
 wird für den Eingabeparameter $p$ ein niedriger Wert durch Germanedge's interne Heuristik ermittelt.
-Dennoch kann auch damit teilweise die Optimalität einer Lösung nachgewiesen werden.
-Zum Beispiel, wenn die Kodierung eines Auftrages mit $p$ unerfüllbar und mit $p+1$ erfüllbar ist.
-Dann ist $p+1$ die minimale Pressen-Anzahl:
-\[
-    \forall p \in \mathbb{N}_0: \left(\text{Mod}(a_{\lvert P \rvert = p}) = \emptyset \land \text{Mod}(a_{\lvert P \rvert = p+1}) \neq \emptyset\right) \rightarrow
-    \exists s \in \text{Mod}(a_{\lvert P \rvert = p+1}): s \models_{opt} a
-\]
 
 Symbolisch wird also nur der Gesamtrest optimiert (Optimierungsziel 3).
 Das geschieht entweder durch inkrementelles Verfeinern (SMT) mit der Implementierung aus Abschnitt \ref{subsec:incrementalrefinement} oder durch
