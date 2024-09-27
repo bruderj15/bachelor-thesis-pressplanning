@@ -189,41 +189,55 @@ Wie aus Listing \ref{listing:constraintpositivewaste} zu schließen allerdings n
 
 \section{Parallelisierung und Optimierung}
 \label{sec:parallelisierung}
-% TODO: Das hier könnte man viel schöner als formale Folgerungskette schreiben
 In Abschnitt \ref{sec:optimierung} wurden drei Optimierungsziele genannt.
 Optimierungsziel 1, die Minimierung unverplanter Komponenten ist wie dort bereits beschrieben immer durch einen Pressenplan mit genau null übrigen Komponenten erfüllbar.
 Optimierungsziel 2 ist die Minimierung der Anzahl geplanter Pressen.
-Da erfahrungsgemäß selbst bei den größten Aufträgen höchstens zehn Pressen pro Auftrag geplant werden, gilt also $1 \leq \lvert P \rvert \leq 10$.
-Wird ein Auftrag also zehnmal mit jeweils unterschiedlicher Pressen-Anzahl kodiert, dann enthält eine jener Kodierungen die optimale Belegung.
-Optimal ist jene Belegung in entsprechender Kodierung genau dann, wenn der Gesamtrest unter der Belegung minimal ist (Optimierungsziel 3).
+Dabei gilt $1 \leq \lvert P \rvert \leq k$ mit erfahrungsgemäß $k \leq 11$ für die größten Aufträge.
+Wird ein Auftrag also $k$ mal mit jeweils unterschiedlicher Pressen-Anzahl kodiert, dann existiert für genau eine jener Kodierungen mindestens eine optimale Belegung:
+\[
+    \forall a \in A, \; \exists! i \in \left\{ n \in \mathbb{N}_0 \mid n \leq k \right\}, \; \exists s \in \text{Mod}(a_{\lvert P \rvert = i}): s \models_{opt} a
+\]
+Optimal ist jene Belegung in entsprechender Kodierung genau dann, wenn der Gesamtrest unter der Belegung $\beta$ minimal ist (Optimierungsziel 3):
+\begin{align*}
+    &\hspace{0pt} \text{Sei } i \text{ die optimale Pressenanzahl für einen Auftrag } a, \text{ dann gilt:} \\
+    &\hspace{0pt} \exists s \in \text{Mod}(a_{\lvert P \rvert = i}), \; \forall s\prime \in \text{Mod}(a_{\lvert P \rvert = i}): \\
+    &\hspace{20pt} s \models_{opt} a \leftrightarrow \beta_{s}\left(\sum\limits_{\substack{l \in \text{layers}(a)}} \text{waste}(l)\right) \leq \beta_{s\prime}\left( \sum\limits_{\substack{l \in \text{layers}(a)}} \text{waste}(l) \right)
+\end{align*}
 Das kleinste Optimum des Gesamtrests liegt bestenfalls bei null.
 Durch das Hinzufügen des Constraints $0 = \sum_{l \in L} \text{waste}(l)$ zur Kodierung mit der minimalen Pressen-Anzahl
 kann dieses Optimum forciert werden.
 Ist das Problem nach Hinzufügen des Constraints noch immer erfüllbar, dann ist jede erfüllende Belegung des Problems optimal.
+\begin{align*}
+    &\hspace{0pt} \text{Sei } a\prime = a \cup \left\{0 = \sum_{l \in \text{layers}(a)} \text{waste}(l)\right\} \text{, dann gilt: }
+    \forall s \in \text{Mod}(a\prime): s \models_{opt} a\prime
+\end{align*}
 Ein solches zusätzliches Constraint schränkt den Lösungsraum des Problems erheblich ein, sodass die Lösung des Problems durch den Solver wesentlich effizienter wird.
-Hier nicht dokumentierte Testfälle bestätigen diese Annahme.
 
 Allerdings kann nicht garantiert werden, dass es eine Lösung ohne Rest gibt.
-Daher wird ein Auftrag 20 Mal kodiert: Auf zehn verschiedene Pressen-Anzahlen in jeweils zwei Variationen:
+Daher wird ein Auftrag $2k$ Mal kodiert: Auf $k$ verschiedene Pressen-Anzahlen in jeweils zwei Variationen:
 Mit dem extra Constraint, welches den Gesamtrest auf null fixiert und ohne dieses.
-Diese 20 verschiedenen Kodierungen eines Auftrages werden bestenfalls auf 20 verschiedene Kerne einer CPU (oder mehrere) verteilt.
-Die Maschine des Kunden, welcher Germanedge mit dem Pressenplanungsproblem beauftragt hat, verfügt allerdings nur über eine CPU mit acht Kernen.
+Diese $2k$ verschiedenen Kodierungen eines Auftrages werden bestenfalls auf $2k$ verschiedene Kerne einer CPU (oder mehrere) verteilt.
+Die Maschine des Kunden, welcher Germanedge mit dem Pressenplanungsproblem beauftragt hat, verfügt über eine CPU mit acht Kernen.
 Daher wird ein Auftrag mit vier verschiedenen Pressen-Anzahlen kodiert, sodass insgesamt acht Kodierungen des Auftrags entstehen.
 Ein Eingabeparameter $p \in \mathbb{N}^+$ des Programms bestimmt dabei die Mindestanzahl an Pressen.
 Für ein bestimmtes $p$ wird ein Auftrag dann für $p$, $p+1$, $p+2$ und $p+3$ kodiert.
-Dabei könnte offensichtlich die optimale Lösung mit Pressen-Anzahl $p\prime$ verloren gehen, da $p\prime < p \oplus p\prime > p + 3$ gelten könnte.
+Dabei könnte offensichtlich die optimale Lösung mit Pressen-Anzahl $p\prime$ verloren gehen, falls $p\prime < p \oplus p\prime > p + 3$ gilt.
 Ähnlich wie bei der Ermittlung der maximalen Schichtanzahl pro Presse in Abschnitt \ref{sec:vorverarbeitung} könnte auch hier ein
 (vermutlich linearer) Algorithmus entwickelt werden, der die Mindestanzahl an Pressen ermittelt.
 Da in dieser Arbeit allerdings lediglich ein Prototyp und kein vollständiges Produkt zur optimalen Lösung des Pressenplanungsproblems erarbeitet werden soll,
-wird als Eingabeparameter ein niedriges $p$ basierend auf Germanedge's interner Heuristik gewählt.
+wird für den Eingabeparameter $p$ ein niedriger Wert durch Germanedge's interne Heuristik ermittelt.
 Dennoch kann auch damit teilweise die Optimalität einer Lösung nachgewiesen werden.
 Zum Beispiel, wenn die Kodierung eines Auftrages mit $p$ unerfüllbar und mit $p+1$ erfüllbar ist.
-Dann ist $p+1$ die minimale Pressen-Anzahl.
+Dann ist $p+1$ die minimale Pressen-Anzahl:
+\[
+    \forall p \in \mathbb{N}_0: \left(\text{Mod}(a_{\lvert P \rvert = p}) = \emptyset \land \text{Mod}(a_{\lvert P \rvert = p+1}) \neq \emptyset\right) \rightarrow
+    \exists s \in \text{Mod}(a_{\lvert P \rvert = p+1}): s \models_{opt} a
+\]
 
 Symbolisch wird also nur der Gesamtrest optimiert (Optimierungsziel 3).
 Das geschieht entweder durch inkrementelles Verfeinern (SMT) mit der Implementierung aus Abschnitt \ref{subsec:incrementalrefinement} oder durch
 die linearen Optimierungsverfahren von Z3 (OMT).
-Um bei ersterer realistische Verbesserungen der Lösung zu gewährleisten, wird als Schrittweite ein Millimeter der Kodierung verwendet.
+Um bei ersterer signifikante Verbesserungen der Lösung zu gewährleisten, wird als Schrittweite ein Millimeter der Kodierung verwendet.
 Also $0.001$ Einheiten (Meter) bei Kodierung in der Sorte \texttt{Real} und $1$ Einheit (Millimeter) bei der Kodierung in der Sorte \texttt{Int}.
 Der Aufruf der Optimierungsfunktion aus Abschnitt \ref{subsec:incrementalrefinement} sieht somit folgenderweise aus:
 
@@ -238,14 +252,21 @@ Germanedge's bisherige heuristische Lösung spezifiziert Ein- und Ausgabeformat 
 Diese Spezifikation wird hier ebenfalls implementiert.
 Dazu wird die Haskell-Bibliothek \texttt{cassava} \cite{cassava} verwendet.
 
-Der Aufruf des Programms erfolgt über die Kommandozeile mit wenigen Konfigurationsparametern.
+Der Aufruf des Programms erfolgt über die Kommandozeile mit einigen Konfigurationsparametern.
 Konfiguriert werden können:
 
 \begin{itemize}
+    \item Art der Kodierung: SMT mit inkrementellem Verfeinern oder OMT mit linearer Optimierung
+    \item Sorte der Kodierung: \texttt{Int} mit \texttt{QF\_LIA}, \texttt{Real} mit \texttt{QF\_LRA} oder \texttt{BitVec 15 (Unsigned)} mit \texttt{QF\_BV}
+    \item Solver zum Lösen: \texttt{Z3}, \texttt{OpenSMT}, \ldots
     \item Timeout: Maximale Laufzeit des Programms
-    \item Art der Kodierung: \texttt{Int} mit \texttt{QF\_LIA} (\texttt{OpenSMT}), \texttt{Real} mit \texttt{QF\_LRA} (\texttt{OpenSMT}) oder \texttt{BitVec 15 (Unsigned)} mit \texttt{QF\_BV} (\texttt{Bitwuzla})
     \item Pressen-Spezifikation: Dimensionen der Presse
     \item Pressen-Anzahl $p$: Kodiert wird dann mit $p$, $p+1$, $p+2$ und $p+3$
     \item Constraints: Maximaler Gesamtrest, maximaler Rest pro Schicht. Hier könnten optimale Lösungen verloren gehen. Der Kunde wünscht sich diese Parameter dennoch.
     \item Ausgabe-Verzeichnis: Verzeichnis, in welches die Lösungen der verschiedenen Pressen ausgegeben werden
 \end{itemize}
+
+Wenige Kombinationen wie beispielsweise Solver \texttt{OpenSMT} mit Art der Kodierung OMT sind ungültig und führen zu unmittelbaren Laufzeitfehlern,
+da nicht alle Solver alle Funktionalitäten unterstützen.
+Obwohl diese Fehler mit etwas Aufwand im Quell-Code verhindert werden könnten, kann der Anwender in der Schnittstelle hier keinen Fehler machen, weil
+die Evaluation in Kapitel \ref{chapter:auswertung} zu einer vermeintlich besten allgemeinen Konfiguration führt.
