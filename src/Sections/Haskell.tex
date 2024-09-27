@@ -79,7 +79,8 @@ Dadurch lassen sich viele Funktionalitäten der Gastsprache wiederverwenden, zum
 \label{subsec:implCardinality}
 \texttt{Hasmtlib} unterstützte bis zum Zeitpunkt dieser Arbeit keine Anzahl-Constraints.
 Daher werden diese im Rahmen dieser Arbeit der Bibliothek hinzugefügt.
-Die Implementierung erfolgt analog zu den in \ref{sec:smtcardinality} präsentierten Kodierungen und ist im Anhang \ref{appendix:cardinalityimpl} zu finden.
+Die Implementierung erfolgt analog zu den in \ref{sec:smtcardinality} präsentierten Kodierungen und ist in
+im Anhang \ref{appendix:hasmtlib} unter Listing \ref{listing:incrementalrefinement} zu finden.
 
 \subsection{Ergänzung um Incremental Refinement}
 \label{subsec:incrementalrefinement}
@@ -90,8 +91,8 @@ SMT-Solver haben einen Incremental-Stack, welcher die Wiederverwendung von berei
 sodass \textit{Incremental Refinement} wesentlich effizienter als das Starten eines neuen Solver-Prozesses für jede Verfeinerung ist \cite{incremental}.
 
 Im Rahmen dieser Arbeit wird \texttt{Hasmtlib} daher um eine solche Optimierungsschleife erweitert.
-Deren Implementierung ist im Anhang \ref{appendix:incrementalrefinementimpl} zu finden.
-Wie dort in Listing \ref{listing:incrementalrefinement} zu erkennen ist, wurde außerdem eine Schrittweite für das Anpassen der verfeinerten Schranken hinzugefügt.
+Deren Implementierung ist im Anhang \ref{appendix:hasmtlib} in Listing \ref{listing:incrementalrefinement} zu finden.
+Wie dort zu erkennen ist, wurde außerdem eine Schrittweite für das Anpassen der verfeinerten Schranken hinzugefügt.
 Um nicht über die optimale Lösung zu schreiten, ruft Zeile 37 die Optimierungsschleife nochmals - aber ohne Schrittweite - auf.
 Die letzte bekannte optimale Schranke liegt dabei noch auf dem Incremental-Stack, sodass der rekursive Aufruf mit dieser als neue Schranke startet.
 Das garantiert das Finden der optimalen Lösung.

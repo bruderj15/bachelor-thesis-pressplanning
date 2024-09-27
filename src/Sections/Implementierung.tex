@@ -1,15 +1,20 @@
 \chapter{Implementierung}
 \label{chapter:implementierung}
-In diesem Kapitel wird gezeigt, wie das Problem der Pressenplanung mit Haskell und \texttt{Hasmtlib} in SMTLib kodiert werden kann.
+In diesem Kapitel wird ein Haskell-Programm zur Lösung des Pressenplanungsproblems entwickelt.
+In diesem Kapitel wird ein Haskell-Programm zur Lösung des Pressenplanungsproblems entwickelt.
+Das Programm erzeugt aus den textuellen Eingaben der Pressen- und Bauteilspezifikationen ein Constraint-System,
+welches anschließend von einem externen Constraint-Solver gelöst wird.
+Danach wandelt das Programm die Lösung des Solvers in das von Germanedge spezifizierte Ausgabeformat CSV um.
+
 Dazu werden zunächst die notwendigen Datentypen und die Sorten-Polymorphie der Kodierung erklärt, bevor einige konkrete Repräsentationen der Constraints aus
 Abschnitt \ref{sec:modellierung} mithilfe von Quellcode-Ausschnitten dargestellt werden.
-Danach werden Ein- und Ausgabe kurz beschrieben.
-Anschließend wird dargelegt, wie die Implementierung mit bestimmten Parametern konfiguriert werden kann und wie diese die Laufzeit des Solvers beeinflussen.
-Am Ende wird eine Möglichkeit zur Parallelisierung des Programms demonstriert.
+Anschließend werden Optimierung und Parallelisierung des Problems diskutiert.
+Am Ende des Kapitels wird die Benutzerschnittstelle des Programms betrachtet.
 
-% TODO: Hier ein Flussdiagramm einfügen, das den gesamten Ablauf zeigt? Oder am Ende des Kapitels?
+% TODO: Hier ein Flussdiagramm einfügen, das grob den gesamten Ablauf zeigt
 
 \section{Datentypen und Unbekannte}
+\label{sec:datatypes}
 Analog zur Problemdomäne aus Kapitel \ref{chapter:problem} sind hier Bauteile (Components), Schichten (Layers) und Pressen (Presses)
 die Entitäten von Bedeutung.
 Deren Repräsentation erfolgt jeweils durch Record-Datenstrukturen.
@@ -55,7 +60,7 @@ Identisch zur Variablenmenge $\mathbb{X}$ in Abschnitt \ref{sec:modellierung} si
     \item ein symbolischer Wahrheitswert für jedes mögliche Element der Relation \texttt{InLayer}
 \end{itemize}
 
-Bei weiterer Betrachtung des Typs \texttt{Pressenplan} fällt auf, dass Komponenten, Schichten und Pressen im Typ Liste vorliegen.
+Bei weiterer Betrachtung des Typs \texttt{PressPlan} fällt auf, dass Komponenten, Schichten und Pressen im Typ Liste vorliegen.
 Der Listentyp ist der von Haskell, also konkret in Haskell und nicht symbolisch im SMT-Problem.
 Das erklärt die Nutzung der Liste für die Komponenten, da diese eine Eingabe sind, welche konkret darstellbar ist.
 Aber wie ist der Listentyp für Schichten und Pressen zu erklären?
@@ -71,10 +76,32 @@ Weiter könnte eine obere Schranke für die Anzahl an Pressen basierend auf der 
 Allerdings bedeutet jede weitere Presse weitere Unbekannte und weitere Constraints, sodass die Komplexität des Problems erhöht wird,
 was letztendlich zu einer ineffizienteren Lösung des Solvers führt.
 Daher wird jeder Auftrag mehrmals kodiert - mit jeweils unterschiedlich fester Anzahl an Pressen.
-Diese werden dann als separate Probleminstanzen auf verschiedene Prozessor-Kerne aufgeteilt, mehr dazu in Abschnitt \ref{parallelisierung}.
+Diese werden dann als separate Probleminstanzen auf verschiedene Prozessor-Kerne aufgeteilt, mehr dazu in Abschnitt \ref{sec:parallelisierung}.
 
 \section{Vorverarbeitung}
 \label{sec:vorverarbeitung}
+Bei der Kodierung des Pressenplanungsproblems wird jeder Presse eine feste Anzahl an Schichten zugewiesen.
+Da die Anzahl tatsächlich geplanter Schichten bei der Zuweisung unbekannt ist, wird jeder Presse die höchstmögliche Anzahl an Schichten zugewiesen.
+Unter diesen können einige leer sein, in jenen sind also keine Komponenten (Constraints \ref{constraint:emptyLayer1} und \ref{constraint:emptyLayer2}).
+Betrachten wir die Funktion $\text{maxLayers}: P \times A \rightarrow \mathbb{N}$ zur Berechnung der maximalen Schichtanzahl.
+Das triviale Maximum der Schichtanzahl pro Presse berechnet sich aus der kleinsten Komponente eines Auftrages und der Maximalhöhe der Presse:
+\[
+    \text{maxLayers}(p,a) = \left\lceil \frac{\text{maxHeight}(p)}{\min \left\{ \text{height}(c) \mid c \in \text{components}(a) \right\}} \right\rceil
+\]
+Diese Schranke ist korrekt, bezieht aber mögliche weitere Informationen des Auftrages nicht mit ein.
+Daher werden vermutlich meist mehr Schichten und damit auch Unbekannte und Formeln erzeugt, als für die Lösung des Problems überhaupt notwendig.
+Wenn die Schranke also niedriger gewählt werden kann, kann die Komplexität des Problems verringert und somit auch die Laufzeit des Solvers reduziert werden.
+Das ist möglich, indem zusätzlich die Anzahl der kleinsten Komponenten betrachtet wird:
+
+\begin{align*}
+    &\hspace{0pt}\text{Seien } h_1 \leq h_2 \leq \ldots \leq h_{\lvert \text{components}(A)\rvert} \text{ die sortierten Höhen aller Komponenten und} \\
+    &\hspace{0pt}S_k = \sum_{i = 1}^{k} h_i \text{ die kumulierte Summe dieser sortierten Höhen.} \\
+    &\hspace{0pt}\text{Dann gilt: } \text{maxLayers}(p,a) = \max\left\{ k \mid S_k \leq \text{maxHeight}(p) \right\} \\
+    &\hspace{0pt}\text{Auch diese Schranke ist offensichtlich korrekt, aber gibt es eine bessere? Also:} \\
+    &\hspace{0pt}\exists f: P \times A \rightarrow \mathbb{N}, \; \forall p \in P, \; \forall a \in A, \; \exists s \in \text{Mod}(a): s \models_{opt} a \rightarrow \\
+    &\hspace{20pt}\left(f(p,a) < \text{maxLayers}(p,a) \land \lvert \left\{ l \in \text{layers}(p) \mid \neg \beta_{s}(\text{empty}(l)) \right\} \rvert \leq f(p,a) \right)
+\end{align*}
+Da in dieser Arbeit lediglich ein Prototyp für die optimale Lösung des Pressenplanungsproblems entwickelt werden soll, genügt die Schranke der kumulierten Summen.
 
 \section{Sorten-Polymorphie}
 Wie in Kapitel \ref{chapter:smt} gezeigt bietet SMTLib verschiedene Logiken zur Kodierung von SMT-Problemen an.
@@ -153,6 +180,7 @@ Sowohl für Pressenlänge und Pressenhöhe als auch Schichtlänge und Schichthö
 Wie aus Listing \ref{listing:constraintpositivewaste} zu schließen allerdings nicht für den Schichtrest, sodass obiges Constraint hinzugefügt werden muss.
 
 \section{Parallelisierung und Optimierung}
+\label{sec:parallelisierung}
 % TODO: Das hier könnte man viel schöner als formale Folgerungskette schreiben
 In Abschnitt \ref{sec:optimierung} wurden drei Optimierungsziele genannt.
 Optimierungsziel 1, die Minimierung unverplanter Komponenten ist wie dort bereits beschrieben immer durch einen Pressenplan mit genau null übrigen Komponenten erfüllbar.

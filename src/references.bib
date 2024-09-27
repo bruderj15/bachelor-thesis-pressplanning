@@ -432,3 +432,17 @@ and Taghdiri, Mana",
     abstract="The dominant state-of-the-art approach for solving bit-vector formulas in Satisfiability Modulo Theories (SMT) is bit-blasting, an eager reduction to propositional logic. Bit-blasting is surprisingly efficient in practice but does not generally scale well with increasing bit-widths, especially when bit-vector arithmetic is present. In this paper, we present a novel CEGAR-style abstraction-refinement procedure for the theory of fixed-size bit-vectors that significantly improves the scalability of bit-blasting. We provide lemma schemes for various arithmetic bit-vector operators and an abduction-based framework for synthesizing refinement lemmas. We extended the state-of-the-art SMT solver Bitwuzla with our abstraction-refinement approach and show that it significantly improves solver performance on a variety of benchmark sets, including industrial benchmarks that arise from smart contract verification.",
     isbn="978-3-031-65627-9"
 }
+
+@InProceedings{preprocessing,
+    author="Bj{\o}rner, Nikolaj and Fazekas, Katalin",
+    editor="Pientka, Brigitte and Tinelli, Cesare",
+    title="On Incremental Pre-processing for SMT",
+    booktitle="Automated Deduction -- CADE 29",
+    year="2023",
+    publisher="Springer Nature Switzerland",
+    address="Cham",
+    pages="41--60",
+    abstract="We introduce a calculus for incremental pre-processing for SMT and instantiate it in the context of z3. It identifies when powerful formula simplifications can be retained when adding new constraints. Use cases that could not be solved in incremental mode can now be solved incrementally thanks to the availability of pre-processing. Our approach admits a class of transformations that preserve satisfiability, but not equivalence. We establish a taxonomy of pre-processing techniques that distinguishes cases where new constraints are modified or constraints previously added have to be replayed. We then justify the soundness of the proposed incremental pre-processing calculus.",
+    isbn="978-3-031-38499-8"
+}
+
