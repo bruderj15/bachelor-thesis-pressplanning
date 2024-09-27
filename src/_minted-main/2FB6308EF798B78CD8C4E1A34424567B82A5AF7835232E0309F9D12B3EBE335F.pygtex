@@ -1,0 +1,13 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kr}{import}\PYG{+w}{ }\PYG{n+nn}{...}
+\PYG{k+kr}{import}\PYG{+w}{ }\PYG{n+nn}{Data.Discrimination}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{Sorting}\PYG{p}{(}\PYG{o}{..}\PYG{p}{),}\PYG{+w}{ }\PYG{n+nf}{sort}\PYG{p}{)}
+
+\PYG{n+nf}{maxLayers}\PYG{+w}{ }\PYG{o+ow}{::}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{Num}\PYG{+w}{ }\PYG{n}{a}\PYG{p}{,}\PYG{+w}{ }\PYG{k+kt}{Sorting}\PYG{+w}{ }\PYG{n}{a}\PYG{p}{)}\PYG{+w}{ }\PYG{o+ow}{=\PYGZgt{}}\PYG{+w}{ }\PYG{k+kt}{StaticPress}\PYG{+w}{ }\PYG{n}{a}\PYG{+w}{ }\PYG{o+ow}{\PYGZhy{}\PYGZgt{}}\PYG{+w}{ }\PYG{p}{[}\PYG{k+kt}{Component}\PYG{+w}{ }\PYG{n}{a}\PYG{p}{]}\PYG{+w}{ }\PYG{o+ow}{\PYGZhy{}\PYGZgt{}}\PYG{+w}{ }\PYG{k+kt}{Integer}
+\PYG{n+nf}{maxLayers}\PYG{+w}{ }\PYG{n}{p}\PYG{+w}{ }\PYG{o+ow}{=}
+\PYG{+w}{    }\PYG{n}{genericLength}
+\PYG{+w}{  }\PYG{o}{.}\PYG{+w}{ }\PYG{n}{takeWhile}\PYG{+w}{ }\PYG{p}{(}\PYG{o}{\PYGZlt{}=}\PYG{+w}{ }\PYG{n}{p}\PYG{o}{\PYGZca{}.}\PYG{n}{pressMaxHeight}\PYG{p}{)}
+\PYG{+w}{  }\PYG{o}{.}\PYG{+w}{ }\PYG{n}{drop}\PYG{+w}{ }\PYG{l+m+mi}{1}
+\PYG{+w}{  }\PYG{o}{.}\PYG{+w}{ }\PYG{n}{scanl}\PYG{+w}{ }\PYG{p}{(}\PYG{o}{+}\PYG{p}{)}\PYG{+w}{ }\PYG{l+m+mi}{0}
+\PYG{+w}{  }\PYG{o}{.}\PYG{+w}{ }\PYG{n}{sort}
+\PYG{+w}{  }\PYG{o}{.}\PYG{+w}{ }\PYG{n}{fmap}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{view}\PYG{+w}{ }\PYG{n}{compHeight}\PYG{p}{)}
+\end{Verbatim}

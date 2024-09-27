@@ -102,6 +102,14 @@ Das ist möglich, indem zusätzlich die Anzahl der kleinsten Komponenten betrach
     &\hspace{20pt}\left(f(p,a) < \text{maxLayers}(p,a) \land \lvert \left\{ l \in \text{layers}(p) \mid \neg \beta_{s}(\text{empty}(l)) \right\} \rvert \leq f(p,a) \right)
 \end{align*}
 Da in dieser Arbeit lediglich ein Prototyp für die optimale Lösung des Pressenplanungsproblems entwickelt werden soll, genügt die Schranke der kumulierten Summen.
+Mithilfe von \textit{Discrimination} \cite{discriminationPaper, discriminationHaskell} können die Höhen in $\mathcal{O}(\lvert \text{components}(a) \rvert)$ sortiert werden,
+sodass die Funktion \texttt{maxLayers} lineare Laufzeitkomplexität aufweist:
+
+\begin{listing}[H]
+    \inputminted[linenos=true]{haskell}{Code/Implementierung/MaxLayers.hs}
+    \caption{Funktion zur Berechnung der maximalen Schichten pro Presse in $\mathcal{O}(\lvert \text{components}(a) \rvert)$}
+    \label{listing:maxlayersimpl}
+\end{listing}
 
 \section{Sorten-Polymorphie}
 Wie in Kapitel \ref{chapter:smt} gezeigt bietet SMTLib verschiedene Logiken zur Kodierung von SMT-Problemen an.
