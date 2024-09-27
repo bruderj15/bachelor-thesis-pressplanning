@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{nonNegativeWaste}\PYG{+w}{ }\PYG{o+ow}{::}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{Orderable}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{Expr}\PYG{+w}{ }\PYG{n}{t}\PYG{p}{),}\PYG{+w}{ }\PYG{k+kt}{Num}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{Expr}\PYG{+w}{ }\PYG{n}{t}\PYG{p}{))}
+\PYG{+w}{  }\PYG{o+ow}{=\PYGZgt{}}\PYG{+w}{ }\PYG{k+kt}{PressPlan}\PYG{+w}{ }\PYG{n}{t}\PYG{+w}{ }\PYG{o+ow}{\PYGZhy{}\PYGZgt{}}\PYG{+w}{ }\PYG{k+kt}{Expr}\PYG{+w}{ }\PYG{k+kt}{BoolSort}
+\PYG{n+nf}{nonNegativeWaste}\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }\PYG{n}{all}\PYG{+w}{ }\PYG{p}{(}\PYG{o}{\PYGZgt{}=?}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{.}\PYG{+w}{ }\PYG{n}{toListOf}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{layers}\PYG{o}{.}\PYG{n}{folded}\PYG{o}{.}\PYG{n}{waste}\PYG{p}{)}
+\end{Verbatim}

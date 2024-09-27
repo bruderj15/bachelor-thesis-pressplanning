@@ -217,7 +217,10 @@ Um den Kostenaufwand beim Pressen zu reduzieren, sind Pressenpläne zusätzlich 
 \end{enumerate}
 
 Bei Ziel 1, der Minimierung der Anzahl unverplanter Komponenten ist das Optimum immer Null.
-Für jeden Auftrag existiert ein Pressenplan, bei welchem alle Bauteile verplant sind.
+Also:
+\[
+    \forall a \in A, \; \exists s \in \text{Mod}(a): \left\lvert \left\{ c \in \text{components}(a) \mid \neg\bigvee\limits_{\substack{l \in \text{layers}(a)}} \beta_{s}(\text{InLayer}(c,l)) \right\} \right\rvert = 0
+\]
 Der Beweis ist trivial, da für jedes Bauteil des Auftrages eine eigene Presse geplant werden kann, welche so mit Rest aufgefüllt wird,
 dass deren Mindestanforderungen an Länge und Höhe erfüllt werden.
 Die Verplanung aller Bauteile ist mit Constraint \ref{constraint:eoLayer} bereits im Modell festgehalten, sodass alle erfüllenden Belegungen des Modells
