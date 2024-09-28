@@ -186,7 +186,7 @@ Die Anforderungen an einen Presseplan werden damit folgend realisiert:
     & \forall c \in C,\; \exists! l \in L: \text{InLayer}(c,l) \label{constraint:eoLayer} \\[10pt]
     & \forall l \in L: \text{isEmpty}(l) \leftrightarrow \neg\bigvee_{c \in C} \text{InLayer}(c,l) \label{constraint:emptyLayer1} \\[10pt]
     & \forall l \in L: \text{isEmpty}(l) \leftrightarrow (\text{length}(l) = 0 \land \text{height}(l) = 0) \label{constraint:emptyLayer2} \\[10pt]
-    & \forall p \in P: \text{height}(p) = \sum_{\substack{l \in \text{layers}(P)}} \text{height}(l) \label{constraint:computePressHeight} \\[10pt]
+    & \forall p \in P: \text{height}(p) = \sum_{\substack{l \in \text{layers}(p)}} \text{height}(l) \label{constraint:computePressHeight} \\[10pt]
     & \forall l \in L: \text{length}(l) = \text{waste}(l) + \sum_{\substack{c \in C}}
     \begin{cases}
         \text{length}(c) & \text{, } \text{InLayer}(c,l) \\
