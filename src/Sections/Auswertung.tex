@@ -1,30 +1,73 @@
 \chapter{Auswertung und Laufzeitmessung}
 \label{chapter:auswertung}
 
-Was haben wir für Testfälle?
-Woher kommen die Testfälle?
-Wie wurden die Testfälle ausgewählt?
-Sind sie repräsentativ für reale Probleme?
-Vorgehen Laufzeitmessung erwähnen.
-Maschinen-Specs nennen.
-Vergleich von:
+%Was haben wir für Testfälle?
+%Woher kommen die Testfälle?
+%Wie wurden die Testfälle ausgewählt?
+%Sind sie repräsentativ für reale Probleme?
+%Vorgehen Laufzeitmessung erwähnen.
+%Maschinen-Specs nennen.
+%Vergleich von:
+
+In diesem Kapitel wird die Performance des Programms zur Lösung des Pressenplanungsproblems ausgewertet.
+Dazu werden zunächst folgende Konfigurationen des Programms miteinander verglichen:
 \begin{itemize}
-    \item OMT: Z3 QF\_LIA
-    \item OMT: Z3 QF\_LRA
-    \item SMT: OpenSMT QF\_LIA
-    \item SMT: OpenSMT QF\_LRA
-    \item SMT: Bitwuzla QF\_BV mit 15 Bit
+    \item SMT mit Incremental Refinement, \texttt{QF\_LRA}, \texttt{OpenSMT}
+    \item SMT mit Incremental Refinement, \texttt{QF\_LIA}, \texttt{OpenSMT}
+    \item SMT mit Incremental Refinement, \texttt{QF\_LIA}, \texttt{Z3}
+    \item OMT mit linearer Optimierung, \texttt{QF\_LIA}, \texttt{Z3}
 \end{itemize}
 
-\section{Vergleich verschiedener Kodierungen}
-%Time-Limit 5 Minuten, Vergleich Heuristik Germanedge vs SMT.
-%Nur ein Modell oder beide? - Beide.
-%Auch OMT? - Ja.
-%Auswertung der Ergebnisse.
-% Warum sind auch LIA und BV korrekt? Weil kleiner als Millimeter nicht geht
+Die Wahl der Logiken \texttt{QF\_LIA} und \texttt{QF\_LRA} wurde bereits in Abschnitt \ref{sec:sortpoly} diskutiert.
+Für beide Logiken wird der jeweilige Gewinner jener Kategorien der SMT-COMP 2024 \texttt{OpenSMT} (Version 2.7.0) verwendet \cite{smtcomp2024results}.
+Zusätzlich wird auch \texttt{Z3} (Version 4.13.0) mit Incremental Refinement und Logik \texttt{QF\_LIA} getestet.
+Trotz schwachem Ergebnis in der SMT-COMP 2024 erwies sich diese Kombination in einigen Testfällen als hoch-performant.
+Aufgrund dieser Erkenntnis wurde auch die Performance weiterer Solver untersucht.
+Diese Untersuchung ergab allerdings keine nennenswerten Ergebnisse, sodass diese im Folgenden ausgelassen werden.
+Weiter wird auch eine Programmkonfiguration mit \texttt{Z3} und OMT in Logik \texttt{QF\_LIA} getestet.
 
-\section{Vergleich mit liberalem Timeout}
-Wer findet bessere Lösung, wenn Timeout sehr liberal (24h?)?
+Danach wird die Performance der insgesamt besten Programmkonfiguration mit jener von Germanedge's Heuristik verglichen und ausgewertet.
+Am Ende werden mögliche Verbesserungen diskutiert.
+
+\section{Vorbetrachtung}
+Die Laufzeitmessungen der Konfigurationen des in dieser Arbeit entwickelten Programms erfolgt auf einer Maschine mit
+acht CPU-Kernen mit Takt von jeweils 2,4 GHz und 16 GB Arbeitsspeicher.
+Aufgrund einiger Firmenregularien kann die Laufzeitmessung der Heuristik nicht auf der gleichen Maschine wie jener des hier entwickelten Programms erfolgen.
+Die firmeninterne Maschine weist allerdings sehr ähnliche Hardware-Spezifikationen auf, sodass ein Vergleich dennoch aussagekräftig ist.
+Die Laufzeitmessungen erfolgen unter ähnlichen Bedingungen mit minimaler Auslastung durch andere Prozesse.
+
+Ausgewertet wird die Güte der Lösungen nach den Optimierungszielen in Abschnitt \ref{sec:optimierung}.
+Zusätzlich kommt als viertes lexikografisches Optimierungsziel die Laufzeit des Programms beziehungsweise der Heuristik hinzu.
+Sind alle vier Metriken bei einer Probleminstanz gleich, dann wird die Lösung als gleich gut bewertet.
+
+Die Laufzeitmessungen werden in den folgenden Abschnitten mit verschiedenen oberen Laufzeitgrenzen (Timeouts) versehen.
+Gemessen wird die Zeit, welche Programm oder Heuristik für eine endgültige Lösung benötigen.
+Ermittelt das Programm also beispielsweise eine Lösung nach $30s$, rechnet aber bis zum Timeout weiter und verbessert diese Lösung nicht,
+dann wird die Messung der Laufzeit mit $TO$ (kurz für Timeout) versehen.
+
+Folgend die Erklärung aller Elemente der Vergleiche zur Lösung einer Probleminstanz:
+\begin{itemize}
+    \item \makebox[2.5cm][l]{Nr:} Identifizierende Nummer der Probleminstanz
+    \item \makebox[2.5cm][l]{Name:} Name der Probleminstanz
+    \item \makebox[2.5cm][l]{$\lvert C \rvert$:} Anzahl der Komponenten
+    \item \makebox[2.5cm][l]{$\lvert C_{Spec} \rvert$:} Anzahl verschiedener Komponenten-Spezifikationen
+    \item \makebox[2.5cm][l]{Typ:} SMT (inkr. Verfeinern) oder OMT (lineare Optimierung)
+    \item \makebox[2.5cm][l]{Logik:} \texttt{QF\_LIA} oder \texttt{QF\_LRA}
+    \item \makebox[2.5cm][l]{Solver:} Externer SMT-Solver
+    \item \makebox[2.5cm][l]{$p$:} Minimale Pressen-Anzahl (erklärt in Abschnitt \ref{sec:parallelisierung})
+    \item \makebox[2.5cm][l]{Größe:} Summe der Anzahl der Knoten aller Constraints im AST
+    \item \makebox[2.5cm][l]{\#$\mathbb{B}$:} Anzahl boolescher Unbekannter im Constraint-System
+    \item \makebox[2.5cm][l]{\#$\mathbb{Z}$:} Anzahl numerischer Unbekannter im Constraint-System
+    \item \makebox[2.5cm][l]{Zeit in s:} Laufzeit in Sekunden (aufgerundet), \textit{TO} ist Timeout
+    \item \makebox[2.5cm][l]{$\lvert C_{Not} \rvert$:} Anzahl unverplanter Komponenten
+    \item \makebox[2.5cm][l]{$\lvert P \rvert$:} Anzahl geplanter Pressen
+    \item \makebox[2.5cm][l]{Rest in mm:} Gesamtrest in Millimetern
+    \item \makebox[2.5cm][l]{Zert.:} \cmark \; falls Lösung zertifiziert optimal ist, \xmark \; sonst
+\end{itemize}
+
+\section{Vergleich verschiedener Programm-Konfigurationen}
+
+\section{Vergleich mit Germanedge's Heuristik}
 
 \section{Diskussion}
 % Was machen wir schon gut?

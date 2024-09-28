@@ -12,20 +12,20 @@
         \label{listing:incrementalrefinement}
 \end{listing}
 
-\section{Benchmarks}
+\section{Laufzeitmessungen}
 \begin{landscape}
     \begin{longtable}{|c|c|c|c|c|l|c|c|c|c|c|c|c|c|c|c|}
             \hline
             \multicolumn{4}{|c|}{\textbf{Eingabe}} & \multicolumn{7}{c|}{\textbf{Problem}} & \multicolumn{5}{c|}{\textbf{Lösung}} \\
             \hline
-            \textbf{Nr.} & \textbf{Name} & \textbf{$\lvert C \rvert$} & \textbf{$\lvert C_{Spec} \rvert$} & \textbf{Typ} & \textbf{Kod.} & \textbf{Solver} & \textbf{$p$} & \textbf{Größe} & \textbf{\#$\mathbb{B}$} & \textbf{\#$\mathbb{Z}$} & \textbf{Zeit in s} & \textbf{$\lvert C_{Not} \rvert$} & \textbf{$\lvert P \rvert$} & \textbf{Rest in mm} & \textbf{Zert.} \\
+            \textbf{Nr.} & \textbf{Name} & \textbf{$\lvert C \rvert$} & \textbf{$\lvert C_{Spec} \rvert$} & \textbf{Typ} & \textbf{Logik} & \textbf{Solver} & \textbf{$p$} & \textbf{Größe} & \textbf{\#$\mathbb{B}$} & \textbf{\#$\mathbb{Z}$} & \textbf{Zeit in s} & \textbf{$\lvert C_{Not} \rvert$} & \textbf{$\lvert P \rvert$} & \textbf{Rest in mm} & \textbf{Zert.} \\
             \hline
             \endfirsthead
 
             \hline
             \multicolumn{4}{|c|}{\textbf{Eingabe}} & \multicolumn{7}{c|}{\textbf{Problem}} & \multicolumn{5}{c|}{\textbf{Lösung}} \\
             \hline
-            \textbf{Nr.} & \textbf{Name} & \textbf{$\lvert C \rvert$} & \textbf{$\lvert C_{Spec} \rvert$} & \textbf{Typ} & \textbf{Kod.} & \textbf{Solver} & \textbf{$p$} & \textbf{Größe} & \textbf{\#$\mathbb{B}$} & \textbf{\#$\mathbb{Z}$} & \textbf{Zeit in s} & \textbf{$\lvert C_{Not} \rvert$} & \textbf{$\lvert P \rvert$} & \textbf{Rest in mm} & \textbf{Zert.} \\
+            \textbf{Nr.} & \textbf{Name} & \textbf{$\lvert C \rvert$} & \textbf{$\lvert C_{Spec} \rvert$} & \textbf{Typ} & \textbf{Logik} & \textbf{Solver} & \textbf{$p$} & \textbf{Größe} & \textbf{\#$\mathbb{B}$} & \textbf{\#$\mathbb{Z}$} & \textbf{Zeit in s} & \textbf{$\lvert C_{Not} \rvert$} & \textbf{$\lvert P \rvert$} & \textbf{Rest in mm} & \textbf{Zert.} \\
             \hline
             \endhead
 
@@ -160,7 +160,7 @@
             & & & & SMT & QF\_LIA & Z3 & & & & & ?? & & 11 & 75211 & \xmark \\
             & & & & OMT & QF\_LIA & Z3 & & & & & ?? & & ?? & ?? & ?? \\
             \hline
-        \caption{Vergleich Kodierungen mit Timeout nach 10 Minuten}
+        \caption{Vergleich der Programm-Konfigurationen mit Timeout nach zehn Minuten}
         \label{tab:vglkodierungreal}
     \end{longtable}
 \end{landscape}
@@ -170,14 +170,14 @@
                 \hline
                 \multicolumn{4}{|c|}{\textbf{Eingabe}} & \multicolumn{7}{c|}{\textbf{Problem}} & \multicolumn{5}{c|}{\textbf{Lösung}} \\
                 \hline
-                \textbf{Nr.} & \textbf{Name} & \textbf{$\lvert C \rvert$} & \textbf{$\lvert C_{Spec} \rvert$} & \textbf{Typ} & \textbf{Kod.} & \textbf{Solver} & \textbf{$p$} & \textbf{Größe} & \textbf{\#$\mathbb{B}$} & \textbf{\#$\mathbb{Z}$} & \textbf{Zeit in s} & \textbf{$\lvert C_{Not} \rvert$} & \textbf{$\lvert P \rvert$} & \textbf{Rest in mm} & \textbf{Zert.} \\
+                \textbf{Nr.} & \textbf{Name} & \textbf{$\lvert C \rvert$} & \textbf{$\lvert C_{Spec} \rvert$} & \textbf{Typ} & \textbf{Logik} & \textbf{Solver} & \textbf{$p$} & \textbf{Größe} & \textbf{\#$\mathbb{B}$} & \textbf{\#$\mathbb{Z}$} & \textbf{Zeit in s} & \textbf{$\lvert C_{Not} \rvert$} & \textbf{$\lvert P \rvert$} & \textbf{Rest in mm} & \textbf{Zert.} \\
                 \hline
                 \endfirsthead
 
                 \hline
                 \multicolumn{4}{|c|}{\textbf{Eingabe}} & \multicolumn{7}{c|}{\textbf{Problem}} & \multicolumn{5}{c|}{\textbf{Lösung}} \\
                 \hline
-                \textbf{Nr.} & \textbf{Name} & \textbf{$\lvert C \rvert$} & \textbf{$\lvert C_{Spec} \rvert$} & \textbf{Typ} & \textbf{Kod.} & \textbf{Solver} & \textbf{$p$} & \textbf{Größe} & \textbf{\#$\mathbb{B}$} & \textbf{\#$\mathbb{Z}$} & \textbf{Zeit in s} & \textbf{$\lvert C_{Not} \rvert$} & \textbf{$\lvert P \rvert$} & \textbf{Rest in mm} & \textbf{Zert.} \\
+                \textbf{Nr.} & \textbf{Name} & \textbf{$\lvert C \rvert$} & \textbf{$\lvert C_{Spec} \rvert$} & \textbf{Typ} & \textbf{Logik} & \textbf{Solver} & \textbf{$p$} & \textbf{Größe} & \textbf{\#$\mathbb{B}$} & \textbf{\#$\mathbb{Z}$} & \textbf{Zeit in s} & \textbf{$\lvert C_{Not} \rvert$} & \textbf{$\lvert P \rvert$} & \textbf{Rest in mm} & \textbf{Zert.} \\
                 \hline
                 \endhead
 
@@ -186,7 +186,7 @@
                 & & & & OMT & & & & & & & 14994 & & 3 & 0 & \cmark \\
 
                 \hline
-                \caption{Vergleich Kodierungen mit Timeout nach 10 Stunden}
+                \caption{Vergleich der Programm-Konfigurationen mit Timeout nach zehn Stunden}
                 \label{tab:vglkodierungliberal}
         \end{longtable}
 \end{landscape}
@@ -252,7 +252,7 @@
                 \rowcolor{green!20}
                 26 & Diverse10Opt & 260    & 26    & TO     & 1     & 11    & 0     & TO    & 0     & 11    & 75211        & \xmark \\
                 \hline
-                \caption{Vergleich Constraint-System (SMT, Z3, \texttt{QF\_LIA}) mit Germanedge's Heuristik}
+                \caption{Vergleich der Programm-Konfiguration (SMT, Z3, \texttt{QF\_LIA}) mit Germanedge's Heuristik}
                 \label{tab:vglheuristik}
         \end{longtable}
 \end{landscape}
