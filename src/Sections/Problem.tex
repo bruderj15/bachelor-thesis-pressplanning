@@ -112,73 +112,102 @@ In diesem Abschnitt wird das Modell zur Modellierung des Pressenplanungsproblems
 Alle Namen von Funktionen in jenem Modell werden englisch formuliert, um die Nähe zur später in Abschnitt \ref{sec:kodierungconstraints} gezeigten Implementierung zu wahren.
 Pressen heißen also \textit{Press}, Balken (Schichten) werden \textit{Layer} genannt und Bauteile erhalten den Namen \textit{Component}.
 Die Menge aller Pressen wird mit $P$, die Menge aller Schichten mit $L$ und die Menge aller Bauteile mit $C$ abgekürzt.
-Weiter werden boolesche als auch arithmetische Operatoren vorausgesetzt und in der Signatur des Modells nicht genannt.
 
+Betrachten wir für das Modell die Signatur $\Sigma = \left( \Sigma_F, \Sigma_R \right)$ und die Unbekannten $\mathbb{X} = (\mathbb{X}_{\mathbb{B}}, \mathbb{X}_{\mathbb{N}_0})$.
+Jede Presse hat sowohl Minimal- und Maximallänge als auch Minimal- und Maximalhöhe.
+Weiter wird jeder Presse eine Menge an Schichten zugeordnet.
+Tatsächliche Länge und Höhe der Presse sind unbekannt:
 \[
-    \begin{aligned}
-        \text{Folgend die Signatur } \Sigma = \left( \Sigma_{F}^{P} \cup \Sigma_{F}^{L} \cup \Sigma_{F}^{C}, \Sigma_{R} \right) \text{ mit Variablen } \mathbb{X} = \mathbb{X}_{P} \cup \mathbb{X}_{L} \cup \mathbb{X}_{C} \cup \mathbb{X}_{InLayer}  \\[5pt]
-            \begin{array}{ll}
+    \begin{array}{lll}
+        \begin{aligned}
+            \Sigma_{F}^{P} = \left\{
+            \begin{aligned}
+                & \text{minLength}: & P \rightarrow \mathbb{N}_0, \\
+                & \text{maxLength}: & P \rightarrow \mathbb{N}_0, \\
+                & \text{minHeight}: & P \rightarrow \mathbb{N}_0, \\
+                & \text{maxHeight}: & P \rightarrow \mathbb{N}_0, \\
+                & \text{layers}: & P \rightarrow 2^{L} \; \\
+            \end{aligned} \right\} \\[5pt]
+        \end{aligned}
+        &
+        \begin{aligned}
+            \mathbb{X}_{\mathbb{N}_0}^{P} &= \left\{
                 \begin{aligned}
-                    \Sigma_{F}^{P} = \left\{
-                    \begin{aligned}
-                        & (\text{id}, & P \rightarrow \mathbb{N}_0), \\
-                        & (\text{minLength}, & P \rightarrow \mathbb{N}_0), \\
-                        & (\text{maxLength}, & P \rightarrow \mathbb{N}_0), \\
-                        & (\text{length}, & P \rightarrow \mathbb{N}_0), \\
-                        & (\text{minHeight}, & P \rightarrow \mathbb{N}_0), \\
-                        & (\text{maxHeight}, & P \rightarrow \mathbb{N}_0), \\
-                        & (\text{height}, & P \rightarrow \mathbb{N}_0), \\
-                        & (\text{layers}, & P \rightarrow 2^L)\; \\
-                    \end{aligned} \right\} \\[5pt]
-                \end{aligned}
-                &
-                \begin{aligned}
-                    \mathbb{X}_{P} &= \bigcup_{p \in P} \left\{\text{length}(p), \text{height}(p) \right\} \\
-                \end{aligned}
-                \\
-                \begin{aligned}
-                    \Sigma_{F}^{L} = \left\{
-                    \begin{aligned}
-                        & (\text{id}, & L \rightarrow \mathbb{N}_0), \\
-                        & (\text{length}, & L \rightarrow \mathbb{N}_0), \\
-                        & (\text{height}, & L \rightarrow \mathbb{N}_0), \\
-                        & (\text{waste}, & L \rightarrow \mathbb{N}_0), \\
-                        & (\text{isEmpty}, & L \rightarrow \mathbb{B})\; \\
-                    \end{aligned} \right\} \\[5pt]
-                \end{aligned}
-                &
-                \begin{aligned}
-                    \mathbb{X}_{L} &= \bigcup_{l \in L} \left\{\text{length}(l), \text{height}(l), \text{waste}(l), \text{isEmpty}(l)\right\} \\
-                \end{aligned}
-                \\
-                \begin{aligned}
-                    \Sigma_{F}^{C} &= \left\{
-                    \begin{aligned}
-                        & (\text{length}, & C \rightarrow \mathbb{N}_0), \\
-                        & (\text{height}, & C \rightarrow \mathbb{N}_0)\; \\
-                    \end{aligned} \right\} \\
-                \end{aligned}
-                &
-                \begin{aligned}
-                    \mathbb{X}_{C} &= \emptyset \\
-                \end{aligned}
-                \\[10pt]
-                \begin{aligned}
-                    \Sigma_{R} &= \left\{
-                    \begin{aligned}
-                        & (\text{InLayer}, C \times L \rightarrow \mathbb{B}) \\
-                    \end{aligned} \right\} \\
-                \end{aligned}
-                &
-                \begin{aligned}
-                    \mathbb{X}_{\text{InLayer}} &= \text{InLayer} \\
-                \end{aligned}
-            \end{array}\\[5pt]
-    \end{aligned}
+                    & \text{length}: & P \rightarrow \mathbb{N}_0, \\
+                    & \text{height}: & P \rightarrow \mathbb{N}_0 \; \\
+                \end{aligned} \right\}
+        \end{aligned}
+        &
+        \begin{aligned}
+            \mathbb{X}_{\mathbb{B}}^{P} &= \emptyset
+        \end{aligned}
+    \end{array}
 \]
+Für die Zuordnung der Schichten zu den Pressen wird eine disjunkte Aufteilung aller Schichten gefordert:
+\begin{align}
+    L = \dot{\bigcup_{\substack{p \in P}}} \text{layers}(p) \label{constraint:disjointLayers}
+\end{align}
+Schichten haben unbekannte Länge, Höhe, einen unbekannten Rest und eine boolesche Unbekannte, welche kennzeichnet, ob eine Schicht leer ist:
+\[
+    \begin{array}{lll}
+        \begin{aligned}
+            \Sigma_{F}^{L} = \emptyset \\[5pt]
+        \end{aligned}
+        &
+        \begin{aligned}
+            \mathbb{X}_{\mathbb{N}_0}^{L} &= \left\{
+            \begin{aligned}
+                & \text{length}: & L \rightarrow \mathbb{N}_0, \\
+                & \text{height}: & L \rightarrow \mathbb{N}_0, \\
+                & \text{waste}: & L \rightarrow \mathbb{N}_0 \; \\
+            \end{aligned} \right\}
+        \end{aligned}
+        &
+        \begin{aligned}
+            \mathbb{X}_{\mathbb{B}}^{L} &= \left\{ \text{isEmpty}: L \rightarrow \mathbb{B} \right\}
+        \end{aligned}
+    \end{array}
+\]
+Komponenten werden konkret Länge und Höhe zugeordnet:
+\[
+    \begin{array}{lll}
+        \begin{aligned}
+            \Sigma_{F}^{C} = \left\{
+            \begin{aligned}
+                & \text{length}: & C \rightarrow \mathbb{N}_0, \\
+                & \text{height}: & C \rightarrow \mathbb{N}_0 \; \\
+            \end{aligned} \right\} \\[5pt]
+        \end{aligned}
+        &
+        \begin{aligned}
+            \mathbb{X}_{\mathbb{N}_0}^{C} &= \emptyset
+        \end{aligned}
+        &
+        \begin{aligned}
+            \mathbb{X}_{\mathbb{B}}^{C} &= \emptyset
+        \end{aligned}
+    \end{array}
+\]
+Zudem soll eine Relation die Zuordnung von Komponenten zu Schichten beschreiben:
+\[
+    \Sigma_{R} = \left\{ \text{InLayer} \subseteq C \times L \right\}
+\]
+Da diese allerdings unbekannt ist, wird die Relation durch eine unbekannte Funktion repräsentiert:
+\[
+    \mathbb{X}_{\mathbb{B}}^{\text{InLayer}} = \left\{ \text{InLayer}: C \times L \rightarrow \mathbb{B} \right\}
+\]
+Insgesamt ergibt das also folgende Signatur:
+\begin{align*}
+    &\hspace{0pt} \Sigma = \left( \Sigma_F, \Sigma_R \right) \text{ mit } \\
+    &\hspace{20pt} \Sigma_F = \Sigma_{F}^{P} \cup \Sigma_{F}^{L} \cup \Sigma_{F}^{C} \\
+    &\hspace{20pt} \Sigma_R = \emptyset \\
+    &\hspace{0pt} \mathbb{X} = (\mathbb{X}_{\mathbb{B}}, \mathbb{X}_{\mathbb{N}_0}) \text{ mit} \\
+    &\hspace{20pt} \mathbb{X}_{\mathbb{B}_{\phantom{0}}} = \mathbb{X}^{P}_{\mathbb{B}} \cup \mathbb{X}^{L}_{\mathbb{B}} \cup \mathbb{X}^{C}_{\mathbb{B}} \cup \mathbb{X}^{\text{InLayer}}_{\mathbb{B}} \\
+    &\hspace{20pt} \mathbb{X}_{\mathbb{N}_0} = \mathbb{X}^{P}_{\mathbb{N}_0} \cup \mathbb{X}^{L}_{\mathbb{N}_0} \cup \mathbb{X}^{C}_{\mathbb{N}_0}
+\end{align*}
+
 Die Anforderungen an einen Presseplan werden damit folgend realisiert:
 \begin{align}
-    & L = \dot{\bigcup_{\substack{p \in P}}} \text{layers}(p) \label{constraint:disjointLayers} \\[10pt]
     & \forall p \in P: \text{minHeight}(p) \leq \text{height}(p) \leq \text{maxHeight}(p) \label{constraint:pressHeight} \\[10pt]
     & \forall p \in P: \text{minLength}(p) \leq \text{length}(p) \leq \text{maxLength}(p) \label{constraint:pressLength} \\[10pt]
     & \forall p \in P,\; \forall l \in \text{layers}(P): \neg \text{isEmpty}(l) \rightarrow \text{length}(p) = \text{length}(l) \label{constraint:layerLength} \\[10pt]
@@ -196,11 +225,22 @@ Die Anforderungen an einen Presseplan werden damit folgend realisiert:
 Constraint \ref{constraint:pressHeight} erfüllt Anforderung 1 aus Abschnitt \ref{sec:anforderungen}, während Constraint \ref{constraint:pressLength} Anforderung 2 erfüllt.
 Anforderung 3 wird durch Constraint \ref{constraint:layerLength} und Anforderung 4 durch Constraint \ref{constraint:layerHeight} abgedeckt.
 Constraint \ref{constraint:eoLayer} verhärtet Anforderung 5 aus Optimierungszwecken, siehe Abschnitt \ref{sec:optimierung}.
-Anforderung 6 ist in diesem Modell mehr Konstruktionsvorschrift als Constraint und ergibt sich aus \ref{constraint:disjointLayers}.
+Anforderung 6 ist in diesem Modell Konstruktionsvorschrift mit \ref{constraint:disjointLayers}.
 Die Constraints \ref{constraint:emptyLayer1} und \ref{constraint:emptyLayer2} definieren, wann eine Presse leer ist.
 Constraints \ref{constraint:computePressHeight} und \ref{constraint:computeLayerLength} liefern die Definition für Pressenhöhe und Schichtlänge.
 
-Wird anstelle der Quantifizierung im Modell grundinstanziiert, dann beträgt die Anzahl numerischer Unbekannter
+Das Modell beschreibt unbekannte Funktionen und nutzt damit Prädikatenlogik höherer Ordnung.
+Da die Mengen $P$, $L$ und $C$ endlich sind, ist auch der Definitionsbereich für alle unbekannten Funktionen im Modell endlich.
+Daher kann das Modell auf Prädikatenlogik erster Ordnung reduziert werden, indem die unbekannten Funktionen durch unbekannte Werte realisiert werden.
+Folgend beispielhaft für Pressen:
+\begin{align*}
+    &\hspace{0pt} \mathbb{X}_{\mathbb{N}_0}^{P}\prime = \bigcup_{p \in P} \left\{\text{length}_p, \text{height}_p\right\} \\
+    &\hspace{0pt} \text{length}(p) = \text{length}_p \\
+    &\hspace{0pt} \text{height}(p) = \text{height}_p \\
+    &\hspace{0pt} \Sigma_{F}^{P}\prime = \Sigma_{F}^{P} \cup \left\{ \text{length}, \text{height} \right\}
+\end{align*}
+
+Wird anstelle der Quantifizierung im Modell außerdem grundinstanziiert, dann beträgt die Anzahl numerischer Unbekannter
 $\lvert \mathbb{X}_{\mathbb{N}_0} \rvert = 2 \lvert P \rvert + 3 \lvert L \rvert$ und die Anzahl boolescher Unbekannter
 $\lvert \mathbb{X}_{\mathbb{B}} \rvert = \lvert L \rvert + \lvert C \rvert \cdot \lvert L \rvert$.
 Die Anzahl Unbekannter steigt also linear in Abhängigkeit zur Eingabe.
