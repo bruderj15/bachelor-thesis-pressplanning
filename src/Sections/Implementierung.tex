@@ -86,7 +86,7 @@ Unter diesen können einige leer sein, in jenen sind also keine Komponenten (Con
 Betrachten wir die Funktion $\text{maxLayers}: P \times A \rightarrow \mathbb{N}$ zur Berechnung der maximalen Schichtanzahl.
 Das triviale Maximum der Schichtanzahl pro Presse berechnet sich aus der kleinsten Komponente eines Auftrages und der Maximalhöhe der Presse:
 \[
-    \text{maxLayers}(p,a) = \left\lceil \frac{\text{maxHeight}(p)}{\min \left\{ \text{height}(c) \mid c \in \text{components}(a) \right\}} \right\rceil
+    \text{maxLayers}(p,a) = \left\lfloor \frac{\text{maxHeight}(p)}{\min \left\{ \text{height}(c) \mid c \in \text{components}(a) \right\}} \right\rfloor
 \]
 Diese Schranke ist korrekt, bezieht aber mögliche weitere Informationen des Auftrages nicht mit ein.
 Daher werden vermutlich meist mehr Schichten und damit auch Unbekannte und Formeln erzeugt, als für die Lösung des Problems überhaupt notwendig.
