@@ -246,21 +246,50 @@ $\lvert \mathbb{X}_{\mathbb{B}} \rvert = \lvert L \rvert + \lvert C \rvert \cdot
 Die Anzahl Unbekannter steigt also linear in Abhängigkeit zur Eingabe.
 Das gilt offensichtlich auch für Anzahl und Größe der Constraints.
 
+Im Folgenden der Arbeit werden Aufträge als Constraint-Systeme betrachtet.
+Dabei ist ein Auftrag $a \in A$ die Konjunktion aller Constraints für eine Eingabe:
+$a = \ref{constraint:pressHeight} \land \ref{constraint:pressLength} \land \ldots \land \ref{constraint:computeLayerLength}$.
+Die Menge aller Modelle (hier erfüllende Belegung) für ein solches $a$ wird dabei folgend notiert:
+\[
+    \text{Mod}(a) = \left\{
+        (\mathcal{S}, (\beta_{\mathbb{N}_0}, \beta_{\mathbb{B}})) \middle|
+            \begin{array}{l}
+                \mathcal{S} = ((\mathbb{N}_0, \mathbb{B}), \llbracket \cdot \rrbracket_{(\mathbb{N}_0, \mathbb{B})}) \text{ ist } \Sigma\text{-Struktur}, \\
+                \beta_{\mathbb{N}_0}: \mathbb{X}_{\mathbb{N}_0} \rightarrow \mathbb{N}_0, \\
+                \beta_{\mathbb{B}_{\phantom{0}}}: \mathbb{X}_{\mathbb{B}_{\phantom{0}}} \rightarrow \mathbb{B}, \\
+                \llbracket a \rrbracket_{(\mathcal{S}, (\beta_{\mathbb{N}_0}, \beta_{\mathbb{B}}))} = \text{True}
+            \end{array}
+    \right\}
+\]
+Zur Vereinfachung der Notation können die Interpretationsfunktionen $\beta_{\mathbb{N}_0}$ und $\beta_{\mathbb{B}}$ zusätzlich mit einem Modell indiziert werden.
+\[
+    \forall a \in A, \; \forall s \in \text{Mod}(a), s = (\mathcal{S}, (\beta_{\mathbb{N}_0}, \beta_{\mathbb{B}})): \beta_{\mathbb{N}_0}^s \equiv \beta_{\mathbb{N}_0} \land \beta_{\mathbb{B}}^s \equiv \beta_{\mathbb{B}}
+\]
+Weiter werden folgende Funktionen zu Aufträgen definiert:
+\begin{align*}
+    & \text{presses}:& A \rightarrow 2^P,& \text{ presses}(a) =& P_a \\
+    & \text{layers}:& A \rightarrow 2^L,& \text{ layers}(a) =& L_a \\
+    & \text{components}:& A \rightarrow 2^C,& \text{ components}(a) =& C_a \\
+\end{align*}
+
 \section{Optimierung}
 \label{sec:optimierung}
 Das obige Modell beschreibt beliebige Lösungen für das Problem der Pressenplanung.
 Um den Kostenaufwand beim Pressen zu reduzieren, sind Pressenpläne zusätzlich nach folgenden Kriterien lexikografisch zu optimieren (Vorgabe Germanedge):
 \begin{enumerate}
-    \item $ \min \left( \left\lvert \left\{ c \in C \mid \neg\bigvee\limits_{\substack{l \in L}} \text{InLayer}(c,l) \right\} \right\rvert \right) $
+    \item $ \min \left( \left\lvert \left\{ c \in C \middle| \neg\bigvee\limits_{\substack{l \in L}} \text{InLayer}(c,l) \right\} \right\rvert \right) $
     \item $ \min (\lvert P \rvert) $
     \item $ \min \left(\sum\limits_{\substack{l \in L}} \text{waste}(l) \right) $
 \end{enumerate}
 
-Bei Ziel 1, der Minimierung der Anzahl unverplanter Komponenten ist das Optimum immer Null.
+Bei Ziel 1, der Minimierung der Anzahl unverplanter Komponenten ist das Optimum immer Null, wenn der Auftrag erfüllbar ist.
 Also:
-\[
-    \forall a \in A, \; \exists s \in \text{Mod}(a): \left\lvert \left\{ c \in \text{components}(a) \mid \neg\bigvee\limits_{\substack{l \in \text{layers}(a)}} \beta_{s}(\text{InLayer}(c,l)) \right\} \right\rvert = 0
-\]
+\begin{align*}
+    &\hspace{0pt} \forall a \in A: \text{Mod}(a) \neq \emptyset \rightarrow \exists s \in \text{Mod}(a): \\
+    &\hspace{20pt} \left\lvert \left\{ c \in \text{components}(a) \middle| \neg\bigvee\limits_{\substack{l \in \text{layers}(a)}} \beta_{\mathbb{B}}^{s}(\text{InLayer}(c,l)) \right\} \right\rvert = 0
+\end{align*}
+
+% TODO: Naja, so trivial ist der Beweis nicht! Der sollte hier besser noch hingeschriebenw werden!
 Der Beweis ist trivial, da für jedes Bauteil des Auftrages eine eigene Presse geplant werden kann, welche so mit Rest aufgefüllt wird,
 dass deren Mindestanforderungen an Länge und Höhe erfüllt werden.
 Die Verplanung aller Bauteile ist mit Constraint \ref{constraint:eoLayer} bereits im Modell festgehalten, sodass alle erfüllenden Belegungen des Modells

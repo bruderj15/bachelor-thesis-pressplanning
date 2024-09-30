@@ -98,10 +98,11 @@ Das ist möglich, indem zusätzlich die Anzahl der kleinsten Komponenten betrach
     &\hspace{0pt}S_k = \sum_{i = 1}^{k} h_i \text{ die kumulierte Summe dieser sortierten Höhen.} \\
     &\hspace{0pt}\text{Dann gilt: } \text{maxLayers}(p,a) = \max\left\{ k \mid S_k \leq \text{maxHeight}(p) \right\} \\
     &\hspace{0pt}\text{Auch diese Schranke ist offensichtlich korrekt, aber gibt es eine bessere? Also:} \\
-    &\hspace{0pt}\exists f: P \times A \rightarrow \mathbb{N}, \; \forall p \in P, \; \forall a \in A, \; \exists s \in \text{Mod}(a): s \models_{opt} a \rightarrow \\
-    &\hspace{20pt}\left(f(p,a) < \text{maxLayers}(p,a) \land \lvert \left\{ l \in \text{layers}(p) \mid \neg \beta_{s}(\text{empty}(l)) \right\} \rvert \leq f(p,a) \right)
+    &\hspace{0pt}\exists f: P \times A \rightarrow \mathbb{N}, \; \forall p \in P, \; \forall a \in A: \text{Mod}(a) \neq \emptyset \rightarrow (\exists s \in \text{Mod}(a): s \models_{opt} a \rightarrow \\
+    &\hspace{20pt}\left(f(p,a) < \text{maxLayers}(p,a) \land \lvert \left\{ l \in \text{layers}(p) \mid \neg \beta_{\mathbb{B}}^{s}(\text{empty}(l)) \right\} \rvert \leq f(p,a) \right))
 \end{align*}
 Da in dieser Arbeit lediglich ein Prototyp für die optimale Lösung des Pressenplanungsproblems entwickelt werden soll, genügt die Schranke der kumulierten Summen.
+
 Mithilfe von \textit{Discrimination} \cite{discriminationPaper, discriminationHaskell} können die Höhen in $\mathcal{O}(\lvert \text{components}(a) \rvert)$ sortiert werden,
 sodass die Funktion \texttt{maxLayers} lineare Laufzeitkomplexität aufweist:
 
@@ -196,22 +197,21 @@ Optimierungsziel 2 ist die Minimierung der Anzahl geplanter Pressen.
 Dabei gilt $1 \leq \lvert P \rvert \leq k$ mit erfahrungsgemäß $k \leq 11$ für die größten Aufträge.
 Wird ein Auftrag also $k$ mal mit jeweils unterschiedlicher Pressen-Anzahl kodiert, dann existiert für genau eine jener Kodierungen mindestens eine optimale Belegung:
 \[
-    \forall a \in A, \; \exists! i \in \left\{ n \in \mathbb{N}_0 \mid n \leq k \right\}, \; \exists s \in \text{Mod}(a_{\lvert P \rvert = i}): s \models_{opt} a
+    \forall a \in A: \text{Mod}(a) \neq \emptyset \rightarrow (\exists! i \in \left\{ n \in \mathbb{N}_0 \mid n \leq k \right\}, \; \exists s \in \text{Mod}(a_{\lvert P \rvert = i}): s \models_{opt} a)
 \]
-Optimal ist jene Belegung in entsprechender Kodierung genau dann, wenn der Gesamtrest unter der Belegung $\beta$ minimal ist (Optimierungsziel 3):
+Optimal ist jene Belegung in entsprechender Kodierung genau dann, wenn der Gesamtrest unter der Belegung $\beta_{\mathbb{N}_0}$ minimal ist (Optimierungsziel 3):
 \begin{align*}
-    &\hspace{0pt} \text{Sei } i \text{ die optimale Pressenanzahl für einen Auftrag } a, \text{ dann gilt:} \\
+    &\hspace{0pt} \text{Sei } i \text{ die optimale Pressenanzahl für einen erfüllbaren Auftrag } a, \text{ dann gilt:} \\
     &\hspace{0pt} \exists s \in \text{Mod}(a_{\lvert P \rvert = i}), \; \forall s\prime \in \text{Mod}(a_{\lvert P \rvert = i}): \\
-    &\hspace{20pt} s \models_{opt} a \leftrightarrow \beta_{s}\left(\sum\limits_{\substack{l \in \text{layers}(a)}} \text{waste}(l)\right) \leq \beta_{s\prime}\left( \sum\limits_{\substack{l \in \text{layers}(a)}} \text{waste}(l) \right)
+    &\hspace{20pt} s \models_{opt} a \leftrightarrow \beta_{\mathbb{N}_0}^{s}\left(\sum\limits_{\substack{l \in \text{layers}(a)}} \text{waste}(l)\right) \leq \beta_{\mathbb{N}_0}^{s\prime}\left( \sum\limits_{\substack{l \in \text{layers}(a)}} \text{waste}(l) \right)
 \end{align*}
 Das kleinste Optimum des Gesamtrests liegt bestenfalls bei null.
 Durch das Hinzufügen des Constraints $0 = \sum_{l \in L} \text{waste}(l)$ zur Kodierung mit der minimalen Pressen-Anzahl
 kann dieses Optimum forciert werden.
 Ist das Problem nach Hinzufügen des Constraints noch immer erfüllbar, dann ist jede erfüllende Belegung des Problems optimal.
-\begin{align*}
-    &\hspace{0pt} \text{Sei } a\prime = a \cup \left\{0 = \sum_{l \in \text{layers}(a)} \text{waste}(l)\right\} \text{, dann gilt: }
-    \forall s \in \text{Mod}(a\prime): s \models_{opt} a\prime
-\end{align*}
+\[
+    \text{Sei } a\prime = a \land 0 = \sum_{l \in \text{layers}(a)} \text{waste}(l) \text{, dann gilt: } \forall s \in \text{Mod}(a\prime): s \models_{opt} a\prime
+\]
 Ein solches zusätzliches Constraint schränkt den Lösungsraum des Problems erheblich ein, sodass die Lösung des Problems durch den Solver wesentlich effizienter wird.
 
 Allerdings kann nicht garantiert werden, dass es eine Lösung ohne Rest gibt.
