@@ -168,7 +168,7 @@ Schichten haben unbekannte Länge, Höhe, einen unbekannten Rest und eine booles
         \end{aligned}
     \end{array}
 \]
-Komponenten werden konkret Länge und Höhe zugeordnet:
+Komponenten werden konkrete Längen und Höhen zugeordnet:
 \[
     \begin{array}{lll}
         \begin{aligned}
@@ -267,9 +267,9 @@ Zur Vereinfachung der Notation können die Interpretationsfunktionen $\beta_{\ma
 \]
 Weiter werden folgende Funktionen zu Aufträgen definiert:
 \begin{align*}
-    & \text{presses}:& A \rightarrow 2^P,& \text{ presses}(a) =& P_a \\
-    & \text{layers}:& A \rightarrow 2^L,& \text{ layers}(a) =& L_a \\
-    & \text{components}:& A \rightarrow 2^C,& \text{ components}(a) =& C_a \\
+    & \text{presses}: A \rightarrow 2^P, \text{ presses}(a) = P_a, \text{ wobei } P_a \text{ ist Menge aller Pressen in } a \\
+    & \text{layers}: A \rightarrow 2^L, \text{ layers}(a) = L_a, \text{ wobei } L_a \text{ ist Menge aller Schichten in } a \\
+    & \text{components}: A \rightarrow 2^C, \text{ components}(a) = C_a, \text{ wobei } C_a \text{ ist Menge aller Komponenten in } a \\
 \end{align*}
 
 \section{Optimierung}
