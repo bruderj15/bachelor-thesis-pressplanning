@@ -104,8 +104,6 @@ An einen Pressenplan bestehen folgende Anforderungen:
     \item Jeder Balken ist genau einer Presse zugeordnet.
 \end{enumerate}
 
-% Hier könnte noch ein Beispiel eingefügt werden
-
 \section{Modellierung}
 \label{sec:modellierung}
 In diesem Abschnitt wird das Modell zur Modellierung des Pressenplanungsproblems erläutert.
@@ -281,16 +279,28 @@ Um den Kostenaufwand beim Pressen zu reduzieren, sind Pressenpläne zusätzlich 
     \item $ \min (\lvert P \rvert) $
     \item $ \min \left(\sum\limits_{\substack{l \in L}} \text{waste}(l) \right) $
 \end{enumerate}
-
-Bei Ziel 1, der Minimierung der Anzahl unverplanter Komponenten ist das Optimum immer Null, wenn der Auftrag erfüllbar ist.
+Ziel 1 ist die Minimierung der Anzahl unverplanter Komponenten.
+Dort ist das Optimum bestenfalls null, sodass alle Komponenten verplant sind.
+Existiert eine solche Lösung immer?
 Also:
+\[
+    \forall a \in A, \; \exists s \in \text{Mod}(a): 0 = \left\lvert \left\{ c \in \text{components}(a) \middle| \neg\bigvee\limits_{\substack{l \in \text{layers}(a)}} \beta_{\mathbb{B}}^{s}(\text{InLayer}(c,l)) \right\} \right\rvert
+\]
+Nein, denn es lässt sich ein einfaches Gegenbeispiel konstruieren:
 \begin{align*}
-    &\hspace{0pt} \forall a \in A: \text{Mod}(a) \neq \emptyset \rightarrow \exists s \in \text{Mod}(a): \\
-    &\hspace{20pt} \left\lvert \left\{ c \in \text{components}(a) \middle| \neg\bigvee\limits_{\substack{l \in \text{layers}(a)}} \beta_{\mathbb{B}}^{s}(\text{InLayer}(c,l)) \right\} \right\rvert = 0
+    &\hspace{0pt} \text{Seien } P = \left\{ p_1, p_2 \right\} \text{ und } C = \left\{ c_1,c_2 \right\} \text{ mit } \\
+    &\hspace{0pt} \text{height}(c_2) < \text{minHeight}(p_1) \leq \text{minHeight}(p_2) < \text{maxHeight}(p_2) < \text{height}(c_1) = \text{maxHeight}(p_1) \\
+    &\hspace{0pt} \text{Dann muss } c_1 \text{ in } p_1 \text{ und damit } c_2 \text{ in } p_2 \text{ verplant werden.} \\
+    &\hspace{0pt} \text{Das geht aber nicht, weil: } \text{height}(c_2) < \text{minHeight}(p_2)
 \end{align*}
-
-% TODO: Naja, so trivial ist der Beweis nicht! Der sollte hier besser noch hingeschriebenw werden!
-Der Beweis ist trivial, da für jedes Bauteil des Auftrages eine eigene Presse geplant werden kann, welche so mit Rest aufgefüllt wird,
-dass deren Mindestanforderungen an Länge und Höhe erfüllt werden.
-Die Verplanung aller Bauteile ist mit Constraint \ref{constraint:eoLayer} bereits im Modell festgehalten, sodass alle erfüllenden Belegungen des Modells
-bezüglich Optimierungsziel 1 optimal sind.
+Wie Erfahrungsberichte und alle Testfälle in Kapitel \ref{chapter:auswertung} zeigen, existiert mit hoher Wahrscheinlichkeit aber eine Lösung, in welcher alle Bauteile verplant sind.
+Da die Verplanung aller Bauteile mit Constraint \ref{constraint:eoLayer} bereits im Modell festgehalten ist, sind alle erfüllenden Belegungen des Modells
+bezüglich Optimierungsziel 1 optimal.
+In den wenigen Fällen, in welchen die minimale Anzahl unverplanter Bauteile größer als null ist, existiert im Modell aus Abschnitt \ref{sec:modellierung} keine Lösung.
+Die korrekte Modellierung wäre hier anstelle des Constraints \ref{constraint:eoLayer} folgende:
+\[
+    \forall c \in C: \text{atMost}\left(1, \bigcup_{l \in L} \left\{ \text{InLayer}(c,l) \right\}\right)
+\]
+Dafür müsste aber zusätzlich nach Optimierungsziel 1 optimiert werden.
+Aufgrund des damit einhergehenden signifikanten Performance-Verlusts bei der Lösung durch den SMT-Solver sowie der Seltenheit solcher Fälle,
+wird in diesem Modell das Nicht-Finden dieser Lösungen hingenommen.

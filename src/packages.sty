@@ -107,6 +107,15 @@
 \newcommand{\cmark}{\textcolor{green}{\ding{51}}} % Green checkmark
 \newcommand{\xmark}{\textcolor{red}{\ding{55}}}   % Red cross
 
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows, positioning}
+\tikzstyle{startstop} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=red!30]
+\tikzstyle{process} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=orange!30]
+\tikzstyle{fork} = [circle, minimum width=0.5cm, draw=black, fill=black]
+\tikzstyle{arrow} = [thick,->,>=stealth]
+
+
+
 % --- Main matter ---
 % This is the main part of the paper.
 \newcommand{\mainmatter}{
