@@ -13,6 +13,7 @@
 \end{listing}
 
 \section{Laufzeitmessungen}
+\label{appendix:results}
 \begin{landscape}
     \begin{longtable}{|c|c|c|c|c|l|c|c|c|c|c|c|c|c|c|c|}
             \hline
@@ -93,7 +94,7 @@
             \multirow{4}{*}{13} & \multirow{4}{*}{Diverse} & \multirow{4}{*}{25} & \multirow{4}{*}{25} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{1} & \multirow{4}{*}{??} & \multirow{4}{*}{??} & \multirow{4}{*}{??} & TO & \multirow{4}{*}{0} & 1 & 500 & \xmark \\
             & & & & SMT & QF\_LIA & OpenSMT & & & & & TO & & 1 & 500 & \xmark \\
             & & & & SMT & QF\_LIA & Z3 & & & & & TO & & 1 & 500 & \xmark \\
-            & & & & OMT & QF\_LIA & Z3 & & & & & 2 & & 2 & 0 & \xmark \\
+            & & & & OMT & QF\_LIA & Z3 & & & & & TO & & 2 & 0 & \xmark \\
             \hline
             \multirow{4}{*}{14} & \multirow{4}{*}{DiverseOpt} & \multirow{4}{*}{26} & \multirow{4}{*}{26} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{1} & \multirow{4}{*}{??} & \multirow{4}{*}{??} & \multirow{4}{*}{??} & 1 & \multirow{4}{*}{0} & 1 & 0 & \cmark \\
             & & & & SMT & QF\_LIA & OpenSMT & & & & & 1 & & 1 & 0 & \cmark \\
@@ -110,55 +111,55 @@
             & & & & SMT & QF\_LIA & Z3 & & & & & 4 & & 2 & 0 & \cmark \\
             & & & & OMT & QF\_LIA & Z3 & & & & & 2 & & 2 & 0 & \cmark \\
             \hline
-            \multirow{4}{*}{17} & \multirow{4}{*}{Diverse3} & \multirow{4}{*}{75} & \multirow{4}{*}{25} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{2} & \multirow{4}{*}{??} & \multirow{4}{*}{??} & \multirow{4}{*}{??} & ?? & \multirow{4}{*}{0} & ?? & ?? & ?? \\
-            & & & & SMT & QF\_LIA & OpenSMT & & & & & ?? & & ?? & ?? & ?? \\
+            \multirow{4}{*}{17} & \multirow{4}{*}{Diverse3} & \multirow{4}{*}{75} & \multirow{4}{*}{25} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{2} & \multirow{4}{*}{??} & \multirow{4}{*}{??} & \multirow{4}{*}{??} & TO & \multirow{4}{*}{0} & 3 & 3300 & \xmark \\
+            & & & & SMT & QF\_LIA & OpenSMT & & & & & TO & & 3 & 3300 & \xmark \\
             & & & & SMT & QF\_LIA & Z3 & & & & & TO & & 3 & 500 & \xmark \\
             & & & & OMT & QF\_LIA & Z3 & & & & & 50 & & 4 & 0 & \xmark \\
             \hline
-            \multirow{4}{*}{18} & \multirow{4}{*}{Diverse3Opt} & \multirow{4}{*}{78} & \multirow{4}{*}{26} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{2} & \multirow{4}{*}{??} & \multirow{4}{*}{??} & \multirow{4}{*}{??} & ?? & \multirow{4}{*}{0} & ?? & ?? & ?? \\
-            & & & & SMT & QF\_LIA & OpenSMT & & & & & ?? & & ?? & ?? & ?? \\
+            \multirow{4}{*}{18} & \multirow{4}{*}{Diverse3Opt} & \multirow{4}{*}{78} & \multirow{4}{*}{26} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{2} & \multirow{4}{*}{??} & \multirow{4}{*}{??} & \multirow{4}{*}{??} & TO & \multirow{4}{*}{0} & 4 & 51300 & \xmark \\
+            & & & & SMT & QF\_LIA & OpenSMT & & & & & TO & & 4 & 51300 & \xmark \\
             & & & & SMT & QF\_LIA & Z3 & & & & & 47 & & 3 & 0 & \cmark \\
-            & & & & OMT & QF\_LIA & Z3 & & & & & 32 & & 4 & 0 & \xmark \\
+            & & & & OMT & QF\_LIA & Z3 & & & & & TO & & 4 & 0 & \xmark \\
             \hline
-            \multirow{4}{*}{19} & \multirow{4}{*}{Diverse4} & \multirow{4}{*}{100} & \multirow{4}{*}{25} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{3} & \multirow{4}{*}{??} & \multirow{4}{*}{??} & \multirow{4}{*}{??} & ?? & \multirow{4}{*}{0} & ?? & ?? & ?? \\
-            & & & & SMT & QF\_LIA & OpenSMT & & & & & ?? & & ?? & ?? & ?? \\
+            \multirow{4}{*}{19} & \multirow{4}{*}{Diverse4} & \multirow{4}{*}{100} & \multirow{4}{*}{25} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{3} & \multirow{4}{*}{??} & \multirow{4}{*}{??} & \multirow{4}{*}{??} & TO & \multirow{4}{*}{0} & 5 & 23800 & \xmark \\
+            & & & & SMT & QF\_LIA & OpenSMT & & & & & TO & & 5 & 28200 & \xmark \\
             & & & & SMT & QF\_LIA & Z3 & & & & & TO & & 4 & 3208 & \xmark \\
-            & & & & OMT & QF\_LIA & Z3 & & & & & ?? & & ?? & ?? & ?? \\
+            & & & & OMT & QF\_LIA & Z3 & & & & & TO & & 5 & 0 & \xmark \\
             \hline
-            \multirow{4}{*}{20} & \multirow{4}{*}{Diverse4Opt} & \multirow{4}{*}{104} & \multirow{4}{*}{26} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{3} & \multirow{4}{*}{??} & \multirow{4}{*}{??} & \multirow{4}{*}{??} & ?? & \multirow{4}{*}{0} & ?? & ?? & ?? \\
-            & & & & SMT & QF\_LIA & OpenSMT & & & & & ?? & & ?? & ?? & ?? \\
-            & & & & SMT & QF\_LIA & Z3 & & & & & 575 & & 3 & 0 & \cmark \\
-            & & & & OMT & QF\_LIA & Z3 & & & & & ?? & & ?? & ?? & ?? \\
+            \multirow{4}{*}{20} & \multirow{4}{*}{Diverse4Opt} & \multirow{4}{*}{104} & \multirow{4}{*}{26} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{3} & \multirow{4}{*}{??} & \multirow{4}{*}{??} & \multirow{4}{*}{??} & TO & \multirow{4}{*}{0} & 5 & 32950 & \xmark \\
+            & & & & SMT & QF\_LIA & OpenSMT & & & & & TO & & 5 & 51400 & \xmark \\
+            & & & & SMT & QF\_LIA & Z3 & & & & & 575 & & 4 & 0 & \cmark \\
+            & & & & OMT & QF\_LIA & Z3 & & & & & TO & & 5 & 0 & \xmark \\
             \hline
             \multirow{4}{*}{21} & \multirow{4}{*}{Diverse5} & \multirow{4}{*}{125} & \multirow{4}{*}{25} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{4} & \multirow{4}{*}{??} & \multirow{4}{*}{??} & \multirow{4}{*}{??} & TO & \multirow{4}{*}{0} & 5 & 4900 & \xmark \\
             & & & & SMT & QF\_LIA & OpenSMT & & & & & TO & & 5 & 4900 & \xmark \\
             & & & & SMT & QF\_LIA & Z3 & & & & & TO & & 5 & 2516 & \xmark \\
-            & & & & OMT & QF\_LIA & Z3 & & & & & ?? & & ?? & ?? & ?? \\
+            & & & & OMT & QF\_LIA & Z3 & & & & & TO & & 6 & 0 & \xmark \\
             \hline
-            \multirow{4}{*}{22} & \multirow{4}{*}{Diverse5Opt} & \multirow{4}{*}{130} & \multirow{4}{*}{26} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{4} & \multirow{4}{*}{??} & \multirow{4}{*}{??} & \multirow{4}{*}{??} & ?? & \multirow{4}{*}{0} & ?? & ?? & ?? \\
-            & & & & SMT & QF\_LIA & OpenSMT & & & & & ?? & & ?? & ?? & ?? \\
+            \multirow{4}{*}{22} & \multirow{4}{*}{Diverse5Opt} & \multirow{4}{*}{130} & \multirow{4}{*}{26} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{4} & \multirow{4}{*}{??} & \multirow{4}{*}{??} & \multirow{4}{*}{??} & TO & \multirow{4}{*}{0} & 6 & 40800 & \xmark \\
+            & & & & SMT & QF\_LIA & OpenSMT & & & & & TO & & 6 & 40800 & \xmark \\
             & & & & SMT & QF\_LIA & Z3 & & & & & TO & & 6 & 23458 & \xmark \\
-            & & & & OMT & QF\_LIA & Z3 & & & & & ?? & & ?? & ?? & ?? \\
+            & & & & OMT & QF\_LIA & Z3 & & & & & TO & & 6 & 0 & \xmark \\
             \hline
             \multirow{4}{*}{23} & \multirow{4}{*}{Diverse7} & \multirow{4}{*}{175} & \multirow{4}{*}{25} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{6} & \multirow{4}{*}{??} & \multirow{4}{*}{??} & \multirow{4}{*}{??} & TO & \multirow{4}{*}{0} & 8 & 56000 & \xmark \\
             & & & & SMT & QF\_LIA & OpenSMT & & & & & TO & & 8 & 56000 & \xmark \\
             & & & & SMT & QF\_LIA & Z3 & & & & & TO & & 7 & 7700 & \xmark \\
-            & & & & OMT & QF\_LIA & Z3 & & & & & ?? & & ?? & ?? & ?? \\
+            & & & & OMT & QF\_LIA & Z3 & & & & & TO & & - & - & \xmark \\
             \hline
             \multirow{4}{*}{24} & \multirow{4}{*}{Diverse7Opt} & \multirow{4}{*}{182} & \multirow{4}{*}{26} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{6} & \multirow{4}{*}{??} & \multirow{4}{*}{??} & \multirow{4}{*}{??} & TO & \multirow{4}{*}{0} & 8 & 48950 & \xmark \\
             & & & & SMT & QF\_LIA & OpenSMT & & & & & TO & & 8 & 48950 & \xmark \\
             & & & & SMT & QF\_LIA & Z3 & & & & & TO & & 8 & 47300 & \xmark \\
-            & & & & OMT & QF\_LIA & Z3 & & & & & ?? & & ?? & ?? & ?? \\
+            & & & & OMT & QF\_LIA & Z3 & & & & & TO & & - & - & \xmark \\
             \hline
-            \multirow{4}{*}{25} & \multirow{4}{*}{Diverse10} & \multirow{4}{*}{250} & \multirow{4}{*}{25} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{9} & \multirow{4}{*}{??} & \multirow{4}{*}{??} & \multirow{4}{*}{??} & TO & \multirow{4}{*}{-} & - & - & \xmark \\
+            \multirow{4}{*}{25} & \multirow{4}{*}{Diverse10} & \multirow{4}{*}{250} & \multirow{4}{*}{25} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{9} & \multirow{4}{*}{??} & \multirow{4}{*}{??} & \multirow{4}{*}{??} & TO & \multirow{4}{*}{0} & - & - & \xmark \\
             & & & & SMT & QF\_LIA & OpenSMT & & & & & TO & & - & - & \xmark \\
             & & & & SMT & QF\_LIA & Z3 & & & & & TO & & 11 & 52858 & \xmark \\
-            & & & & OMT & QF\_LIA & Z3 & & & & & ?? & & ?? & ?? & ?? \\
+            & & & & OMT & QF\_LIA & Z3 & & & & & TO & & - & - & \xmark \\
             \hline
-            \multirow{4}{*}{26} & \multirow{4}{*}{Diverse10Opt} & \multirow{4}{*}{260} & \multirow{4}{*}{26} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{9} & \multirow{4}{*}{??} & \multirow{4}{*}{??} & \multirow{4}{*}{??} & TO & \multirow{4}{*}{??} & 11 & 55800 & \xmark \\
+            \multirow{4}{*}{26} & \multirow{4}{*}{Diverse10Opt} & \multirow{4}{*}{260} & \multirow{4}{*}{26} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{9} & \multirow{4}{*}{??} & \multirow{4}{*}{??} & \multirow{4}{*}{??} & TO & \multirow{4}{*}{0} & 11 & 55800 & \xmark \\
             & & & & SMT & QF\_LIA & OpenSMT & & & & & TO & & 11 & 55800 & \xmark \\
-            & & & & SMT & QF\_LIA & Z3 & & & & & ?? & & 11 & 75211 & \xmark \\
-            & & & & OMT & QF\_LIA & Z3 & & & & & ?? & & ?? & ?? & ?? \\
+            & & & & SMT & QF\_LIA & Z3 & & & & & TO & & 11 & 75211 & \xmark \\
+            & & & & OMT & QF\_LIA & Z3 & & & & & TO & & - & - & \xmark \\
             \hline
         \caption{Vergleich der Programm-Konfigurationen mit Timeout nach zehn Minuten}
         \label{tab:vglkodierungreal}
@@ -183,17 +184,22 @@
 
                 \hline
                 \multirow{2}{*}{4} & \multirow{2}{*}{Small} & \multirow{2}{*}{27} & \multirow{2}{*}{6} & SMT & \multirow{2}{*}{QF\_LIA} & \multirow{2}{*}{Z3} & \multirow{2}{*}{1} & \multirow{2}{*}{0} & \multirow{2}{*}{??} & \multirow{2}{*}{??} & TO & \multirow{2}{*}{0} & 3 & 298 & \xmark \\
-                & & & & OMT & & & & & & & \xmark & & \xmark & \xmark & \xmark \\
+                & & & & OMT & & & & & & & TO & & - & - & \xmark \\
                 \hline
                 \multirow{2}{*}{7} & \multirow{2}{*}{Optimal3} & \multirow{2}{*}{123} & \multirow{2}{*}{6} & SMT & \multirow{2}{*}{QF\_LIA} & \multirow{2}{*}{Z3} & \multirow{2}{*}{2} & \multirow{2}{*}{0} & \multirow{2}{*}{??} & \multirow{2}{*}{??} & 20571 & \multirow{2}{*}{0} & 3 & 0 & \cmark \\
                 & & & & OMT & & & & & & & 14994 & & 3 & 0 & \cmark \\
+                \hline
+                \multirow{2}{*}{11} & \multirow{2}{*}{Large} & \multirow{2}{*}{193} & \multirow{2}{*}{2} & SMT & \multirow{2}{*}{QF\_LIA} & \multirow{2}{*}{Z3} & \multirow{2}{*}{6} & \multirow{2}{*}{0} & \multirow{2}{*}{??} & \multirow{2}{*}{??} & TO & \multirow{2}{*}{0} & 6 & 63883 & \xmark \\
+                & & & & OMT & & & & & & & ?? & & ?? & ?? & ?? \\
+                \hline
+                \multirow{2}{*}{12} & \multirow{2}{*}{Big} & \multirow{2}{*}{264} & \multirow{2}{*}{17} & SMT & \multirow{2}{*}{QF\_LIA} & \multirow{2}{*}{Z3} & \multirow{2}{*}{8} & \multirow{2}{*}{0} & \multirow{2}{*}{??} & \multirow{2}{*}{??} & TO & \multirow{2}{*}{0} & 9 & 205437 & \xmark \\
+                & & & & OMT & & & & & & & ?? & & ?? & ?? & ?? \\
                 \hline
                 \multirow{2}{*}{22} & \multirow{2}{*}{Diverse5Opt} & \multirow{2}{*}{130} & \multirow{2}{*}{26} & SMT & \multirow{2}{*}{QF\_LIA} & \multirow{2}{*}{Z3} & \multirow{2}{*}{4} & \multirow{2}{*}{0} & \multirow{2}{*}{??} & \multirow{2}{*}{??} & 632 & \multirow{2}{*}{0} & 5 & 0 & \cmark \\
                 & & & & OMT & & & & & & & 9788 & & 5 & 0 & \cmark \\
                 \hline
                 \multirow{2}{*}{24} & \multirow{2}{*}{Diverse7Opt} & \multirow{2}{*}{182} & \multirow{2}{*}{26} & SMT & \multirow{2}{*}{QF\_LIA} & \multirow{2}{*}{Z3} & \multirow{2}{*}{6} & \multirow{2}{*}{0} & \multirow{2}{*}{??} & \multirow{2}{*}{??} & 35806 & \multirow{2}{*}{0} & 7 & 0 & \cmark \\
                 & & & & OMT & & & & & & & ?? & & ?? & ?? & ?? \\
-
                 \hline
                 \caption{Vergleich der Programm-Konfigurationen mit Timeout nach zehn Stunden}
                 \label{tab:vglkodierungliberal}
@@ -246,12 +252,18 @@
                 15 & Diverse2     & 50     & 25    & 78     & 0     & 3     & 0     & 31    & 0     & 2     & 0            & \cmark \\
                 \rowcolor{green!20}
                 16 & Diverse2Opt  & 52     & 26    & 214    & 0     & 3     & 750   & 4     & 0     & 2     & 0            & \cmark \\
-                17 & Diverse3     & 75     & 25    & ??     & ??    & ??    & ??    & TO    & 0     & 3     & 500          & \xmark \\
-                18 & Diverse3Opt  & 78     & 26    & ??     & ??    & ??    & ??    & 47    & 0     & 3     & 0            & \cmark \\
-                19 & Diverse4     & 100    & 25    & ??     & ??    & ??    & ??    & TO    & 0     & 4     & 3208         & \xmark \\
-                20 & Diverse4Opt  & 104    & 26    & ??     & ??    & ??    & ??    & 575   & 0     & 4     & 0            & \cmark \\
-                21 & Diverse5     & 125    & 25    & ??     & ??    & ??    & ??    & TO    & 0     & 5     & 2516         & \xmark \\
-                22 & Diverse5Opt  & 130    & 26    & ??     & ??    & ??    & ??    & TO    & 0     & 6     & 23458        & \xmark \\
+                \rowcolor{red!20}
+                17 & Diverse3     & 75     & 25    & 45     & 0     & 3     & 500   & TO    & 0     & 3     & 500          & \xmark \\
+                \rowcolor{green!20}
+                18 & Diverse3Opt  & 78     & 26    & 36     & 0     & 4     & 0     & 47    & 0     & 3     & 0            & \cmark \\
+                \rowcolor{green!20}
+                19 & Diverse4     & 100    & 25    & 55     & 0     & 5     & 500   & TO    & 0     & 4     & 3208         & \xmark \\
+                \rowcolor{green!20}
+                20 & Diverse4Opt  & 104    & 26    & 108    & 0     & 5     & 0     & 575   & 0     & 4     & 0            & \cmark \\
+                \rowcolor{red!20}
+                21 & Diverse5     & 125    & 25    & 98     & 0     & 5     & 500   & TO    & 0     & 5     & 2516         & \xmark \\
+                \rowcolor{red!20}
+                22 & Diverse5Opt  & 130    & 26    & 48     & 0     & 6     & 0     & TO    & 0     & 6     & 23458        & \xmark \\
                 \rowcolor{green!20}
                 23 & Diverse7     & 175    & 25    & TO     & 1     & 7     & 0     & TO    & 0     & 7     & 7700         & \xmark \\
                 \rowcolor{red!20}
@@ -266,46 +278,46 @@
         \end{longtable}
 \end{landscape}
 
-\section{Diagramm-Test}
-
-\begin{center}
-        \begin{tikzpicture}[node distance=2cm]
-
-% Nodes for CLI and Reading CSV
-                \node (start) [startstop] {CLI-Aufruf mit Konfigurationsparametern};
-                \node (read) [process, below of=start] {CSV-Komponenten einlesen};
-
-% Forks (Verzweigungen, obere Reihe - 4 Forks)
-                \node (fork1) [fork, below of=read, xshift=-6cm, yshift=-2cm] {};
-                \node (fork2) [fork, right of=fork1, xshift=3cm] {};
-                \node (fork3) [fork, right of=fork2, xshift=3cm] {};
-                \node (fork4) [fork, right of=fork3, xshift=3cm] {};
-
-% Forks (Verzweigungen, untere Reihe - jeweils zwei Forks pro vorherigem Fork)
-                \node (fork11) [fork, below of=fork1, xshift=-1cm, yshift=-2cm] {};
-                \node (fork12) [fork, below of=fork1, xshift=1cm, yshift=-2cm] {};
-                \node (fork21) [fork, below of=fork2, xshift=-1cm, yshift=-2cm] {};
-                \node (fork22) [fork, below of=fork2, xshift=1cm, yshift=-2cm] {};
-                \node (fork31) [fork, below of=fork3, xshift=-1cm, yshift=-2cm] {};
-                \node (fork32) [fork, below of=fork3, xshift=1cm, yshift=-2cm] {};
-                \node (fork41) [fork, below of=fork4, xshift=-1cm, yshift=-2cm] {};
-                \node (fork42) [fork, below of=fork4, xshift=1cm, yshift=-2cm] {};
-
-% Arrows from Read to Forks (oben)
-                \draw [arrow] (read) -- ++(0,-1) -| (fork1);
-                \draw [arrow] (read) -- ++(0,-1) -| (fork2);
-                \draw [arrow] (read) -- ++(0,-1) -| (fork3);
-                \draw [arrow] (read) -- ++(0,-1) -| (fork4);
-
-% Arrows between upper and lower forks
-                \draw [arrow] (fork1) -- (fork11);
-                \draw [arrow] (fork1) -- (fork12);
-                \draw [arrow] (fork2) -- (fork21);
-                \draw [arrow] (fork2) -- (fork22);
-                \draw [arrow] (fork3) -- (fork31);
-                \draw [arrow] (fork3) -- (fork32);
-                \draw [arrow] (fork4) -- (fork41);
-                \draw [arrow] (fork4) -- (fork42);
-
-        \end{tikzpicture}
-\end{center}
+%\section{Diagramm-Test}
+%
+%\begin{center}
+%        \begin{tikzpicture}[node distance=2cm]
+%
+%% Nodes for CLI and Reading CSV
+%                \node (start) [startstop] {CLI-Aufruf mit Konfigurationsparametern};
+%                \node (read) [process, below of=start] {CSV-Komponenten einlesen};
+%
+%% Forks (Verzweigungen, obere Reihe - 4 Forks)
+%                \node (fork1) [fork, below of=read, xshift=-6cm, yshift=-2cm] {};
+%                \node (fork2) [fork, right of=fork1, xshift=3cm] {};
+%                \node (fork3) [fork, right of=fork2, xshift=3cm] {};
+%                \node (fork4) [fork, right of=fork3, xshift=3cm] {};
+%
+%% Forks (Verzweigungen, untere Reihe - jeweils zwei Forks pro vorherigem Fork)
+%                \node (fork11) [fork, below of=fork1, xshift=-1cm, yshift=-2cm] {};
+%                \node (fork12) [fork, below of=fork1, xshift=1cm, yshift=-2cm] {};
+%                \node (fork21) [fork, below of=fork2, xshift=-1cm, yshift=-2cm] {};
+%                \node (fork22) [fork, below of=fork2, xshift=1cm, yshift=-2cm] {};
+%                \node (fork31) [fork, below of=fork3, xshift=-1cm, yshift=-2cm] {};
+%                \node (fork32) [fork, below of=fork3, xshift=1cm, yshift=-2cm] {};
+%                \node (fork41) [fork, below of=fork4, xshift=-1cm, yshift=-2cm] {};
+%                \node (fork42) [fork, below of=fork4, xshift=1cm, yshift=-2cm] {};
+%
+%% Arrows from Read to Forks (oben)
+%                \draw [arrow] (read) -- ++(0,-1) -| (fork1);
+%                \draw [arrow] (read) -- ++(0,-1) -| (fork2);
+%                \draw [arrow] (read) -- ++(0,-1) -| (fork3);
+%                \draw [arrow] (read) -- ++(0,-1) -| (fork4);
+%
+%% Arrows between upper and lower forks
+%                \draw [arrow] (fork1) -- (fork11);
+%                \draw [arrow] (fork1) -- (fork12);
+%                \draw [arrow] (fork2) -- (fork21);
+%                \draw [arrow] (fork2) -- (fork22);
+%                \draw [arrow] (fork3) -- (fork31);
+%                \draw [arrow] (fork3) -- (fork32);
+%                \draw [arrow] (fork4) -- (fork41);
+%                \draw [arrow] (fork4) -- (fork42);
+%
+%        \end{tikzpicture}
+%\end{center}

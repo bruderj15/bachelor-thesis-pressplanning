@@ -1,14 +1,5 @@
 \chapter{Auswertung und Laufzeitmessung}
 \label{chapter:auswertung}
-
-%Was haben wir für Testfälle?
-%Woher kommen die Testfälle?
-%Wie wurden die Testfälle ausgewählt?
-%Sind sie repräsentativ für reale Probleme?
-%Vorgehen Laufzeitmessung erwähnen.
-%Maschinen-Specs nennen.
-%Vergleich von:
-
 In diesem Kapitel wird die Performance des Programms zur Lösung des Pressenplanungsproblems ausgewertet.
 Dazu werden zunächst folgende Konfigurationen des Programms miteinander verglichen:
 \begin{itemize}
@@ -36,6 +27,10 @@ Aufgrund einiger Firmenregularien kann die Laufzeitmessung der Heuristik nicht a
 Die firmeninterne Maschine weist allerdings sehr ähnliche Hardware-Spezifikationen auf, sodass ein Vergleich dennoch aussagekräftig ist.
 Die Laufzeitmessungen erfolgen unter ähnlichen Bedingungen mit minimaler Auslastung durch andere Prozesse.
 
+Insgesamt wird die Lösung von 26 verschiedenen Probleminstanzen verglichen.
+Darunter befinden sich sowohl reale als auch konstruierte Testfälle.
+Zu Zwecken der Anonymisierung werden diese allerdings nicht als solche gekennzeichnet.
+
 Ausgewertet wird die Güte der Lösungen nach den Optimierungszielen in Abschnitt \ref{sec:optimierung}.
 Zusätzlich kommt als viertes lexikografisches Optimierungsziel die Laufzeit des Programms beziehungsweise der Heuristik hinzu.
 Sind alle vier Metriken bei einer Probleminstanz gleich, dann wird die Lösung als gleich gut bewertet.
@@ -44,6 +39,9 @@ Die Laufzeitmessungen werden in den folgenden Abschnitten mit verschiedenen ober
 Gemessen wird die Zeit, welche Programm oder Heuristik für eine endgültige Lösung benötigen.
 Ermittelt das Programm also beispielsweise eine Lösung nach $30s$, rechnet aber bis zum Timeout weiter und verbessert diese Lösung nicht,
 dann wird die Messung der Laufzeit mit $TO$ (kurz für Timeout) versehen.
+Die gemessene Laufzeit schließt zwar alle Schritte von Eingabeverarbeitung über Kodierung der Constraints bis hin zur Lösung durch den Solver ein,
+umfasst letztendlich aber fast ausschließlich die Laufzeit des Solvers.
+Für die größten Probleminstanzen beträgt die Laufzeit des Programms (Haskell) höchstens drei Sekunden.
 
 Folgend die Erklärung aller Elemente der Vergleiche zur Lösung einer Probleminstanz:
 \begin{itemize}
@@ -66,6 +64,50 @@ Folgend die Erklärung aller Elemente der Vergleiche zur Lösung einer Problemin
 \end{itemize}
 
 \section{Vergleich verschiedener Programm-Konfigurationen}
+In diesem Abschnitt wird die Performance verschiedener Konfigurationen des in dieser Arbeit entwickelten Programms verglichen.
+Der Timeout für alle Probleminstanzen beträgt zehn Minuten, die maximal tolerierte Laufzeit aus Sicht des Kunden.
+Die tabellarische Auswertung der Laufzeitmessungen ist in Anhang \ref{appendix:results}, Tabelle \ref{tab:vglkodierungreal} zu finden.
+
+Diese Ergebnisse zeigen, dass alle Programmkonfigurationen korrekte Lösungen für bestimmte Eingaben finden.
+Die Kodierung des Constraint-Systems in Logik \texttt{QF\_LIA} liefert im Vergleich zu Logik \texttt{QF\_LRA} meist die besseren Lösungen.
+Das ist wenig verwunderlich, da die kleinste Einheit in der Problemdefinition Millimeter ist, sodass die arithmetischen Unbekannten ganzzahlig dargestellt werden können.
+Dies wiederum vereinfacht die Lösung für den Solver, da die Sorte \texttt{Int} die Menge $\mathbb{Z}$ (abzählbar unendlich) und
+die Sorte \texttt{Real} die Menge $\mathbb{R}$ (überabzählbar unendlich) repräsentiert, der Lösungsraum für Sorte \texttt{Int} also kleiner ist.
+
+Erstaunlich ist die dominante Performance von \texttt{Z3} mit Kodierung in \texttt{QF\_LIA} und Optimierung mit inkrementellem Verfeinern.
+In fast allen Testfällen liefert diese Konfiguration die beste Lösung.
+Besonders bemerkenswert sind dabei die Testfälle 2, 18 und 20.
+Die Konfiguration liefert dort als einzige die zertifiziert optimalen Lösungen.
+Diese Ergebnisse stehen in Konflikt zu jenen der SMT-COMP 2024, in welcher \texttt{Z3} klar hinter \texttt{OpenSMT} einzuordnen ist \cite{smtcomp2024results}.
+Möglicherweise liegt das am niedrigen Verhältnis arithmetischer Unbekannter zu booleschen Unbekannten in der Modellierung des Pressenplanungsproblems.
+In den meisten Benchmarks der SMT-COMP 2024 für \texttt{QF\_LIA} sind die Unbekannten fast ausschließlich von der Sorte \texttt{Int}.
+
+Die Konfiguration mit der Optimierung nach linearen Verfahren in OMT, \texttt{Z3} und \texttt{QF\_LIA}
+liefert für einfache Testfälle wie 1,2,3 oder 5 ebenfalls optimale Ergebnisse, für größere Testfälle allerdings gar keine.
+Das ist durch interne Beschränkungen von \texttt{Z3}'s Optimierungsmethodik und das Fehlen der Ausgabe von Zwischenergebnissen zu erklären.
+
+Betrachten wir nun die beste Konfiguration mit inkrementellem Verfeinern, Kodierung in \texttt{QF\_LIA} und Solver \texttt{Z3} etwas genauer.
+Das Finden und Zertifizieren der optimalen Lösung scheint für Probleminstanzen, bei welchen eine Lösung ohne Rest existiert am einfachsten.
+Testfall 20 zeigt, dass das sogar für größere Eingaben innerhalb von zehn Minuten möglich ist.
+Hingegen deuten die Testfälle 4, 13 und 17 darauf hin, dass der Nachweis von Optimalität selbst für kleine Testfälle,
+bei denen keine Lösung mit Rest null existiert, sehr schwer ist.
+Das ist so, weil der Solver erst nachweisen muss, dass keine andere Lösung existiert, die besser ist.
+Für den Fall mit Rest null entsteht ein einfacher Widerspruch zu Constraint \ref{listing:constraintpositivewaste} in Abschnitt \ref{sec:kodierungconstraints}.
+Bei allen anderen Fällen mit Rest $w > 0$ müssen alle möglichen $w$ besseren Lösungen als unerfüllbar nachgewiesen werden.
+
+Die Lösung der größten Probleminstanzen wie 11, 12, 25 und 26 ist mit Betrachtung des Rests vermutlich weit vom Optimum entfernt.
+Unter allen Testfällen bleibt ein Testfall (12) innerhalb von zehn Minuten sogar gänzlich ungelöst.
+Testfälle wie dieser mit über 250 Bauteilen und mehr als acht Pressen stellen die größtmöglichen und damit schwierigsten Eingaben aus der Realität dar.
+Auch, wenn sowohl Anzahl Unbekannter und Formeln, als auch Größe letzterer linear zur Eingabe steigen (Abschnitt \ref{sec:modellierung}),
+scheint die Schwere des Problems mit erhöhter Komplexität des Constraint-Systems weitaus stärker zu wachsen.
+Große Probleme vergrößern nicht nur den Lösungsraum, sondern erhöhen auch die Anforderungen des Solvers an die Hardware.
+Laufzeitmessungen auf einer Maschine mit 128 GB Arbeitsspeicher mit Timeout nach zehn Stunden (Anhang \ref{appendix:results}, Tabelle \ref{tab:vglkodierungliberal}) zeigen für Probleme
+11, 12, 25 und 26 Arbeitsspeichernutzung von bis zu 40 GB pro Problem.
+Je länger der Solver-Prozess läuft, desto mehr Speicher benötigt er, weil er Lemmas lernt (DPLL(T), Abschnitt \ref{sec:smtbasics}).
+
+Während auch größere Probleme wie Testfall 24 ohne Rest innerhalb von zehn Stunden optimal gelöst werden können, kann selbst der kleine Testfall 4 nach zehn Stunden
+noch immer nicht optimal vom Solver gelöst werden.
+Testfälle 11 und 12 demonstrieren, dass die Solver mit mehr Laufzeit auch für die größten Probleme signifikant bessere Lösungen finden.
 
 \section{Vergleich mit Germanedge's Heuristik}
 
@@ -74,3 +116,5 @@ Folgend die Erklärung aller Elemente der Vergleiche zur Lösung einer Problemin
 % Wo gehts besser? Vorverarbeitung? Nachverarbeitung nicht zertifizierter Lösungen?
 % PP-Problem irl mit vielen Verfeinerungen
 % Wie günstig kann man die hinzufügen?
+% Optimierung wirklich lexokografisch?
+% Oft Lösung mit wesentlich weniger Rest bei einer Presse mehr

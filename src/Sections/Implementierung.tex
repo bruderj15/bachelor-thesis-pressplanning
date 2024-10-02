@@ -179,7 +179,7 @@ Zusätzlich zu den Constraints des Modells in Abschnitt \ref{sec:modellierung} m
 
 \begin{listing}[H]
     \inputminted[linenos=true]{haskell}{Code/Implementierung/ConstraintPositiveWaste.hs}
-    \caption{Haskell-Kodierung des Constraints \ref{constraint:eoLayer}}
+    \caption{Haskell-Kodierung des extra Constraints: $\forall l \in L: \text{waste}(l) \geq 0$}
     \label{listing:constraintpositivewaste}
 \end{listing}
 
@@ -192,7 +192,7 @@ Wie aus Listing \ref{listing:constraintpositivewaste} zu schließen allerdings n
 \section{Parallelisierung und Optimierung}
 \label{sec:parallelisierung}
 In Abschnitt \ref{sec:optimierung} wurden drei Optimierungsziele genannt.
-Optimierungsziel 1, die Minimierung unverplanter Komponenten ist wie dort bereits beschrieben immer durch einen Pressenplan mit genau null übrigen Komponenten erfüllbar.
+Optimierungsziel 1, die Minimierung unverplanter Komponenten ist wie dort bereits beschrieben fast immer durch einen Pressenplan mit genau null übrigen Komponenten erfüllbar.
 Optimierungsziel 2 ist die Minimierung der Anzahl geplanter Pressen.
 Dabei gilt $1 \leq \lvert P \rvert \leq k$ mit erfahrungsgemäß $k \leq 11$ für die größten Aufträge.
 Wird ein Auftrag also $k$ mal mit jeweils unterschiedlicher Pressen-Anzahl kodiert, dann existiert für genau eine jener Kodierungen mindestens eine optimale Belegung:
@@ -220,7 +220,7 @@ Mit dem extra Constraint, welches den Gesamtrest auf null fixiert und ohne diese
 Diese $2k$ verschiedenen Kodierungen eines Auftrages werden bestenfalls auf $2k$ verschiedene Kerne einer CPU (oder mehrere) verteilt.
 Die Maschine des Kunden, welcher Germanedge mit dem Pressenplanungsproblem beauftragt hat, verfügt über eine CPU mit acht Kernen.
 Daher wird ein Auftrag mit vier verschiedenen Pressen-Anzahlen kodiert, sodass insgesamt acht Kodierungen des Auftrags entstehen.
-Ein Eingabeparameter $p \in \mathbb{N}^+$ des Programms bestimmt dabei die Mindestanzahl an Pressen.
+Ein Eingabeparameter $p \in \mathbb{N}^+$ des Programms beschreibt dabei die Mindestanzahl an Pressen.
 Für ein bestimmtes $p$ wird ein Auftrag dann für $p$, $p+1$, $p+2$ und $p+3$ kodiert.
 Dabei könnte offensichtlich die optimale Lösung mit Pressen-Anzahl $p\prime$ verloren gehen, falls $p\prime < p \oplus p\prime > p + 3$ gilt.
 Ähnlich wie bei der Ermittlung der maximalen Schichtanzahl pro Presse in Abschnitt \ref{sec:vorverarbeitung} könnte auch hier ein
