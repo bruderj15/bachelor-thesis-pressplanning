@@ -194,23 +194,27 @@ Da diese allerdings unbekannt ist, wird die Relation durch eine unbekannte Funkt
 \[
     \mathbb{X}_{\mathbb{B}}^{\text{InLayer}} = \left\{ \text{InLayer}: C \times L \rightarrow \mathbb{B} \right\}
 \]
+Weiter wird eine Funktion benötigt, welche bestimmt, ob in einer Multimenge von Wahrheitswerten $b \in \dot{\mathbb{B}}$ höchstens $n \in \mathbb{N}_0$ wahr sind (mehr in Abschnitt \ref{sec:smtcardinality}):
+\[
+    \text{atMost}: \mathbb{N}_0 \times \dot{\mathbb{B}} \rightarrow \mathbb{B}
+\]
 Insgesamt ergibt das also folgende Signatur:
 \begin{align*}
     &\hspace{0pt} \Sigma = \left( \Sigma_F, \Sigma_R \right) \text{ mit } \\
-    &\hspace{20pt} \Sigma_F = \Sigma_{F}^{P} \cup \Sigma_{F}^{L} \cup \Sigma_{F}^{C} \\
+    &\hspace{20pt} \Sigma_F = \Sigma_{F}^{P} \cup \Sigma_{F}^{L} \cup \Sigma_{F}^{C} \cup \left\{ \text{atMost: } \mathbb{N} \times \dot{\mathbb{B}} \rightarrow \mathbb{B} \right\}\\
     &\hspace{20pt} \Sigma_R = \emptyset \\
     &\hspace{0pt} \mathbb{X} = (\mathbb{X}_{\mathbb{B}}, \mathbb{X}_{\mathbb{N}_0}) \text{ mit} \\
     &\hspace{20pt} \mathbb{X}_{\mathbb{B}_{\phantom{0}}} = \mathbb{X}^{P}_{\mathbb{B}} \cup \mathbb{X}^{L}_{\mathbb{B}} \cup \mathbb{X}^{C}_{\mathbb{B}} \cup \mathbb{X}^{\text{InLayer}}_{\mathbb{B}} \\
     &\hspace{20pt} \mathbb{X}_{\mathbb{N}_0} = \mathbb{X}^{P}_{\mathbb{N}_0} \cup \mathbb{X}^{L}_{\mathbb{N}_0} \cup \mathbb{X}^{C}_{\mathbb{N}_0}
 \end{align*}
 
-Die Anforderungen an einen Presseplan werden damit folgend realisiert:
+Die Anforderungen an einen Presseplan werden mit obiger Signatur sowie grundlegenden arithmetischen und booleschen Operationen folgend realisiert:
 \begin{align}
     & \forall p \in P: \text{minHeight}(p) \leq \text{height}(p) \leq \text{maxHeight}(p) \label{constraint:pressHeight} \\[10pt]
     & \forall p \in P: \text{minLength}(p) \leq \text{length}(p) \leq \text{maxLength}(p) \label{constraint:pressLength} \\[10pt]
     & \forall p \in P,\; \forall l \in \text{layers}(P): \neg \text{isEmpty}(l) \rightarrow \text{length}(p) = \text{length}(l) \label{constraint:layerLength} \\[10pt]
     & \forall c \in C,\; \forall l \in L: \text{InLayer}(c,l) \rightarrow \text{height}(c) = \text{height}(l) \label{constraint:layerHeight} \\[10pt]
-    & \forall c \in C,\; \exists! l \in L: \text{InLayer}(c,l) \label{constraint:eoLayer} \\[10pt]
+    & \forall c \in C: \text{atMost}\left(1, \biguplus_{l \in L} \left\{ \text{InLayer}(c,l) \right\}\right) \label{constraint:amolayer} \\[10pt]
     & \forall l \in L: \text{isEmpty}(l) \leftrightarrow \neg\bigvee_{c \in C} \text{InLayer}(c,l) \label{constraint:emptyLayer1} \\[10pt]
     & \forall l \in L: \text{isEmpty}(l) \leftrightarrow (\text{length}(l) = 0 \land \text{height}(l) = 0) \label{constraint:emptyLayer2} \\[10pt]
     & \forall p \in P: \text{height}(p) = \sum_{\substack{l \in \text{layers}(p)}} \text{height}(l) \label{constraint:computePressHeight} \\[10pt]
@@ -222,7 +226,7 @@ Die Anforderungen an einen Presseplan werden damit folgend realisiert:
 \end{align}
 Constraint \ref{constraint:pressHeight} erfüllt Anforderung 1 aus Abschnitt \ref{sec:anforderungen}, während Constraint \ref{constraint:pressLength} Anforderung 2 erfüllt.
 Anforderung 3 wird durch Constraint \ref{constraint:layerLength} und Anforderung 4 durch Constraint \ref{constraint:layerHeight} abgedeckt.
-Constraint \ref{constraint:eoLayer} verhärtet Anforderung 5 aus Optimierungszwecken, siehe Abschnitt \ref{sec:optimierung}.
+Constraint \ref{constraint:amolayer} repräsentiert Anforderung 5.
 Anforderung 6 ist in diesem Modell Konstruktionsvorschrift mit \ref{constraint:disjointLayers}.
 Die Constraints \ref{constraint:emptyLayer1} und \ref{constraint:emptyLayer2} definieren, wann eine Presse leer ist.
 Constraints \ref{constraint:computePressHeight} und \ref{constraint:computeLayerLength} liefern die Definition für Pressenhöhe und Schichtlänge.
@@ -261,9 +265,13 @@ Die Menge aller Modelle (hier erfüllende Belegung) für ein solches $a$ wird da
 \]
 Zur Vereinfachung der Notation können die Interpretationsfunktionen $\beta_{\mathbb{N}_0}$ und $\beta_{\mathbb{B}}$ zusätzlich mit einem Modell indiziert werden.
 \[
-    \forall a \in A, \; \forall s \in \text{Mod}(a), s = (\mathcal{S}, (\beta_{\mathbb{N}_0}, \beta_{\mathbb{B}})): \beta_{\mathbb{N}_0}^s \equiv \beta_{\mathbb{N}_0} \land \beta_{\mathbb{B}}^s \equiv \beta_{\mathbb{B}}
+    \forall a \in A, \; \forall s \in \text{Mod}(a), s = (\mathcal{S}, (\beta_{\mathbb{N}_0}, \beta_{\mathbb{B}})): \beta_{\mathbb{N}_0}^s = \beta_{\mathbb{N}_0} \land \beta_{\mathbb{B}}^s = \beta_{\mathbb{B}}
 \]
-Weiter werden folgende Funktionen zu Aufträgen definiert:
+Weiter wird die Menge aller erfüllbaren Aufträge aus Notationsgründen definiert:
+\[
+    A_{sat} = \left\{ a \in A \mid \text{Mod}(a) \neq \emptyset \right\}
+\]
+Außerdem werden folgende Funktionen zu Aufträgen definiert:
 \begin{align*}
     & \text{presses}: A \rightarrow 2^P, \text{ presses}(a) = P_a, \text{ wobei } P_a \text{ ist Menge aller Pressen in } a \\
     & \text{layers}: A \rightarrow 2^L, \text{ layers}(a) = L_a, \text{ wobei } L_a \text{ ist Menge aller Schichten in } a \\
@@ -281,10 +289,10 @@ Um den Kostenaufwand beim Pressen zu reduzieren, sind Pressenpläne zusätzlich 
 \end{enumerate}
 Ziel 1 ist die Minimierung der Anzahl unverplanter Komponenten.
 Dort ist das Optimum bestenfalls null, sodass alle Komponenten verplant sind.
-Existiert eine solche Lösung immer?
+Existiert so eine Lösung immer?
 Also:
 \[
-    \forall a \in A, \; \exists s \in \text{Mod}(a): 0 = \left\lvert \left\{ c \in \text{components}(a) \middle| \neg\bigvee\limits_{\substack{l \in \text{layers}(a)}} \beta_{\mathbb{B}}^{s}(\text{InLayer}(c,l)) \right\} \right\rvert
+    \forall a \in A_{sat}, \; \exists s \in \text{Mod}(a): 0 = \left\lvert \left\{ c \in \text{components}(a) \middle| \neg\bigvee\limits_{\substack{l \in \text{layers}(a)}} \beta_{\mathbb{B}}^{s}(\text{InLayer}(c,l)) \right\} \right\rvert
 \]
 Nein, denn es lässt sich ein einfaches Gegenbeispiel konstruieren:
 \begin{align*}
@@ -294,13 +302,24 @@ Nein, denn es lässt sich ein einfaches Gegenbeispiel konstruieren:
     &\hspace{0pt} \text{Das geht aber nicht, weil: } \text{height}(c_2) < \text{minHeight}(p_2)
 \end{align*}
 Wie Erfahrungsberichte und alle Testfälle in Kapitel \ref{chapter:auswertung} zeigen, existiert mit hoher Wahrscheinlichkeit aber eine Lösung, in welcher alle Bauteile verplant sind.
-Da die Verplanung aller Bauteile mit Constraint \ref{constraint:eoLayer} bereits im Modell festgehalten ist, sind alle erfüllenden Belegungen des Modells
-bezüglich Optimierungsziel 1 optimal.
-In den wenigen Fällen, in welchen die minimale Anzahl unverplanter Bauteile größer als null ist, existiert im Modell aus Abschnitt \ref{sec:modellierung} keine Lösung.
-Die korrekte Modellierung wäre hier anstelle des Constraints \ref{constraint:eoLayer} folgende:
-\[
-    \forall c \in C: \text{atMost}\left(1, \bigcup_{l \in L} \left\{ \text{InLayer}(c,l) \right\}\right)
-\]
-Dafür müsste aber zusätzlich nach Optimierungsziel 1 optimiert werden.
-Aufgrund des damit einhergehenden signifikanten Performance-Verlusts bei der Lösung durch den SMT-Solver sowie der Seltenheit solcher Fälle,
+Daher wird Constraint \ref{constraint:amolayer} durch folgendes Constraint ersetzt:
+\begin{align}
+    \forall c \in C,\; \exists! l \in L: \text{InLayer}(c,l) \label{constraint:eoLayer}
+\end{align}
+Damit sind alle erfüllenden Belegungen des Modells bezüglich Optimierungsziel 1 optimal.
+In den wenigen Fällen, in welchen die minimale Anzahl unverplanter Bauteile größer als null ist, existiert in diesem Modell keine Lösung.
+Aufgrund des mit der sonst zusätzlich nach Ziel 1 notwendigen Optimierung einhergehenden signifikanten Performance-Verlusts bei der Lösung durch den SMT-Solver sowie der Seltenheit solcher Fälle,
 wird in diesem Modell das Nicht-Finden dieser Lösungen hingenommen.
+Aufträge $a \in A$ werden damit offensichtlich neu definiert:
+\[
+    a =   \ref{constraint:pressHeight}
+    \land \ref{constraint:pressLength}
+    \land \ref{constraint:layerLength}
+    \land \ref{constraint:layerHeight}
+    \land \ref{constraint:emptyLayer1}
+    \land \ref{constraint:emptyLayer2}
+    \land \ref{constraint:computePressHeight}
+    \land \ref{constraint:computeLayerLength}
+    \land \ref{constraint:eoLayer}
+\]
+Wird im Weiteren der Arbeit auf das Modell oder Constraint-System verwiesen, dann ist diese Definition eines Auftrages gemeint.

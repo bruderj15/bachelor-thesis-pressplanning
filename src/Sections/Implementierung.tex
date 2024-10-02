@@ -96,13 +96,8 @@ Das ist möglich, indem zusätzlich die Anzahl der kleinsten Komponenten betrach
 \begin{align*}
     &\hspace{0pt}\text{Seien } h_1 \leq h_2 \leq \ldots \leq h_{\lvert \text{components}(a)\rvert} \text{ die sortierten Höhen aller Komponenten und} \\
     &\hspace{0pt}S_k = \sum_{i = 1}^{k} h_i \text{ die kumulierte Summe dieser sortierten Höhen.} \\
-    &\hspace{0pt}\text{Dann gilt: } \text{maxLayers}(p,a) = \max\left\{ k \mid S_k \leq \text{maxHeight}(p) \right\} \\
-    &\hspace{0pt}\text{Auch diese Schranke ist offensichtlich korrekt, aber gibt es eine bessere? Also:} \\
-    &\hspace{0pt}\exists f: P \times A \rightarrow \mathbb{N}, \; \forall p \in P, \; \forall a \in A: \text{Mod}(a) \neq \emptyset \rightarrow (\exists s \in \text{Mod}(a): s \models_{opt} a \rightarrow \\
-    &\hspace{20pt}\left(f(p,a) < \text{maxLayers}(p,a) \land \lvert \left\{ l \in \text{layers}(p) \mid \neg \beta_{\mathbb{B}}^{s}(\text{empty}(l)) \right\} \rvert \leq f(p,a) \right))
+    &\hspace{0pt}\text{Dann gilt: } \text{maxLayers}(p,a) = \max\left\{ k \mid S_k \leq \text{maxHeight}(p) \right\}
 \end{align*}
-Da in dieser Arbeit lediglich ein Prototyp für die optimale Lösung des Pressenplanungsproblems entwickelt werden soll, genügt die Schranke der kumulierten Summen.
-
 Mithilfe von \textit{Discrimination} \cite{discriminationPaper, discriminationHaskell} können die Höhen in $\mathcal{O}(\lvert \text{components}(a) \rvert)$ sortiert werden,
 sodass die Funktion \texttt{maxLayers} lineare Laufzeitkomplexität aufweist:
 
@@ -111,6 +106,39 @@ sodass die Funktion \texttt{maxLayers} lineare Laufzeitkomplexität aufweist:
     \caption{Funktion zur Berechnung der maximalen Schichten pro Presse in $\mathcal{O}(\lvert \text{components}(a) \rvert)$}
     \label{listing:maxlayersimpl}
 \end{listing}
+Betrachten wir die durch diese Funktion ermittelten Schranken für Aufträge $a$ aus Kapitel \ref{chapter:auswertung},
+bei denen ein optimaler Pressenplan $s \models_{opt} a$ mit fester Presse $p$ bekannt ist:
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        Auftrags-Nr. & $\text{maxLayers}(p,a)$ & $\lvert \left\{ l \in L \mid \beta_{\mathbb{B}}^{s_{opt}}(\neg\text{isEmpty}(l)) \right\} \rvert$ \\
+        \hline
+        1  & 3 & 3 \\
+        2  & 11 & 10 \\
+        3  & 11 & 11 \\
+        5  & 11 & 7 \\
+        6  & 11 & 7 \\
+        14 & 4 & 4 \\
+        15 & 4 & 4 \\
+        16 & 4 & 4 \\
+        18 & 4 & 4 \\
+        20 & 4 & 4 \\
+        \hline
+    \end{tabular}
+    \caption{Vergleich der ermittelten Maximalanzahl an Schichten mit der tatsächlichen Anzahl in einer optimalen Lösung}
+    \label{table:vglvvoptschranke}
+\end{table}
+Die ermittelte Schranke ist für einige der Testfälle perfekt, bei anderen wie 5 und 6 allerdings weit entfernt.
+Existiert eine bessere korrekte Schranke?
+Also:
+\begin{align*}
+    &\hspace{0pt} \exists f: P \times A \rightarrow \mathbb{N}, \; \forall p \in P, \; \forall a \in A_{sat}, \; \exists s \in \text{Mod}(a): \\
+    &\hspace{20pt} s \models_{opt} a \rightarrow (\lvert \left\{ l \in \text{layers}(p) \mid \neg \beta_{\mathbb{B}}^{s}(\text{isEmpty}(l)) \right\} \rvert \leq f(p,a) \leq \text{maxLayers}(p,a) \\
+    &\hspace{77pt} \land \exists p\prime \in P, \; \exists a\prime \in A_{sat}: f(p\prime,a\prime) < \text{maxLayers}(p\prime,a\prime))
+\end{align*}
+Da in dieser Arbeit lediglich ein Prototyp für die optimale Lösung des Pressenplanungsproblems entwickelt werden soll, genügt die Schranke der kumulierten Summen.
 
 \section{Sorten-Polymorphie}
 \label{sec:sortpoly}

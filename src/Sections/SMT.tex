@@ -54,18 +54,18 @@ In Zeile 11 wird die Interaktion mit dem Solver beendet.
 \section{SMT-Kodierung von Anzahl-Constraints}
 \label{sec:smtcardinality}
 Oftmals werden zur Kodierung von SMT-Problemen auch Anzahl-Constraints benötigt \cite{kovasznai}.
-Auf einer Menge von $n$ gegebenen booleschen Variablen $\{b_0, b_1, \ldots, b_{n-1}\}$ soll dabei die Anzahl wahr belegter Variablen nach $k$ restriktiert werden.
+Auf einer Multimenge gegebener boolescher Variablen $B \in \dot{\mathbb{B}}$ soll dabei die Anzahl wahr belegter Variablen nach $k$ restriktiert werden.
 Dabei existieren die folgenden drei Restriktionen:
 \begin{itemize}
-    \item Mindestens $k$: $\text{atLeast}(k, \{b_0, b_1, \ldots, b_{n-1}\})$
-    \item Genau $k$: $\text{exactly}(k, \{b_0, b_1, \ldots, b_{n-1}\})$
-    \item Höchstens $k$: $\text{atMost}(k, \{b_0, b_1, \ldots, b_{n-1}\})$
+    \item Mindestens $k$: $\text{atLeast}: \mathbb{N}_0 \times \dot{\mathbb{B}} \rightarrow \mathbb{B}$
+    \item Genau $k$: $\text{exactly}: \mathbb{N}_0 \times \dot{\mathbb{B}} \rightarrow \mathbb{B}$
+    \item Höchstens $k$: $\text{atMost}: \mathbb{N}_0 \times \dot{\mathbb{B}} \rightarrow \mathbb{B}$
 \end{itemize}
 
 Anzahl-Constraints sind nicht Teil des SMTLib-Standards Version 2.6 \cite{smtlib}, sodass nur wenige Solver wie Z3 solche Kodierungen direkt unterstützen \cite{z3Cardinality}.
 Daher wird zur manuellen Kodierung oft die ITE-Kodierung verwendet \cite{kovasznai}.
 Dabei werden die einzelnen booleschen Unbekannten mithilfe eines If-Then-Else-Ausdrucks (kurz ITE) in numerische Ausdrücke umgewandelt, anschließend summiert und verglichen.
-Mit der Hilfsfunktion $\text{count}(\{b_0, b_1, \ldots, b_{n-1}\})$ lassen sich die Anzahl-Constraints einfach kodieren:
+Mit der Hilfsfunktion $\text{count}: \dot{\mathbb{B}} \rightarrow \mathbb{N}_0$ lassen sich die Anzahl-Constraints einfach kodieren:
 
 \[
     \begin{aligned}
@@ -76,15 +76,15 @@ Mit der Hilfsfunktion $\text{count}(\{b_0, b_1, \ldots, b_{n-1}\})$ lassen sich 
                     0 & \text{, sonst}
                 \end{cases}
             \right) \\[5pt]
-        & \text{atLeast}(k, B) = k \leq count(B) \\[5pt]
-        & \text{exactly}(k, B) = k = count(B) \\[5pt]
-        & \text{atMost}(k, B) = k \geq count(B)
+        & \text{atLeast}(k, B) = k \leq \text{count}(B) \\[5pt]
+        & \text{exactly}(k, B) = k = \text{count}(B) \\[5pt]
+        & \text{atMost}(k, B) = k \geq \text{count}(B)
     \end{aligned}
 \]
 
 Je nach gewählter Logik erfolgt die Summierung in der entsprechenden Sorte.
 Ist für das SMT-Problem beispielsweise die Logik QF\_LRA gewählt, dann summiert $\text{count}(B)$ Terme der Sorte \texttt{Real}.
-Dabei entstehen für jedes Anzahl-Constraint offensichtlich $n$ ITE-Ausdrücke, $n-1$ binäre Additionen und ein Vergleich.
+Dabei entstehen für jedes Anzahl-Constraint offensichtlich $n = \lvert B \rvert$ ITE-Ausdrücke, $n-1$ binäre Additionen und ein Vergleich.
 
 Für bestimmte $k$ wie beispielsweise $k = 0$ oder $k = 1$ können Anzahl-Constraints allerdings von spezialisierten Kodierungen profitieren.
 Einige davon sind folgende:
@@ -132,7 +132,7 @@ Die Anzahl unverplanter Bauteile, eingesetzter Pressen und notwendigen Rests sol
 SMT-Probleme, bei denen zusätzlich nach bestimmten Zielfunktionen optimiert wird, fallen in eine neue Problemklasse,
 jene der Optimization Module Theories (kurz OMT) \cite{omt}.
 Genau wie die lineare Optimierung unterstützt auch OMT die Optimierung nach linearen Zielfunktionen.
-Im Gegensatz zu ersterer, erlaubt OMT zusätzlich auch beliebige boolesche Kombinationen aus Atomen, wodurch die Modellierung komplexer (industrieller) Probleme vereinfacht wird.
+Im Gegensatz zu ersterer, erlaubt OMT zusätzlich auch beliebige boolesche Kombinationen aus Atomen, wodurch d?ie Modellierung komplexer Probleme vereinfacht wird.
 
 Wenige SMT-Solver wie beispielsweise \texttt{Z3} unterstützen die direkte Kodierung von OMT-Zielfunktionen in SMTLib-Syntax \cite{nuz3}.
 Folgend die Maximierung des Terms $x + y$ unter der Formel $\exists x \in \mathbb{Z}, \exists y \in \mathbb{Z}: x < 10 \land y < 5 \land (y < 7 \rightarrow x = 1)$:
