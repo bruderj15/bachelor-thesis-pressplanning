@@ -273,51 +273,7 @@
                 \rowcolor{green!20}
                 26 & Diverse10Opt & 260    & 26    & TO     & 1     & 11    & 0     & TO    & 0     & 11    & 75211        & \xmark \\
                 \hline
-                \caption{Vergleich der Programm-Konfiguration (SMT, Z3, \texttt{QF\_LIA}) mit Germanedge's Heuristik}
+                \caption{Vergleich der Performance von Programm-Konfiguration SMT, Z3, \texttt{QF\_LIA} und Germanedge's Heuristik mit TO 10 Minuten}
                 \label{tab:vglheuristik}
         \end{longtable}
 \end{landscape}
-
-%\section{Diagramm-Test}
-%
-%\begin{center}
-%        \begin{tikzpicture}[node distance=2cm]
-%
-%% Nodes for CLI and Reading CSV
-%                \node (start) [startstop] {CLI-Aufruf mit Konfigurationsparametern};
-%                \node (read) [process, below of=start] {CSV-Komponenten einlesen};
-%
-%% Forks (Verzweigungen, obere Reihe - 4 Forks)
-%                \node (fork1) [fork, below of=read, xshift=-6cm, yshift=-2cm] {};
-%                \node (fork2) [fork, right of=fork1, xshift=3cm] {};
-%                \node (fork3) [fork, right of=fork2, xshift=3cm] {};
-%                \node (fork4) [fork, right of=fork3, xshift=3cm] {};
-%
-%% Forks (Verzweigungen, untere Reihe - jeweils zwei Forks pro vorherigem Fork)
-%                \node (fork11) [fork, below of=fork1, xshift=-1cm, yshift=-2cm] {};
-%                \node (fork12) [fork, below of=fork1, xshift=1cm, yshift=-2cm] {};
-%                \node (fork21) [fork, below of=fork2, xshift=-1cm, yshift=-2cm] {};
-%                \node (fork22) [fork, below of=fork2, xshift=1cm, yshift=-2cm] {};
-%                \node (fork31) [fork, below of=fork3, xshift=-1cm, yshift=-2cm] {};
-%                \node (fork32) [fork, below of=fork3, xshift=1cm, yshift=-2cm] {};
-%                \node (fork41) [fork, below of=fork4, xshift=-1cm, yshift=-2cm] {};
-%                \node (fork42) [fork, below of=fork4, xshift=1cm, yshift=-2cm] {};
-%
-%% Arrows from Read to Forks (oben)
-%                \draw [arrow] (read) -- ++(0,-1) -| (fork1);
-%                \draw [arrow] (read) -- ++(0,-1) -| (fork2);
-%                \draw [arrow] (read) -- ++(0,-1) -| (fork3);
-%                \draw [arrow] (read) -- ++(0,-1) -| (fork4);
-%
-%% Arrows between upper and lower forks
-%                \draw [arrow] (fork1) -- (fork11);
-%                \draw [arrow] (fork1) -- (fork12);
-%                \draw [arrow] (fork2) -- (fork21);
-%                \draw [arrow] (fork2) -- (fork22);
-%                \draw [arrow] (fork3) -- (fork31);
-%                \draw [arrow] (fork3) -- (fork32);
-%                \draw [arrow] (fork4) -- (fork41);
-%                \draw [arrow] (fork4) -- (fork42);
-%
-%        \end{tikzpicture}
-%\end{center}

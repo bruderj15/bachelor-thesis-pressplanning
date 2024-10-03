@@ -43,32 +43,44 @@ Die gemessene Laufzeit schließt zwar alle Schritte von Eingabeverarbeitung übe
 umfasst letztendlich aber fast ausschließlich die Laufzeit des Solvers.
 Für die größten Probleminstanzen beträgt die Laufzeit des Programms (Haskell) höchstens drei Sekunden.
 
-Folgend die Erklärung aller Elemente der Vergleiche zur Lösung einer Probleminstanz:
-\begin{itemize}
-    \item \makebox[2.5cm][l]{Nr:} Identifizierende Nummer der Probleminstanz
-    \item \makebox[2.5cm][l]{Name:} Name der Probleminstanz
-    \item \makebox[2.5cm][l]{$\lvert C \rvert$:} Anzahl der Komponenten
-    \item \makebox[2.5cm][l]{$\lvert C_{Spec} \rvert$:} Anzahl verschiedener Komponenten-Spezifikationen
-    \item \makebox[2.5cm][l]{Typ:} SMT (inkr. Verfeinern) oder OMT (lineare Optimierung)
-    \item \makebox[2.5cm][l]{Logik:} \texttt{QF\_LIA} oder \texttt{QF\_LRA}
-    \item \makebox[2.5cm][l]{Solver:} Externer SMT-Solver
-    \item \makebox[2.5cm][l]{$p$:} Minimale Pressen-Anzahl (erklärt in Abschnitt \ref{sec:parallelisierung})
-    \item \makebox[2.5cm][l]{Größe:} Summe der Anzahl der Knoten aller Constraints im AST
-    \item \makebox[2.5cm][l]{\#$\mathbb{B}$:} Anzahl boolescher Unbekannter im Constraint-System
-    \item \makebox[2.5cm][l]{\#$\mathbb{Z}$:} Anzahl numerischer Unbekannter im Constraint-System
-    \item \makebox[2.5cm][l]{Zeit in s:} Laufzeit in Sekunden (aufgerundet), \textit{TO} ist Timeout
-    \item \makebox[2.5cm][l]{$\lvert C_{Not} \rvert$:} Anzahl unverplanter Komponenten
-    \item \makebox[2.5cm][l]{$\lvert P \rvert$:} Anzahl geplanter Pressen
-    \item \makebox[2.5cm][l]{Rest in mm:} Gesamtrest in Millimetern
-    \item \makebox[2.5cm][l]{Zert.:} \cmark \; falls Lösung zertifiziert optimal ist, \xmark \; sonst
-\end{itemize}
+Folgend die Erklärung aller Kriterien der Vergleiche zur Lösung einer Probleminstanz:
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|l|}
+        \hline
+        \textbf{Kriterium} & \textbf{Erklärung} \\
+        \hline
+        Nr                         & Identifizierende Nummer der Probleminstanz \\
+        Name                       & Name der Probleminstanz \\
+        $\lvert C \rvert$          & Anzahl der Komponenten \\
+        $\lvert C_{Spec} \rvert$   & Anzahl verschiedener Komponenten-Spezifikationen \\
+        Typ                        & SMT (inkrementelles Verfeinern) oder OMT (lineare Optimierung) \\
+        Logik                      & \texttt{QF\_LIA} oder \texttt{QF\_LRA} \\
+        Solver                     & Externer SMT-Solver \\
+        $p$                        & Minimale Pressen-Anzahl (erklärt in Abschnitt \ref{sec:parallelisierung}) \\
+        Größe                      & Anzahl symbolischer Operationen für kleinste erfüllbare $\lvert P \rvert$, sonst $p$ \\
+        \#$\mathbb{B}$             & Anzahl boolescher Unbekannter im Constraint-System \\
+        \#$\mathbb{Z}$             & Anzahl numerischer Unbekannter im Constraint-System \\
+        Zeit in s                  & Laufzeit in Sekunden (aufgerundet), TO ist Timeout \\
+        $\lvert C_{Not} \rvert$    & Anzahl unverplanter Komponenten \\
+        $\lvert P \rvert$          & Anzahl geplanter Pressen \\
+        Rest in mm                 & Gesamtrest in Millimetern \\
+        Zert.                      & \cmark \; falls Lösung zertifiziert optimal ist, \xmark \; sonst \\
+        \hline
+    \end{tabular}
+    \caption{Kriterien für die Auswertung}
+    \label{table:vglkriterien}
+\end{table}
 
 \section{Vergleich verschiedener Programm-Konfigurationen}
 In diesem Abschnitt wird die Performance verschiedener Konfigurationen des in dieser Arbeit entwickelten Programms verglichen.
 Der Timeout für alle Probleminstanzen beträgt zehn Minuten, die maximal tolerierte Laufzeit aus Sicht des Kunden.
 Die tabellarische Auswertung der Laufzeitmessungen ist in Anhang \ref{appendix:results}, Tabelle \ref{tab:vglkodierungreal} zu finden.
 
-Diese Ergebnisse zeigen, dass alle Programmkonfigurationen korrekte Lösungen für bestimmte Eingaben finden.
+Diese Ergebnisse zeigen, dass alle Programmkonfigurationen korrekte und auch optimale Lösungen für bestimmte Eingaben finden.
+Von insgesamt 26 Testfällen werden 25 gelöst.
+Zehn Testfälle können innerhalb von zehn Minuten sogar optimal gelöst und zertifiziert werden.
+
 Die Kodierung des Constraint-Systems in Logik \texttt{QF\_LIA} liefert im Vergleich zu Logik \texttt{QF\_LRA} meist die besseren Lösungen.
 Das ist wenig verwunderlich, da die kleinste Einheit in der Problemdefinition Millimeter ist, sodass die arithmetischen Unbekannten ganzzahlig dargestellt werden können.
 Dies wiederum vereinfacht die Lösung für den Solver, da die Sorte \texttt{Int} die Menge $\mathbb{Z}$ (abzählbar unendlich) und
@@ -110,11 +122,41 @@ noch immer nicht optimal vom Solver gelöst werden.
 Testfälle 11 und 12 demonstrieren, dass die Solver mit mehr Laufzeit auch für die größten Probleme signifikant bessere Lösungen finden.
 
 \section{Vergleich mit Germanedge's Heuristik}
+Der Vergleich der Laufzeitmessungen für Germanedge's Heuristik und das hier entwickelte Programm ist in Anhang \ref{appendix:results} Tabelle \ref{tab:vglheuristik} zu finden.
+Das Programm findet innerhalb von zehn Minuten in 16 von 26 Testfällen die bessere Lösung.
+In sieben von 26 Probleminstanzen siegt die Heuristik.
+Bei den verbleibenden drei Testfällen finden Programm und Heuristik gleich gute Lösungen in gleicher Zeit.
+
+Die Lösungen der Heuristik enthalten fast immer deutlich weniger Rest als die des Programms.
+Dennoch gewinnt das Programm knapp zwei Drittel der Testfälle, da die Minimierung des Rests lediglich Optimierungsziel 3 ist.
+Aufgrund der lexikografischen Bewertung der Güte der Lösungen und der Wahl der Heuristik, gegebenenfalls wenige Bauteile ungeplant zu lassen oder mehr Pressen zu nutzen,
+um einen geringeren Rest zu erzielen, kann das Programm in diesem Vergleich sehr gut überzeugen.
+Während das Programm trotz 110 Metern Rest nach der lexikografischen Bewertung in Testfall 11 beispielsweise besser abschneidet, würde der Kunde höchstwahrscheinlich die
+Lösung der Heuristik mit einem übrigen Bauteil und lediglich zwei Metern Rest bevorzugen.
+Das deutet darauf hin, dass der Kunde anstelle der lexikografischen Bewertung der Lösung die Wahl einer Kostenfunktion in Betracht ziehen sollte.
+
+An der Implementierung des Programms ändert das nichts.
+Oberste Priorität stellt dann noch immer das Verplanen aller Komponenten dar.
+Da das Programm bereits Kodierungen für $p$, $p+1$, $p+2$ und $p+3$ erstellt, enthält höchstwahrscheinlich eine dieser die optimale Lösung nach der gewünschten Kostenfunktion.
+
+Die Heuristik kann besonders bei großen Eingaben ($\lvert C \rvert > 130$) im Vergleich zum Programm überzeugen.
+Sie findet dort aufgrund einiger interner Vereinfachungen in geringer Zeit Lösungen nahe am Optimum.
+Optimale Lösungen können von der Heuristik zwar möglicherweise gefunden, aber nicht als optimal zertifiziert werden.
+Die Testfälle zeigen, dass das Programm das hingegen kann.
+Für kleine und mittlere Testfälle ($\lvert C \rvert \leq 130$) sogar innerhalb von zehn Minuten, wenn Lösungen ohne Rest existieren.
+
+Daher sollte das hier entwickelte Programm für den Einsatz in der Industrie bei kleineren bis mittleren Testfällen in Betracht gezogen werden.
+Wenn die Restriktion an die Laufzeit liberaler gestaltet werden kann, also ein Timeout von zehn bis 24 Stunden möglich ist, dann kann das Programm selbst für
+größere Probleme eine Anwendung in der Industrie finden.
 
 \section{Diskussion}
-% Was machen wir schon gut?
-% Wo gehts besser? Vorverarbeitung? Nachverarbeitung nicht zertifizierter Lösungen?
-% PP-Problem irl mit vielen Verfeinerungen
-% Wie günstig kann man die hinzufügen?
-% Optimierung wirklich lexokografisch?
-% Oft Lösung mit wesentlich weniger Rest bei einer Presse mehr
+Das in dieser Arbeit entwickelte Programm berücksichtigt die Kernelemente des Pressenplanungsproblems.
+Die Heuristik implementiert bereits einige Sonderfälle wie Doppellagen in Pressen oder Pressen mit treppenartiger Abstufung.
+Diese wären auch für das Programm wünschenswert.
+Inwiefern die Eingliederung dieser in das Constraint-System sinnvoll ist, hängt davon ab,
+wie die Modellierung dieser Sonderfälle die Komplexität und damit Schwere des Constraint-Systems beeinflussen.
+
+Die Testfälle in Anhang \ref{appendix:results} Tabelle \ref{tab:vglkodierungreal} zeigen, dass das Constraint-System überschaubar viele Unbekannte kodiert.
+Allerdings scheinen die Constraints groß und komplex.
+Wenige zusätzliche, bestenfalls boolesche Unbekannte und dafür weniger komplexe Constraints könnten die Solver-Laufzeit positiv beeinflussen.
+Außerdem birgt eine mögliche Verbesserung der in Abschnitt \ref{sec:vorverarbeitung} betrachteten Funktion zur Ermittlung der Höchstanzahl an Schichten pro Presse großes Potenzial.
