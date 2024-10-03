@@ -225,20 +225,20 @@ Optimierungsziel 2 ist die Minimierung der Anzahl geplanter Pressen.
 Dabei gilt $1 \leq \lvert P \rvert \leq k$ mit erfahrungsgemäß $k \leq 11$ für die größten Aufträge.
 Wird ein Auftrag also $k$ mal mit jeweils unterschiedlicher Pressen-Anzahl kodiert, dann existiert für genau eine jener Kodierungen mindestens eine optimale Belegung:
 \[
-    \forall a \in A: \text{Mod}(a) \neq \emptyset \rightarrow (\exists! i \in \left\{ n \in \mathbb{N}_0 \mid n \leq k \right\}, \; \exists s \in \text{Mod}(a_{\lvert P \rvert = i}): s \models_{opt} a)
+    \forall a \in A_{sat}, \; \exists! i \in \left\{ n \in \mathbb{N}^{+} \mid n \leq k \right\}, \; \exists s \in \text{Mod}(a_{\lvert P \rvert = i}): s \models_{opt} a
 \]
 Optimal ist jene Belegung in entsprechender Kodierung genau dann, wenn der Gesamtrest unter der Belegung $\beta_{\mathbb{N}_0}$ minimal ist (Optimierungsziel 3):
 \begin{align*}
     &\hspace{0pt} \text{Sei } i \text{ die optimale Pressenanzahl für einen erfüllbaren Auftrag } a, \text{ dann gilt:} \\
-    &\hspace{0pt} \exists s \in \text{Mod}(a_{\lvert P \rvert = i}), \; \forall s\prime \in \text{Mod}(a_{\lvert P \rvert = i}): \\
-    &\hspace{20pt} s \models_{opt} a \leftrightarrow \beta_{\mathbb{N}_0}^{s}\left(\sum\limits_{\substack{l \in \text{layers}(a)}} \text{waste}(l)\right) \leq \beta_{\mathbb{N}_0}^{s\prime}\left( \sum\limits_{\substack{l \in \text{layers}(a)}} \text{waste}(l) \right)
+    &\hspace{0pt} \forall a \in A_{sat}, \; \exists s \in \text{Mod}(a_{\lvert P \rvert = i}), \; \forall s\prime \in \text{Mod}(a_{\lvert P \rvert = i}): \\
+    &\hspace{20pt} s \models_{opt} a \leftrightarrow \sum\limits_{\substack{l \in \text{layers}(a)}} \beta_{\mathbb{N}_0}^{s}(\text{waste}(l)) \leq \sum\limits_{\substack{l \in \text{layers}(a)}} \beta_{\mathbb{N}_0}^{s\prime}(\text{waste}(l))
 \end{align*}
 Das kleinste Optimum des Gesamtrests liegt bestenfalls bei null.
 Durch das Hinzufügen des Constraints $0 = \sum_{l \in L} \text{waste}(l)$ zur Kodierung mit der minimalen Pressen-Anzahl
-kann dieses Optimum forciert werden.
+kann dieses bestmögliche Optimum forciert werden.
 Ist das Problem nach Hinzufügen des Constraints noch immer erfüllbar, dann ist jede erfüllende Belegung des Problems optimal.
 \[
-    \text{Sei } a\prime = a \land 0 = \sum_{l \in \text{layers}(a)} \text{waste}(l) \text{, dann gilt: } \forall s \in \text{Mod}(a\prime): s \models_{opt} a\prime
+    \forall a \in A_{sat}, \; a\prime = a \land 0 = \sum_{l \in \text{layers}(a)} \text{waste}(l), \; \forall s \in \text{Mod}(a\prime): s \models_{opt} a\prime
 \]
 Ein solches zusätzliches Constraint schränkt den Lösungsraum des Problems erheblich ein, sodass die Lösung des Problems durch den Solver wesentlich effizienter wird.
 
