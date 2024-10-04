@@ -1,2 +1,31 @@
 \chapter{Zusammenfassung}
 \label{chapter:zusammenfassung}
+Pressenplanungsprobleme sind Ressourcenzuordnungsprobleme und diese sind NP-schwer.
+Germanedge nutzt zur Lösung dieser bereits eine Heuristik, welche durch einige Vereinfachungen die Komplexität des Problems reduziert und somit
+Lösungen nah am Optimum findet.
+Diese Vereinfachungen ermöglichen eine schnelle ($< 10 \text{min}$), aber meist nicht optimale Lösung der Probleme.
+Daher wurde in dieser Arbeit ein neuer Ansatz untersucht.
+
+Das in dieser Arbeit entwickelte prototypische Programm implementiert einen vollständigen Lösungsansatz mit Methoden der Constraint-Programmierung.
+Das Programm transformiert die Eingabe des Problems mithilfe der Haskell-Bibliothek \texttt{Hasmtlib} in ein in SMT-kodiertes Constraint-System,
+welches anschließend durch einen externen SMT-Solver gelöst wird.
+Dieser implementiert ein vollständiges Lösungsverfahren und garantiert somit die Optimalität der Lösung.
+
+Ähnlich wie bei der Heuristik werden auch bei der Kodierung des Constraint-Systems Vereinfachungen vorgenommen.
+Im Gegensatz zu ersterer behalten diese allerdings optimale Lösungen bei.
+So werden beispielsweise Kodierungen mit verschiedenen aber festen Pressen-Anzahlen auf verschiedene CPU-Kerne aufgeteilt und parallel gelöst.
+Unter diesen wird anschließend die beste Lösung gewählt.
+
+Haskell und Bibliothek \texttt{Hasmtlib} eignen sich dabei aufgrund derer Ausdrucksstärke hervorragend für die Transformation der Eingabe zum Constraint-System.
+Das Constraint-System wächst linear zur Größe der Eingabe.
+Besonders Probleme kleiner und mittlerer Größe können schnell und optimal auf durchschnittlichen Maschinen gelöst werden.
+Für das optimale Lösen größerer Probleme sind sowohl mehr Laufzeit als auch mehr Arbeitsspeicher notwendig.
+Die Lösung mit der Constraint-Programmierung schlägt die Heuristik in knapp zwei Dritteln aller Testfälle dieser Arbeit.
+Damit empfiehlt sich der neue Ansatz für die Anwendung in der Industrie bei kleinen und mittleren Pressenplanungsproblemen.
+Bei den größten Probleminstanzen und der harten Grenze von zehn Minuten bleibt die Heuristik die bessere Wahl.
+
+Das hier entwickelte Programm ist lediglich ein Prototyp, sodass einige Sonderfälle und spezielle Anforderungen
+des Pressenplanungsproblems zukünftig noch abgedeckt werden sollten.
+Sowohl Modellierung als auch Implementierung des Problems im entwickelten Programm lassen dabei noch Spielraum für Verbesserungen übrig.
+Insgesamt zeigt diese Arbeit, dass die Constraint-Programmierung eine vielversprechende und vollständige
+Alternative zur Lösung von Ressourcenzuordnungsproblemen durch Heuristiken bietet.
