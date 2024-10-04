@@ -15,13 +15,13 @@ Zusätzlich wird auch \texttt{Z3} (Version 4.13.0) mit Incremental Refinement un
 Trotz schwachem Ergebnis in der SMT-COMP 2024 erwies sich diese Kombination in einigen Testfällen als hoch-performant.
 Aufgrund dieser Erkenntnis wurde auch die Performance weiterer Solver untersucht.
 Diese Untersuchung ergab allerdings keine nennenswerten Ergebnisse, sodass diese im Folgenden ausgelassen werden.
-Weiter wird auch eine Programmkonfiguration mit \texttt{Z3} und OMT in Logik \texttt{QF\_LIA} getestet.
+Weiter wird auch eine Programmkonfiguration mit \texttt{Z3} und OMT in Logik \texttt{QF\_LIA} evaluiert.
 
 Danach wird die Performance der insgesamt besten Programmkonfiguration mit jener von Germanedge's Heuristik verglichen und ausgewertet.
 Am Ende werden mögliche Verbesserungen diskutiert.
 
 \section{Vorbetrachtung}
-Die Laufzeitmessungen der Konfigurationen des in dieser Arbeit entwickelten Programms erfolgt auf einer Maschine mit
+Die Laufzeitmessungen der Konfigurationen des in dieser Arbeit entwickelten Programms erfolgen auf einer Maschine mit
 acht CPU-Kernen mit Takt von jeweils 2,4 GHz und 16 GB Arbeitsspeicher.
 Aufgrund einiger Firmenregularien kann die Laufzeitmessung der Heuristik nicht auf der gleichen Maschine wie jener des hier entwickelten Programms erfolgen.
 Die firmeninterne Maschine weist allerdings sehr ähnliche Hardware-Spezifikationen auf, sodass ein Vergleich dennoch aussagekräftig ist.
@@ -39,9 +39,8 @@ Die Laufzeitmessungen werden in den folgenden Abschnitten mit verschiedenen ober
 Gemessen wird die Zeit, welche Programm oder Heuristik für eine endgültige Lösung benötigen.
 Ermittelt das Programm also beispielsweise eine Lösung nach $30s$, rechnet aber bis zum Timeout weiter und verbessert diese Lösung nicht,
 dann wird die Messung der Laufzeit mit $TO$ (kurz für Timeout) versehen.
-Die gemessene Laufzeit schließt zwar alle Schritte von Eingabeverarbeitung über Kodierung der Constraints bis hin zur Lösung durch den Solver ein,
+Die gemessene Laufzeit des Programms schließt zwar alle Schritte von Eingabeverarbeitung über Kodierung der Constraints bis hin zur Lösung durch den Solver ein,
 umfasst letztendlich aber fast ausschließlich die Laufzeit des Solvers.
-Für die größten Probleminstanzen beträgt die Laufzeit des Programms (Haskell) höchstens drei Sekunden.
 
 Folgend die Erklärung aller Kriterien der Vergleiche zur Lösung einer Probleminstanz:
 \begin{table}[H]
@@ -86,7 +85,7 @@ Das ist wenig verwunderlich, da die kleinste Einheit in der Problemdefinition Mi
 Dies wiederum vereinfacht die Lösung für den Solver, da die Sorte \texttt{Int} die Menge $\mathbb{Z}$ (abzählbar unendlich) und
 die Sorte \texttt{Real} die Menge $\mathbb{R}$ (überabzählbar unendlich) repräsentiert, der Lösungsraum für Sorte \texttt{Int} also kleiner ist.
 
-Erstaunlich ist die dominante Performance von \texttt{Z3} mit Kodierung in \texttt{QF\_LIA} und Optimierung mit inkrementellem Verfeinern.
+Erstaunlich ist die dominante Performance von \texttt{Z3} mit Kodierung in \texttt{QF\_LIA} und Optimierung durch inkrementelles Verfeinern.
 In fast allen Testfällen liefert diese Konfiguration die beste Lösung.
 Besonders bemerkenswert sind dabei die Testfälle 2, 6, 18 und 20.
 Die Konfiguration liefert dort als einzige die zertifiziert optimalen Lösungen.
@@ -105,7 +104,7 @@ Hingegen deuten die Testfälle 4, 13 und 17 darauf hin, dass der Nachweis von Op
 bei denen keine Lösung mit Rest null existiert, sehr schwer ist.
 Das ist so, weil der Solver erst nachweisen muss, dass keine andere Lösung existiert, die besser ist.
 Für den Fall mit Rest null entsteht ein einfacher Widerspruch zu Constraint \ref{listing:constraintpositivewaste} in Abschnitt \ref{sec:kodierungconstraints}.
-Bei allen anderen Fällen mit Rest $w > 0$ müssen alle möglichen $w$ besseren Lösungen als unerfüllbar nachgewiesen werden.
+Bei allen anderen Fällen mit optimalem Rest $w$ und $0 < k \leq w$ muss für alle möglichen $w$ besseren Lösungen mit Rest $k$ Unerfüllbarkeit nachgewiesen werden.
 
 Die Lösung der größten Probleminstanzen 11, 12, 25 und 26 ist mit Betrachtung des Rests vermutlich weit vom Optimum entfernt.
 Unter allen Testfällen bleibt ein Testfall (12) innerhalb von zehn Minuten sogar gänzlich ungelöst.
@@ -113,13 +112,14 @@ Testfälle wie dieser mit über 250 Bauteilen und mehr als acht Pressen stellen 
 Auch, wenn sowohl Anzahl Unbekannter und Formeln, als auch Größe letzterer linear zur Eingabe steigen (Abschnitt \ref{sec:modellierung}),
 scheint die Schwere des Problems mit erhöhter Komplexität des Constraint-Systems weitaus stärker zu wachsen.
 Große Probleme vergrößern nicht nur den Lösungsraum, sondern erhöhen auch die Anforderungen des Solvers an die Hardware.
-Laufzeitmessungen auf einer Maschine mit 128 GB Arbeitsspeicher mit Timeout nach zehn Stunden (Anhang \ref{appendix:results}, Tabelle \ref{tab:vglkodierungliberal}) zeigen für Probleme
+Laufzeitmessungen auf einer Maschine mit 128 GB Arbeitsspeicher und Timeout nach zehn Stunden (Anhang \ref{appendix:results}, Tabelle \ref{tab:vglkodierungliberal}) zeigen für Probleme
 11, 12, 25 und 26 Arbeitsspeichernutzung von bis zu 40 GB pro Problem.
 Je länger der Solver-Prozess läuft, desto mehr Speicher benötigt er, weil er Lemmas lernt (DPLL(T), Abschnitt \ref{sec:smtbasics}).
 
 Während auch größere Probleme wie Testfall 24 ohne Rest innerhalb von zehn Stunden optimal gelöst werden können, kann selbst der kleine Testfall 4 nach zehn Stunden
 noch immer nicht optimal vom Solver gelöst werden.
 Testfälle 11 und 12 demonstrieren, dass die Solver mit mehr Laufzeit auch für die größten Probleme signifikant bessere Lösungen finden.
+Auch dort bestätigt sich die Programmkonfiguration mit \texttt{Z3}, \texttt{QF\_LIA} und inkrementellem Verfeinern als performanteste.
 
 \section{Vergleich mit Germanedge's Heuristik}
 Der Vergleich der Laufzeitmessungen für Germanedge's Heuristik und das hier entwickelte Programm ist in Anhang \ref{appendix:results} Tabelle \ref{tab:vglheuristik} zu finden.
@@ -131,7 +131,7 @@ Die Lösungen der Heuristik enthalten fast immer deutlich weniger Rest als die d
 Dennoch gewinnt das Programm knapp zwei Drittel der Testfälle, da die Minimierung des Rests lediglich Optimierungsziel 3 ist.
 Aufgrund der lexikografischen Bewertung der Güte der Lösungen und der Wahl der Heuristik, gegebenenfalls wenige Bauteile ungeplant zu lassen oder mehr Pressen zu nutzen,
 um einen geringeren Rest zu erzielen, kann das Programm in diesem Vergleich sehr gut überzeugen.
-Während das Programm trotz 110 Metern Rest nach der lexikografischen Bewertung in Testfall 11 beispielsweise besser abschneidet, würde der Kunde höchstwahrscheinlich die
+Während das Programm beispielsweise trotz 110 Metern Rest nach der lexikografischen Bewertung in Testfall 11 besser abschneidet, würde der Kunde höchstwahrscheinlich die
 Lösung der Heuristik mit einem übrigen Bauteil und lediglich zwei Metern Rest bevorzugen.
 Das deutet darauf hin, dass der Kunde anstelle der lexikografischen Bewertung der Lösung die Wahl einer Kostenfunktion in Betracht ziehen sollte.
 
@@ -147,7 +147,7 @@ Für kleine und mittlere Testfälle ($\lvert C \rvert \leq 130$) sogar innerhalb
 
 Daher sollte das hier entwickelte Programm für den Einsatz in der Industrie bei kleineren bis mittleren Testfällen in Betracht gezogen werden.
 Wenn die Restriktion an die Laufzeit liberaler gestaltet werden kann, also ein Timeout von zehn bis 24 Stunden möglich ist, dann kann das Programm selbst für
-größere Probleme eine Anwendung in der Industrie finden.
+größere Probleme Anwendung in der Industrie finden.
 
 \section{Diskussion}
 Das in dieser Arbeit entwickelte Programm berücksichtigt die Kernelemente des Pressenplanungsproblems.
@@ -159,4 +159,4 @@ wie die Modellierung dieser Sonderfälle die Komplexität und damit Schwere des 
 Die Testfälle in Anhang \ref{appendix:results} Tabelle \ref{tab:vglkodierungreal} zeigen, dass das Constraint-System überschaubar viele Unbekannte kodiert.
 Allerdings scheinen die Constraints groß und komplex.
 Wenige zusätzliche, bestenfalls boolesche Unbekannte und dafür weniger komplexe Constraints könnten die Solver-Laufzeit positiv beeinflussen.
-Außerdem birgt eine mögliche Verbesserung der in Abschnitt \ref{sec:vorverarbeitung} betrachteten Funktion zur Ermittlung der Höchstanzahl an Schichten pro Presse großes Potenzial.
+Außerdem verspricht eine mögliche Verbesserung der in Abschnitt \ref{sec:vorverarbeitung} betrachteten Funktion zur Ermittlung der Höchstanzahl an Schichten pro Presse großes Potenzial.

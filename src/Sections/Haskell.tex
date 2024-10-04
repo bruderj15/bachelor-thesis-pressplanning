@@ -22,7 +22,7 @@ Was ist Lazy?
 Die Haskell-Bibliothek \texttt{Hasmtlib} \cite{hasmtlib} ist eine eingebettete domänenspezifische Sprache
 (englisch \textit{embedded domain-specific language} - kurz \textit{eDSL}) für den SMTLib-Standard Version 2.6 \cite{smtlib} in Haskell.
 Eine eDSL ist eine, in einer Gastsprache eingebettete, anwendungsspezifische Sprache, welche auf Grundkonstrukten der Gastsprache aufbaut und somit den
-Implementierungsaufwand einer eDSL erheblich reduziert \cite{eDSL}.
+Implementierungsaufwand der eingebetteten Sprache erheblich reduziert \cite{eDSL}.
 
 Haskell wird aufgrund seines starken Typsystems oft als Gastsprache für solche eingebetteten Sprachen verwendet \cite{eDSL2}.
 Listing \ref{listing:hasmtlibexprgadt} zeigt beispielsweise, wie \texttt{Hasmtlib} SMTLib-Ausdrücke als abstrakten Syntaxbaum mit einem GADT repräsentiert.
@@ -80,14 +80,14 @@ Dadurch lassen sich viele Funktionalitäten der Gastsprache wiederverwenden, zum
 \texttt{Hasmtlib} unterstützte bis zum Zeitpunkt dieser Arbeit keine Anzahl-Constraints.
 Daher werden diese im Rahmen dieser Arbeit der Bibliothek hinzugefügt.
 Die Implementierung erfolgt analog zu den in \ref{sec:smtcardinality} präsentierten Kodierungen und ist in
-Anhang \ref{appendix:hasmtlib} unter Listing \ref{listing:incrementalrefinement} zu finden.
+Anhang \ref{appendix:hasmtlib} unter Listing \ref{listing:hasmtlibcardinality} zu finden.
 
 \subsection{Ergänzung um Incremental Refinement}
 \label{subsec:incrementalrefinement}
 \texttt{Hasmtlib} kann aufbauend auf SMT-Problemen auch OMT-Probleme kodieren.
 Da dies allerdings nur wenige SMT-Solver wie \texttt{Z3} direkt unterstützen, verwendet man häufig sogenannte Optimierungsschleifen \cite{nuz3}.
 Dabei werden iterativ bessere Lösungen gesucht, indem obere Schranken für Maxima oder untere Schranken für Minima verfeinert werden.
-SMT-Solver haben einen Incremental-Stack, welcher die Wiederverwendung von bereits definierten Problemen und auch erlernten Lemmas ermöglicht,
+SMT-Solver haben einen Incremental-Stack, welcher die Wiederverwendung bereits definierter Probleme und auch erlernter Lemmas ermöglicht,
 sodass \textit{Incremental Refinement} wesentlich effizienter als das Starten eines neuen Solver-Prozesses für jede Verfeinerung ist \cite{incremental}.
 
 Im Rahmen dieser Arbeit wird \texttt{Hasmtlib} daher um eine solche Optimierungsschleife erweitert.

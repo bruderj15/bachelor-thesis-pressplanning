@@ -2,14 +2,15 @@
 \label{chapter:smt}
 
 In diesem Kapitel wird zuerst das Erfüllbarkeitsproblem der Satisfiability Module Theories - kurz SMT - vorgestellt.
-Dabei wird auch kurz die Kernelemente des Sprachstandards SMTLib Version 2.6 \cite{smtlib} eingegangen.
+Dabei wird auch kurz auf die Kernelemente des Sprachstandards SMTLib Version 2.6 \cite{smtlib} eingegangen.
 Dieser ermöglicht die Kodierung von SMT-Problemen für SMT-Solver \cite{smt}.
 Ein SMT-Solver - kurz Solver - ist ein Programm, welches für ein kodiertes Problem die Erfüllbarkeit dieses und für den
 Fall \textit{erfüllbar} (englisch \textit{satisfiable} - kurz \textit{sat}) ein Modell für jenes bestimmen kann.
 Einige bekannte Solver sind zum Beispiel Z3 \cite{z3}, CVC5 \cite{cvc5}, Yices \cite{yices} und OpenSMT \cite{opensmt}.
 Diese und viele andere nehmen jährlich an dem internationalen Wettbewerb SMT-COMP \cite{smtcomp} für SMT-Solver teil,
 wo sie sich in verschiedenen Disziplinen miteinander messen.
-Nach dem Überblick über SMTLib werden Anzahl-Constraints in SMT betrachtet,
+
+Nach der Einführung in das Erfüllbarkeitsproblem SMT werden Anzahl-Constraints in SMT betrachtet,
 bevor am Ende dieses Kapitels beleuchtet wird, wie SMT-Probleme nach Zielfunktionen optimiert werden können.
 
 \section{Einführung in das Erfüllbarkeitsproblem SMT}
@@ -46,8 +47,8 @@ $\exists x \in \mathbb{R}, \exists y \in \mathbb{R}: 5 = x + y$:
 
 In Zeile 1 wird der Solver angewiesen, im Fall der Erfüllbarkeit eine erfüllende Belegung zu erstellen.
 Zeile zwei setzt die Logik für die darauffolgende Problemdeklaration.
-In den Zeilen 4 und 5 werden Unbekannte der Sorte \texttt{Real} mit den Bezeichnern \texttt{x} und \texttt{y} angelegt.
-Zeile 7 zeigt die Assertion eines Constraints auf den Unbekannten \texttt{x} und \texttt{y} und der Konstanten \texttt{5}.
+In den Zeilen 4 und 5 werden Unbekannte (nullstellige Funktionen) der Sorte \texttt{Real} mit den Bezeichnern \texttt{x} und \texttt{y} angelegt.
+Zeile 7 zeigt die Assertion eines Constraints auf den Unbekannten $x$ und $y$ und der Konstanten $5$.
 Zeile 9 weist den Solver an, das deklarierte Problem auf Erfüllbarkeit zu überprüfen, während Zeile 10 für den Fall Erfüllbar ein Modell für das Problem ausgibt.
 In Zeile 11 wird die Interaktion mit dem Solver beendet.
 
@@ -91,9 +92,9 @@ Einige davon sind folgende:
 \begin{itemize}
     \item $\text{atLeast}(0,B) = \text{True}$
     \item $\text{atLeast}(1,B) = \bigvee\limits_{\substack{b \in B}} b $
-    \item $\text{atMost}(0,B) = \neg\bigwedge\limits_{\substack{b \in B}} b$
+    \item $\text{atMost}(0,B) = \neg\bigvee\limits_{\substack{b \in B}} b$
     \item $\text{atMost}(1,B) = \text{productEncoding}(B)$
-    \item $\text{exactly}(0,B) = \neg\bigwedge\limits_{\substack{b \in B}} b$
+    \item $\text{exactly}(0,B) = \neg\bigvee\limits_{\substack{b \in B}} b$
     \item $\text{exactly}(1,B) = \text{atLeast}(1,B) \land \text{atMost}(1,B)$
 \end{itemize}
 
@@ -132,7 +133,7 @@ Die Anzahl unverplanter Bauteile, eingesetzter Pressen und notwendigen Rests sol
 SMT-Probleme, bei denen zusätzlich nach bestimmten Zielfunktionen optimiert wird, fallen in eine neue Problemklasse,
 jene der Optimization Module Theories (kurz OMT) \cite{omt}.
 Genau wie die lineare Optimierung unterstützt auch OMT die Optimierung nach linearen Zielfunktionen.
-Im Gegensatz zu ersterer, erlaubt OMT zusätzlich auch beliebige boolesche Kombinationen aus Atomen, wodurch d?ie Modellierung komplexer Probleme vereinfacht wird.
+Im Gegensatz zu ersterer, erlaubt OMT zusätzlich auch beliebige boolesche Kombinationen aus Atomen, wodurch die Modellierung komplexer Probleme vereinfacht wird.
 
 Wenige SMT-Solver wie beispielsweise \texttt{Z3} unterstützen die direkte Kodierung von OMT-Zielfunktionen in SMTLib-Syntax \cite{nuz3}.
 Folgend die Maximierung des Terms $x + y$ unter der Formel $\exists x \in \mathbb{Z}, \exists y \in \mathbb{Z}: x < 10 \land y < 5 \land (y < 7 \rightarrow x = 1)$:

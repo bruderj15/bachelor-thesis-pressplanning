@@ -1,15 +1,14 @@
 \chapter{Implementierung}
 \label{chapter:implementierung}
 In diesem Kapitel wird ein Haskell-Programm zur Lösung des Pressenplanungsproblems entwickelt.
-In diesem Kapitel wird ein Haskell-Programm zur Lösung des Pressenplanungsproblems entwickelt.
 Das Programm erzeugt aus den textuellen Eingaben der Pressen- und Bauteilspezifikationen ein Constraint-System,
 welches anschließend von einem externen Constraint-Solver gelöst wird.
 Danach wandelt das Programm die Lösung des Solvers in das von Germanedge spezifizierte Ausgabeformat CSV um.
 
 Dazu werden zunächst die notwendigen Datentypen und die Sorten-Polymorphie der Kodierung erklärt, bevor einige konkrete Repräsentationen der Constraints aus
-Abschnitt \ref{sec:modellierung} mithilfe von Quellcode-Ausschnitten dargestellt werden.
+Abschnitt \ref{sec:modellierung} implementiert werden.
 Anschließend werden Optimierung und Parallelisierung des Problems diskutiert.
-Am Ende des Kapitels wird die Benutzerschnittstelle des Programms betrachtet.
+Am Ende des Kapitels wird die Benutzerschnittstelle des Programms beschrieben.
 
 % TODO: Hier ein Flussdiagramm einfügen, das grob den gesamten Ablauf zeigt
 
@@ -62,7 +61,7 @@ Identisch zur Variablenmenge $\mathbb{X}$ in Abschnitt \ref{sec:modellierung} si
 
 Bei weiterer Betrachtung des Typs \texttt{PressPlan} fällt auf, dass Komponenten, Schichten und Pressen im Typ Liste vorliegen.
 Der Listentyp ist der von Haskell, also konkret in Haskell und nicht symbolisch im SMT-Problem.
-Das erklärt die Nutzung der Liste für die Komponenten, da diese eine Eingabe sind, welche konkret darstellbar ist.
+Das erklärt die Nutzung der Liste für die Komponenten, da diese Eingabe sind, welche konkret darstellbar ist.
 Aber wie ist der Listentyp für Schichten und Pressen zu erklären?
 
 Das Modell in Abschnitt \ref{sec:modellierung} all-quantifiziert Schichten und Pressen.
@@ -70,11 +69,12 @@ Das wäre analog auch in SMT möglich.
 Im Allgemeinen werden solche Probleme aber grundinstanziiert,
 um die Verwendung ineffizient (oder gar nicht) entscheidbarer Quantoren-Logiken zu vermeiden \cite{smtquantifiersarehard, smtquantifiersarehard2}.
 Für jede Presse wird dabei im Voraus die höchstmögliche Anzahl an Schichten basierend auf der Eingabe an Komponenten ermittelt, genauer in \ref{sec:vorverarbeitung}.
-Da Schichten leer sein können haben sie das Attribut \texttt{\_layerEmpty :: b} (Listing \ref{listing:datatypes}, Zeile 13).
+Da unter diese Schichten auch einige leer sein können haben sie das Attribut \texttt{\_layerEmpty :: b} (Listing \ref{listing:datatypes}, Zeile 13).
+
 Identisch könnten Pressenpläne leere Pressen enthalten.
 Weiter könnte eine obere Schranke für die Anzahl an Pressen basierend auf der Eingabe an Komponenten ermittelt werden.
 Allerdings bedeutet jede weitere Presse weitere Unbekannte und weitere Constraints, sodass die Komplexität des Problems erhöht wird,
-was letztendlich zu einer ineffizienteren Lösung des Solvers führt.
+was letztendlich zu einer ineffizienteren Lösung durch den Solver führt.
 Daher wird jeder Auftrag mehrmals kodiert - mit jeweils unterschiedlich fester Anzahl an Pressen.
 Diese werden dann als separate Probleminstanzen auf verschiedene Prozessor-Kerne aufgeteilt, mehr dazu in Abschnitt \ref{sec:parallelisierung}.
 
@@ -83,7 +83,7 @@ Diese werden dann als separate Probleminstanzen auf verschiedene Prozessor-Kerne
 Bei der Kodierung des Pressenplanungsproblems wird jeder Presse eine feste Anzahl an Schichten zugewiesen.
 Da die Anzahl tatsächlich geplanter Schichten bei der Zuweisung unbekannt ist, wird jeder Presse die höchstmögliche Anzahl an Schichten zugewiesen.
 Unter diesen können einige leer sein, in jenen sind also keine Komponenten (Constraints \ref{constraint:emptyLayer1} und \ref{constraint:emptyLayer2}).
-Betrachten wir die Funktion $\text{maxLayers}: P \times A \rightarrow \mathbb{N}$ zur Berechnung der maximalen Schichtanzahl.
+Betrachten wir die Funktion $\text{maxLayers}: P \times A \rightarrow \mathbb{N}_0$ zur Berechnung der maximalen Schichtanzahl.
 Das triviale Maximum der Schichtanzahl pro Presse berechnet sich aus der kleinsten Komponente eines Auftrages und der Maximalhöhe der Presse:
 \[
     \text{maxLayers}(p,a) = \left\lfloor \frac{\text{maxHeight}(p)}{\min \left\{ \text{height}(c) \mid c \in \text{components}(a) \right\}} \right\rfloor
@@ -145,7 +145,7 @@ Da in dieser Arbeit lediglich ein Prototyp für die optimale Lösung des Pressen
 Wie in Kapitel \ref{chapter:smt} gezeigt bietet SMTLib verschiedene Logiken zur Kodierung von SMT-Problemen an.
 Nicht immer ist dabei vorher klar, in welcher Logik ein Problem am effizientesten für Solver kodiert werden kann.
 Das gilt auch für das Pressenplanungsproblem mit den Kandidaten \texttt{QF\_LIA}, \texttt{QF\_LRA} und \texttt{QF\_BV}.
-\texttt{Hasmtlibs} Ausdrucks-Typ \texttt{Expr t} kann dafür genutzt werden, um das Problem polymorph in der Sorte zu implementieren.
+\texttt{Hasmtlib}'s Ausdrucks-Typ \texttt{Expr t} kann dafür genutzt werden, um das Problem polymorph in der Sorte zu implementieren.
 Betrachten wir folgende Funktion, die für einen Pressenplan und dessen Konfiguration alle Constraints für jenen erstellt:
 
 \begin{listing}[H]
@@ -163,23 +163,24 @@ Der Aufrufer wählt die Sorte der Kodierung dann per Typ-Applikation und setzt d
 \end{listing}
 
 Das ermöglicht die Wahl der Kodierung für den Aufrufer der Schnittstelle und verhindert somit Redundanz in der Implementierung.
-Insbesondere begünstigt das die einfache Testung verschiedener Kombinationen von Solvern und Kodierungen in verschiedenen Logiken wie später bei der Auswertung in Kapitel \ref{chapter:auswertung}.
+Insbesondere begünstigt das die einfache Testung verschiedener Kombinationen aus Solvern und Kodierungen in verschiedenen Logiken wie später bei der Auswertung in Kapitel \ref{chapter:auswertung}.
 
-Für die Sorte \texttt{Real} werden alle Längenangaben in der Einheit Meter kodiert, sodass dabei offensichtlich keine Lösungen aufgrund von unzureichender Genauigkeit verloren gehen kann.
+Für die Sorte \texttt{Real} werden alle Längenangaben in der Einheit Meter kodiert, sodass dabei offensichtlich keine Lösungen aufgrund von unzureichender Genauigkeit verloren gehen können.
 Bei den Sorten \texttt{Int} und \texttt{BitVec} wird hingegen die Einheit Millimeter verwendet.
 Da alle Eingaben durch natürliche Zahlen in Millimetern dargestellt werden und im Constraint-System keine Division erfolgt, geht auch hier keine Lösung aufgrund von Ungenauigkeit verloren.
+
 Für \texttt{BitVec} reichen 15 Bit bei vorzeichenloser Interpretation aus, da die größten Werte bei der Pressenlänge vorkommen und dort gilt: $\forall p \in P: \text{maxLength}(p) < 2^{15}$.
 Wie in \cite{bitblasting} beschrieben, skalieren Bitvektor-Kodierungen allerdings schlecht in Bezug auf die Bitbreite.
 Bei deren Reduktion auf äquivalente SAT-Kodierungen entstehen dabei besonders für arithmetische Operationen große Formeln.
 Obwohl für den Anwendungsfall Pressenplanung hier nur Bitvektoren der Länge 15 verwendet werden, führt die Verwendung zahlreicher arithmetischer Operationen
-vermutlich zu ineffizienten Kodierungen.
+vermutlich zu ineffizienten Kodierungen (Constraints \ref{constraint:computePressHeight} und \ref{constraint:computeLayerLength}).
 Diese Vermutung konnte durch - in dieser Arbeit nicht dokumentierte - Testfälle bestätigt werden.
-Daher werden im folgenden der Arbeit Bitvektoren nicht weiter für die Kodierung in Betracht gezogen.
+Daher werden im Folgenden der Arbeit Bitvektoren nicht weiter für die Kodierung in Betracht gezogen.
 
 \section{Kodierung der Constraints}
 \label{sec:kodierungconstraints}
 Die Constraints aus Abschnitt \ref{sec:modellierung} lassen sich dank \texttt{Hasmtlib} analog in Haskell formulieren.
-Betrachten wir die Kodierung weniger Constraints wie \ref{constraint:pressHeight} und \ref{constraint:pressLength} aus Abschnitt \ref{sec:modellierung}:
+Betrachten wir die Kodierung weniger Constraints wie \ref{constraint:pressHeight} und \ref{constraint:pressLength}:
 
 \begin{listing}[H]
     \inputminted[linenos=true]{haskell}{Code/Implementierung/ConstraintPressenDimensionen.hs}
@@ -245,14 +246,14 @@ Ein solches zusätzliches Constraint schränkt den Lösungsraum des Problems erh
 Allerdings kann nicht garantiert werden, dass es eine Lösung ohne Rest gibt.
 Daher wird ein Auftrag $2k$ Mal kodiert: Auf $k$ verschiedene Pressen-Anzahlen in jeweils zwei Variationen:
 Mit dem extra Constraint, welches den Gesamtrest auf null fixiert und ohne dieses.
-Diese $2k$ verschiedenen Kodierungen eines Auftrages werden bestenfalls auf $2k$ verschiedene Kerne einer CPU (oder mehrere) verteilt.
+Diese $2k$ verschiedenen Kodierungen eines Auftrages werden bestenfalls auf $2k$ verschiedene Kerne einer CPU (oder mehrerer) verteilt.
 Die Maschine des Kunden, welcher Germanedge mit dem Pressenplanungsproblem beauftragt hat, verfügt über eine CPU mit acht Kernen.
-Daher wird ein Auftrag mit vier verschiedenen Pressen-Anzahlen kodiert, sodass insgesamt acht Kodierungen des Auftrags entstehen.
+Daher wird ein Auftrag mit vier verschiedenen Pressen-Anzahlen kodiert, sodass insgesamt acht Kodierungen des Auftrages entstehen.
 Ein Eingabeparameter $p \in \mathbb{N}^+$ des Programms beschreibt dabei die Mindestanzahl an Pressen.
 Für ein bestimmtes $p$ wird ein Auftrag dann für $p$, $p+1$, $p+2$ und $p+3$ kodiert.
 Dabei könnte offensichtlich die optimale Lösung mit Pressen-Anzahl $p\prime$ verloren gehen, falls $p\prime < p \oplus p\prime > p + 3$ gilt.
 Ähnlich wie bei der Ermittlung der maximalen Schichtanzahl pro Presse in Abschnitt \ref{sec:vorverarbeitung} könnte auch hier ein
-(vermutlich linearer) Algorithmus entwickelt werden, der die Mindestanzahl an Pressen ermittelt.
+(bestenfalls linearer) Algorithmus entwickelt werden, der die Mindestanzahl an Pressen ermittelt.
 Da in dieser Arbeit allerdings lediglich ein Prototyp und kein vollständiges Produkt zur optimalen Lösung des Pressenplanungsproblems erarbeitet werden soll,
 wird für den Eingabeparameter $p$ ein niedriger Wert durch Germanedge's interne Heuristik ermittelt.
 
@@ -291,4 +292,4 @@ Konfiguriert werden können:
 Wenige Kombinationen wie beispielsweise Solver \texttt{OpenSMT} mit Art der Kodierung OMT sind ungültig und führen zu unmittelbaren Laufzeitfehlern,
 da nicht alle Solver alle Funktionalitäten unterstützen.
 Obwohl diese Fehler mit etwas Aufwand im Quell-Code verhindert werden könnten, kann der Anwender in der Schnittstelle hier keinen Fehler machen, weil
-die Evaluation in Kapitel \ref{chapter:auswertung} zu einer vermeintlich besten allgemeinen Konfiguration führt.
+die Evaluation in Kapitel \ref{chapter:auswertung} zu einer vermeintlich besten allgemeinen Konfiguration führt, welche später Standard-Konfiguration wird.

@@ -82,7 +82,7 @@ Für den Auftrag in Tabelle \ref{tab:auftrageingabe} könnte beispielsweise folg
         \hline
         \textbf{Presse} & \textbf{Schicht} & \textbf{Position} & \textbf{Länge in mm} & \textbf{Höhe in mm} \\
         \hline
-        1 & 1 & 1 & 14000 & 400 \\
+        1 & 1 & 1 & 13000 & 400 \\
         1 & 1 & 2 & 7500 & 400 \\
         1 & 2 & 1 & 3000 & 400 \\
         1 & 2 & 2 & 6500 & 400 \\
@@ -98,7 +98,7 @@ An einen Pressenplan bestehen folgende Anforderungen:
 \begin{enumerate}
     \item Pressen haben eine Minimal- und Maximalhöhe. Die Summe der Höhe aller Balken einer Presse muss in diesem Intervall liegen.
     \item Pressen haben eine Minimal- und Maximallänge. Die Länge aller Balken einer Presse muss in diesem Intervall liegen.
-    \item Alle Balken einer Presse haben die gleiche Länge. Dazu kann der Balken so aus Bauteilen zusammengesetzt sein, dass ein Rest übrig bleibt.
+    \item Alle Balken einer Presse haben die gleiche Länge. Dazu kann der Balken so aus Bauteilen zusammengesetzt sein, dass ein auffüllender Rest übrig bleibt.
     \item Alle Bauteile, die einen Balken formen, haben die gleiche Höhe.
     \item Jedes Bauteil eines Auftrages ist höchstens einem Balken zugeordnet.
     \item Jeder Balken ist genau einer Presse zugeordnet.
@@ -194,7 +194,7 @@ Da diese allerdings unbekannt ist, wird die Relation durch eine unbekannte Funkt
 \[
     \mathbb{X}_{\mathbb{B}}^{\text{InLayer}} = \left\{ \text{InLayer}: C \times L \rightarrow \mathbb{B} \right\}
 \]
-Weiter wird eine Funktion benötigt, welche bestimmt, ob in einer Multimenge von Wahrheitswerten $b \in \dot{\mathbb{B}}$ höchstens $n \in \mathbb{N}_0$ wahr sind (mehr in Abschnitt \ref{sec:smtcardinality}):
+Weiter wird eine Funktion benötigt, welche bestimmt, ob in einer Multimenge von Wahrheitswerten $B \in \dot{\mathbb{B}}$ höchstens $n \in \mathbb{N}_0$ wahr sind (mehr in Abschnitt \ref{sec:smtcardinality}):
 \[
     \text{atMost}: \mathbb{N}_0 \times \dot{\mathbb{B}} \rightarrow \mathbb{B}
 \]
@@ -214,7 +214,7 @@ Die Anforderungen an einen Presseplan werden mit obiger Signatur sowie grundlege
     & \forall p \in P: \text{minLength}(p) \leq \text{length}(p) \leq \text{maxLength}(p) \label{constraint:pressLength} \\[10pt]
     & \forall p \in P,\; \forall l \in \text{layers}(P): \neg \text{isEmpty}(l) \rightarrow \text{length}(p) = \text{length}(l) \label{constraint:layerLength} \\[10pt]
     & \forall c \in C,\; \forall l \in L: \text{InLayer}(c,l) \rightarrow \text{height}(c) = \text{height}(l) \label{constraint:layerHeight} \\[10pt]
-    & \forall c \in C: \text{atMost}\left(1, \biguplus_{l \in L} \left\{ \text{InLayer}(c,l) \right\}\right) \label{constraint:amolayer} \\[10pt]
+    & \forall c \in C: \text{atMost}\left(1, \biguplus_{l \in L} \dot{\{} \text{InLayer}(c,l) \dot{\}}\right) \label{constraint:amolayer} \\[10pt]
     & \forall l \in L: \text{isEmpty}(l) \leftrightarrow \neg\bigvee_{c \in C} \text{InLayer}(c,l) \label{constraint:emptyLayer1} \\[10pt]
     & \forall l \in L: \text{isEmpty}(l) \leftrightarrow (\text{length}(l) = 0 \land \text{height}(l) = 0) \label{constraint:emptyLayer2} \\[10pt]
     & \forall p \in P: \text{height}(p) = \sum_{\substack{l \in \text{layers}(p)}} \text{height}(l) \label{constraint:computePressHeight} \\[10pt]
@@ -267,7 +267,7 @@ Zur Vereinfachung der Notation können die Interpretationsfunktionen $\beta_{\ma
 \[
     \forall a \in A, \; \forall s \in \text{Mod}(a), s = (\mathcal{S}, (\beta_{\mathbb{N}_0}, \beta_{\mathbb{B}})): \beta_{\mathbb{N}_0}^s = \beta_{\mathbb{N}_0} \land \beta_{\mathbb{B}}^s = \beta_{\mathbb{B}}
 \]
-Weiter wird die Menge aller erfüllbaren Aufträge aus Notationsgründen definiert:
+Weiter wird aus Notationsgründen die Menge aller erfüllbaren Aufträge definiert:
 \[
     A_{sat} = \left\{ a \in A \mid \text{Mod}(a) \neq \emptyset \right\}
 \]
@@ -281,9 +281,9 @@ Außerdem werden folgende Funktionen zu Aufträgen definiert:
 \section{Optimierung}
 \label{sec:optimierung}
 Das obige Modell beschreibt beliebige Lösungen für das Problem der Pressenplanung.
-Um den Kostenaufwand beim Pressen zu reduzieren, sind Pressenpläne zusätzlich nach folgenden Kriterien lexikografisch zu optimieren (Vorgabe Germanedge):
+Um den Kostenaufwand beim Pressen zu reduzieren, sind Pressenpläne zusätzlich nach folgenden Kriterien lexikografisch zu optimieren (Vorgabe Kunde Germanedge):
 \begin{enumerate}
-    \item $ \min \left( \left\lvert \left\{ c \in C \middle| \neg\bigvee\limits_{\substack{l \in L}} \text{InLayer}(c,l) \right\} \right\rvert \right) $
+    \item $ \min \left( \left\lvert \left\{ c \in C \; \middle| \; \neg\bigvee\limits_{\substack{l \in L}} \text{InLayer}(c,l) \right\} \right\rvert \right) $
     \item $ \min (\lvert P \rvert) $
     \item $ \min \left(\sum\limits_{\substack{l \in L}} \text{waste}(l) \right) $
 \end{enumerate}
@@ -292,7 +292,7 @@ Dort ist das Optimum bestenfalls null, sodass alle Komponenten verplant sind.
 Existiert so eine Lösung immer?
 Also:
 \[
-    \forall a \in A_{sat}, \; \exists s \in \text{Mod}(a): 0 = \left\lvert \left\{ c \in \text{components}(a) \middle| \neg\bigvee\limits_{\substack{l \in \text{layers}(a)}} \beta_{\mathbb{B}}^{s}(\text{InLayer}(c,l)) \right\} \right\rvert
+    \forall a \in A_{sat}, \; \exists s \in \text{Mod}(a): 0 = \left\lvert \left\{ c \in \text{components}(a) \; \middle| \; \neg\bigvee\limits_{\substack{l \in \text{layers}(a)}} \beta_{\mathbb{B}}^{s}(\text{InLayer}(c,l)) \right\} \right\rvert
 \]
 Nein, denn es lässt sich ein einfaches Gegenbeispiel konstruieren:
 \begin{align*}
@@ -310,7 +310,7 @@ Damit sind alle erfüllenden Belegungen des Modells bezüglich Optimierungsziel 
 In den wenigen Fällen, in welchen die minimale Anzahl unverplanter Bauteile größer als null ist, existiert in diesem Modell keine Lösung.
 Aufgrund des mit der sonst zusätzlich nach Ziel 1 notwendigen Optimierung einhergehenden signifikanten Performance-Verlusts bei der Lösung durch den SMT-Solver sowie der Seltenheit solcher Fälle,
 wird in diesem Modell das Nicht-Finden dieser Lösungen hingenommen.
-Aufträge $a \in A$ werden damit offensichtlich neu definiert:
+Aufträge $a \in A$ werden damit neu definiert:
 \[
     a =   \ref{constraint:pressHeight}
     \land \ref{constraint:pressLength}
