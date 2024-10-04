@@ -15,151 +15,160 @@
 \section{Laufzeitmessungen}
 \label{appendix:results}
 \begin{landscape}
-    \begin{longtable}{|c|c|c|c|c|l|c|c|c|c|c|c|c|c|c|c|}
+    \begin{longtable}{|c|c|c|c|l|c|c|c|c|c|c|c|c|c|c|}
             \hline
-            \multicolumn{4}{|c|}{\textbf{Eingabe}} & \multicolumn{7}{c|}{\textbf{Problem}} & \multicolumn{5}{c|}{\textbf{Lösung}} \\
+            \multicolumn{3}{|c|}{\textbf{Eingabe}} & \multicolumn{7}{c|}{\textbf{Problem}} & \multicolumn{5}{c|}{\textbf{Lösung}} \\
             \hline
-            \textbf{Nr.} & \textbf{Name} & \textbf{$\lvert C \rvert$} & \textbf{$\lvert C_{Spec} \rvert$} & \textbf{Typ} & \textbf{Logik} & \textbf{Solver} & \textbf{$p$} & \textbf{Größe} & \textbf{\#$\mathbb{B}$} & \textbf{\#$\mathbb{Z}$} & \textbf{Zeit in s} & \textbf{$\lvert C_{Not} \rvert$} & \textbf{$\lvert P \rvert$} & \textbf{Rest in mm} & \textbf{Zert.} \\
+            \textbf{Nr.} & \textbf{$\lvert C \rvert$} & \textbf{$\lvert C_{Spec} \rvert$} & \textbf{Typ} & \textbf{Logik} & \textbf{Solver} & \textbf{$p$} & \textbf{Größe} & \textbf{\#$\mathbb{B}$} & \textbf{\#$\mathbb{Z}$} & \textbf{Zeit in s} & \textbf{$\lvert C_{Not} \rvert$} & \textbf{$\lvert P \rvert$} & \textbf{Rest in mm} & \textbf{Zert.} \\
             \hline
             \endfirsthead
 
             \hline
-            \multicolumn{4}{|c|}{\textbf{Eingabe}} & \multicolumn{7}{c|}{\textbf{Problem}} & \multicolumn{5}{c|}{\textbf{Lösung}} \\
+            \multicolumn{3}{|c|}{\textbf{Eingabe}} & \multicolumn{7}{c|}{\textbf{Problem}} & \multicolumn{5}{c|}{\textbf{Lösung}} \\
             \hline
-            \textbf{Nr.} & \textbf{Name} & \textbf{$\lvert C \rvert$} & \textbf{$\lvert C_{Spec} \rvert$} & \textbf{Typ} & \textbf{Logik} & \textbf{Solver} & \textbf{$p$} & \textbf{Größe} & \textbf{\#$\mathbb{B}$} & \textbf{\#$\mathbb{Z}$} & \textbf{Zeit in s} & \textbf{$\lvert C_{Not} \rvert$} & \textbf{$\lvert P \rvert$} & \textbf{Rest in mm} & \textbf{Zert.} \\
+            \textbf{Nr.} & \textbf{$\lvert C \rvert$} & \textbf{$\lvert C_{Spec} \rvert$} & \textbf{Typ} & \textbf{Logik} & \textbf{Solver} & \textbf{$p$} & \textbf{Größe} & \textbf{\#$\mathbb{B}$} & \textbf{\#$\mathbb{Z}$} & \textbf{Zeit in s} & \textbf{$\lvert C_{Not} \rvert$} & \textbf{$\lvert P \rvert$} & \textbf{Rest in mm} & \textbf{Zert.} \\
             \hline
             \endhead
 
+            \ldots & \ldots & \ldots & \ldots & \ldots & \ldots & \ldots & \ldots & \ldots & \ldots & \ldots & \ldots & \ldots & \ldots & \ldots \\
+            \endfoot
+
+            \endlastfoot
+
             \hline
-            \multirow{4}{*}{1} & \multirow{4}{*}{Trivial} & \multirow{4}{*}{15} & \multirow{4}{*}{1} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{1} & \multirow{4}{*}{552} & \multirow{4}{*}{48} & \multirow{4}{*}{11} & 1 & \multirow{4}{*}{0} & 1 & 0 & \cmark \\
-            & & & & SMT & QF\_LIA & OpenSMT & & & & & 1 & & 1 & 0 & \cmark \\
-            & & & & SMT & QF\_LIA & Z3 & & & & & 1 & & 1 & 0 & \cmark \\
-            & & & & OMT & QF\_LIA & Z3 & & & & & 1 & & 1 & 0 & \cmark \\
+            \multirow{4}{*}{1} & \multirow{4}{*}{15} & \multirow{4}{*}{1} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{1} & \multirow{4}{*}{552} & \multirow{4}{*}{48} & \multirow{4}{*}{11} & 1 & \multirow{4}{*}{0} & 1 & 0 & \cmark \\
+            & & & SMT & QF\_LIA & OpenSMT & & & & & 1 & & 1 & 0 & \cmark \\
+            & & & SMT & QF\_LIA & Z3 & & & & & 1 & & 1 & 0 & \cmark \\
+            & & & OMT & QF\_LIA & Z3 & & & & & 1 & & 1 & 0 & \cmark \\
             \hline
-            \multirow{4}{*}{2} & \multirow{4}{*}{Simple} & \multirow{4}{*}{20} & \multirow{4}{*}{2} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{1} & \multirow{4}{*}{5089} & \multirow{4}{*}{231} & \multirow{4}{*}{35} & 18 & \multirow{4}{*}{0} & 1 & 0 & \cmark \\
-            & & & & SMT & QF\_LIA & OpenSMT & & & & & 10 & & 1 & 0 & \cmark \\
-            & & & & SMT & QF\_LIA & Z3 & & & & & 1 & & 1 & 0 & \cmark \\
-            & & & & OMT & QF\_LIA & Z3 & & & & & 1 & & 1 & 0 & \cmark \\
+            \multirow{4}{*}{2} & \multirow{4}{*}{20} & \multirow{4}{*}{2} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{1} & \multirow{4}{*}{5089} & \multirow{4}{*}{231} & \multirow{4}{*}{35} & 18 & \multirow{4}{*}{0} & 1 & 0 & \cmark \\
+            & & & SMT & QF\_LIA & OpenSMT & & & & & 10 & & 1 & 0 & \cmark \\
+            & & & SMT & QF\_LIA & Z3 & & & & & 1 & & 1 & 0 & \cmark \\
+            & & & OMT & QF\_LIA & Z3 & & & & & 1 & & 1 & 0 & \cmark \\
             \hline
-            \multirow{4}{*}{3} & \multirow{4}{*}{Simple2} & \multirow{4}{*}{40} & \multirow{4}{*}{2} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{1} & \multirow{4}{*}{9969} & \multirow{4}{*}{451} & \multirow{4}{*}{35} & 49 & \multirow{4}{*}{0} & 1 & 0 & \cmark \\
-            & & & & SMT & QF\_LIA & OpenSMT & & & & & 50 & & 1 & 0 & \cmark \\
-            & & & & SMT & QF\_LIA & Z3 & & & & & 3 & & 1 & 0 & \cmark \\
-            & & & & OMT & QF\_LIA & Z3 & & & & & 8 & & 1 & 0 & \cmark \\
+            \multirow{4}{*}{3} & \multirow{4}{*}{40} & \multirow{4}{*}{2} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{1} & \multirow{4}{*}{9969} & \multirow{4}{*}{451} & \multirow{4}{*}{35} & 49 & \multirow{4}{*}{0} & 1 & 0 & \cmark \\
+            & & & SMT & QF\_LIA & OpenSMT & & & & & 50 & & 1 & 0 & \cmark \\
+            & & & SMT & QF\_LIA & Z3 & & & & & 3 & & 1 & 0 & \cmark \\
+            & & & OMT & QF\_LIA & Z3 & & & & & 8 & & 1 & 0 & \cmark \\
             \hline
-            \multirow{4}{*}{4} & \multirow{4}{*}{Small} & \multirow{4}{*}{27} & \multirow{4}{*}{6} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{1} & \multirow{4}{*}{7536} & \multirow{4}{*}{336} & \multirow{4}{*}{42} & TO & \multirow{4}{*}{0} & 3 & 298 & \xmark \\
-            & & & & SMT & QF\_LIA & OpenSMT & & & & & TO & & 3 & 298 & \xmark \\
-            & & & & SMT & QF\_LIA & Z3 & & & & & TO & & 3 & 298 & \xmark \\
-            & & & & OMT & QF\_LIA & Z3 & & & & & TO & & - & - & \xmark \\
+            \multirow{4}{*}{4} & \multirow{4}{*}{27} & \multirow{4}{*}{6} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{1} & \multirow{4}{*}{7536} & \multirow{4}{*}{336} & \multirow{4}{*}{42} & TO & \multirow{4}{*}{0} & 3 & 298 & \xmark \\
+            & & & SMT & QF\_LIA & OpenSMT & & & & & TO & & 3 & 298 & \xmark \\
+            & & & SMT & QF\_LIA & Z3 & & & & & TO & & 3 & 298 & \xmark \\
+            & & & OMT & QF\_LIA & Z3 & & & & & TO & & - & - & \xmark \\
             \hline
-            \multirow{4}{*}{5} & \multirow{4}{*}{Optimal} & \multirow{4}{*}{41} & \multirow{4}{*}{6} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{1} & \multirow{4}{*}{10213} & \multirow{4}{*}{462} & \multirow{4}{*}{35} & 2 & \multirow{4}{*}{0} & 1 & 0 & \cmark \\
-            & & & & SMT & QF\_LIA & OpenSMT & & & & & 1 & & 1 & 0 & \cmark \\
-            & & & & SMT & QF\_LIA & Z3 & & & & & 1 & & 1 & 0 & \cmark \\
-            & & & & OMT & QF\_LIA & Z3 & & & & & 1 & & 1 & 0 & \cmark \\
+            \multirow{4}{*}{5} & \multirow{4}{*}{41} & \multirow{4}{*}{6} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{1} & \multirow{4}{*}{10213} & \multirow{4}{*}{462} & \multirow{4}{*}{35} & 2 & \multirow{4}{*}{0} & 1 & 0 & \cmark \\
+            & & & SMT & QF\_LIA & OpenSMT & & & & & 1 & & 1 & 0 & \cmark \\
+            & & & SMT & QF\_LIA & Z3 & & & & & 1 & & 1 & 0 & \cmark \\
+            & & & OMT & QF\_LIA & Z3 & & & & & 1 & & 1 & 0 & \cmark \\
             \hline
-            \multirow{4}{*}{6} & \multirow{4}{*}{Optimal2} & \multirow{4}{*}{82} & \multirow{4}{*}{6} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{1} & \multirow{4}{*}{50939} & \multirow{4}{*}{1826} & \multirow{4}{*}{70} & TO & \multirow{4}{*}{0} & 2 & 58034 & \xmark \\
-            & & & & SMT & QF\_LIA & OpenSMT & & & & & TO & & 2 & 6000 & \xmark \\
-            & & & & SMT & QF\_LIA & Z3 & & & & & 351 & & 2 & 0 & \cmark \\
-            & & & & OMT & QF\_LIA & Z3 & & & & & TO & & - & - & \xmark \\
+            \multirow{4}{*}{6} & \multirow{4}{*}{82} & \multirow{4}{*}{6} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{1} & \multirow{4}{*}{50939} & \multirow{4}{*}{1826} & \multirow{4}{*}{70} & TO & \multirow{4}{*}{0} & 2 & 58034 & \xmark \\
+            & & & SMT & QF\_LIA & OpenSMT & & & & & TO & & 2 & 6000 & \xmark \\
+            & & & SMT & QF\_LIA & Z3 & & & & & 351 & & 2 & 0 & \cmark \\
+            & & & OMT & QF\_LIA & Z3 & & & & & TO & & - & - & \xmark \\
             \hline
-            \multirow{4}{*}{7} & \multirow{4}{*}{Optimal3} & \multirow{4}{*}{123} & \multirow{4}{*}{6} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{2} & \multirow{4}{*}{130902} & \multirow{4}{*}{4092} & \multirow{4}{*}{105} & TO & \multirow{4}{*}{0} & 3 & 87150 & \xmark \\
-            & & & & SMT & QF\_LIA & OpenSMT & & & & & TO & & 3 & 87150 & \xmark \\
-            & & & & SMT & QF\_LIA & Z3 & & & & & TO & & 3 & 60006 & \xmark \\
-            & & & & OMT & QF\_LIA & Z3 & & & & & TO & & - & - & \xmark \\
+            \pagebreak
+            \multirow{4}{*}{7} & \multirow{4}{*}{123} & \multirow{4}{*}{6} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{2} & \multirow{4}{*}{130902} & \multirow{4}{*}{4092} & \multirow{4}{*}{105} & TO & \multirow{4}{*}{0} & 3 & 87150 & \xmark \\
+            & & & SMT & QF\_LIA & OpenSMT & & & & & TO & & 3 & 87150 & \xmark \\
+            & & & SMT & QF\_LIA & Z3 & & & & & TO & & 3 & 60006 & \xmark \\
+            & & & OMT & QF\_LIA & Z3 & & & & & TO & & - & - & \xmark \\
             \hline
-            \multirow{4}{*}{8} & \multirow{4}{*}{2082510} & \multirow{4}{*}{39} & \multirow{4}{*}{8} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{2} & \multirow{4}{*}{15619} & \multirow{4}{*}{640} & \multirow{4}{*}{56} & TO & \multirow{4}{*}{0} & 4 & 16114 & \xmark \\
-            & & & & SMT & QF\_LIA & OpenSMT & & & & & TO & & 4 & 5359 & \xmark \\
-            & & & & SMT & QF\_LIA & Z3 & & & & & TO & & 4 & 5359 & \xmark \\
-            & & & & OMT & QF\_LIA & Z3 & & & & & TO & & - & - & \xmark \\
+            \multirow{4}{*}{8} & \multirow{4}{*}{39} & \multirow{4}{*}{8} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{2} & \multirow{4}{*}{15619} & \multirow{4}{*}{640} & \multirow{4}{*}{56} & TO & \multirow{4}{*}{0} & 4 & 16114 & \xmark \\
+            & & & SMT & QF\_LIA & OpenSMT & & & & & TO & & 4 & 5359 & \xmark \\
+            & & & SMT & QF\_LIA & Z3 & & & & & TO & & 4 & 5359 & \xmark \\
+            & & & OMT & QF\_LIA & Z3 & & & & & TO & & - & - & \xmark \\
             \hline
-            \multirow{4}{*}{9} & \multirow{4}{*}{2082539} & \multirow{4}{*}{82} & \multirow{4}{*}{6} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{2} & \multirow{4}{*}{13097} & \multirow{4}{*}{624} & \multirow{4}{*}{28} & TO & \multirow{4}{*}{0} & 2 & 13600 & \xmark \\
-            & & & & SMT & QF\_LIA & OpenSMT & & & & & TO & & 2 & 14996 & \xmark \\
-            & & & & SMT & QF\_LIA & Z3 & & & & & TO & & 2 & 11807 & \xmark \\
-            & & & & OMT & QF\_LIA & Z3 & & & & & TO & & - & - & \xmark \\
+            \multirow{4}{*}{9} & \multirow{4}{*}{82} & \multirow{4}{*}{6} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{2} & \multirow{4}{*}{13097} & \multirow{4}{*}{624} & \multirow{4}{*}{28} & TO & \multirow{4}{*}{0} & 2 & 13600 & \xmark \\
+            & & & SMT & QF\_LIA & OpenSMT & & & & & TO & & 2 & 14996 & \xmark \\
+            & & & SMT & QF\_LIA & Z3 & & & & & TO & & 2 & 11807 & \xmark \\
+            & & & OMT & QF\_LIA & Z3 & & & & & TO & & - & - & \xmark \\
             \hline
-            \multirow{4}{*}{10} & \multirow{4}{*}{2082518} & \multirow{4}{*}{103} & \multirow{4}{*}{10} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{7} & \multirow{4}{*}{106143} & \multirow{4}{*}{3328} & \multirow{4}{*}{112} & TO & \multirow{4}{*}{0} & 8 & 83362 & \xmark \\
-            & & & & SMT & QF\_LIA & OpenSMT & & & & & TO & & 8 & 83363 & \xmark \\
-            & & & & SMT & QF\_LIA & Z3 & & & & & TO & & 8 & 17228 & \xmark \\
-            & & & & OMT & QF\_LIA & Z3 & & & & & TO & & - & - & \xmark \\
+            \multirow{4}{*}{10} & \multirow{4}{*}{103} & \multirow{4}{*}{10} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{7} & \multirow{4}{*}{106143} & \multirow{4}{*}{3328} & \multirow{4}{*}{112} & TO & \multirow{4}{*}{0} & 8 & 83362 & \xmark \\
+            & & & SMT & QF\_LIA & OpenSMT & & & & & TO & & 8 & 83363 & \xmark \\
+            & & & SMT & QF\_LIA & Z3 & & & & & TO & & 8 & 17228 & \xmark \\
+            & & & OMT & QF\_LIA & Z3 & & & & & TO & & - & - & \xmark \\
             \hline
-            \multirow{4}{*}{11} & \multirow{4}{*}{Large} & \multirow{4}{*}{193} & \multirow{4}{*}{2} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{5} & \multirow{4}{*}{400967} & \multirow{4}{*}{10476} & \multirow{4}{*}{174} & TO & \multirow{4}{*}{0} & 7 & 215950 & \xmark \\
-            & & & & SMT & QF\_LIA & OpenSMT & & & & & TO & & 7 & 215950 & \xmark \\
-            & & & & SMT & QF\_LIA & Z3 & & & & & TO & & 6 & 110703 & \xmark \\
-            & & & & OMT & QF\_LIA & Z3 & & & & & TO & & - & - & \xmark \\
+            \multirow{4}{*}{11} & \multirow{4}{*}{193} & \multirow{4}{*}{2} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{5} & \multirow{4}{*}{400967} & \multirow{4}{*}{10476} & \multirow{4}{*}{174} & TO & \multirow{4}{*}{0} & 7 & 215950 & \xmark \\
+            & & & SMT & QF\_LIA & OpenSMT & & & & & TO & & 7 & 215950 & \xmark \\
+            & & & SMT & QF\_LIA & Z3 & & & & & TO & & 6 & 110703 & \xmark \\
+            & & & OMT & QF\_LIA & Z3 & & & & & TO & & - & - & \xmark \\
             \hline
-            \multirow{4}{*}{12} & \multirow{4}{*}{Big} & \multirow{4}{*}{264} & \multirow{4}{*}{17} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{8} & \multirow{4}{*}{741951} & \multirow{4}{*}{18240} & \multirow{4}{*}{208} & TO & \multirow{4}{*}{-} & - & - & \xmark \\
-            & & & & SMT & QF\_LIA & OpenSMT & & & & & TO & & - & - & \xmark \\
-            & & & & SMT & QF\_LIA & Z3 & & & & & TO & & - & - & \xmark \\
-            & & & & OMT & QF\_LIA & Z3 & & & & & TO & & - & - & \xmark \\
+            \multirow{4}{*}{12} & \multirow{4}{*}{264} & \multirow{4}{*}{17} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{8} & \multirow{4}{*}{741951} & \multirow{4}{*}{18240} & \multirow{4}{*}{208} & TO & \multirow{4}{*}{-} & - & - & \xmark \\
+            & & & SMT & QF\_LIA & OpenSMT & & & & & TO & & - & - & \xmark \\
+            & & & SMT & QF\_LIA & Z3 & & & & & TO & & - & - & \xmark \\
+            & & & OMT & QF\_LIA & Z3 & & & & & TO & & - & - & \xmark \\
             \hline
-            \multirow{4}{*}{13} & \multirow{4}{*}{Diverse} & \multirow{4}{*}{25} & \multirow{4}{*}{25} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{1} & \multirow{4}{*}{1376} & \multirow{4}{*}{104} & \multirow{4}{*}{14} & TO & \multirow{4}{*}{0} & 1 & 500 & \xmark \\
-            & & & & SMT & QF\_LIA & OpenSMT & & & & & TO & & 1 & 500 & \xmark \\
-            & & & & SMT & QF\_LIA & Z3 & & & & & TO & & 1 & 500 & \xmark \\
-            & & & & OMT & QF\_LIA & Z3 & & & & & TO & & 2 & 0 & \xmark \\
+            \pagebreak
+            \multirow{4}{*}{13} & \multirow{4}{*}{25} & \multirow{4}{*}{25} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{1} & \multirow{4}{*}{1376} & \multirow{4}{*}{104} & \multirow{4}{*}{14} & TO & \multirow{4}{*}{0} & 1 & 500 & \xmark \\
+            & & & SMT & QF\_LIA & OpenSMT & & & & & TO & & 1 & 500 & \xmark \\
+            & & & SMT & QF\_LIA & Z3 & & & & & TO & & 1 & 500 & \xmark \\
+            & & & OMT & QF\_LIA & Z3 & & & & & TO & & 2 & 0 & \xmark \\
             \hline
-            \multirow{4}{*}{14} & \multirow{4}{*}{DiverseOpt} & \multirow{4}{*}{26} & \multirow{4}{*}{26} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{1} & \multirow{4}{*}{1428} & \multirow{4}{*}{108} & \multirow{4}{*}{14} & 1 & \multirow{4}{*}{0} & 1 & 0 & \cmark \\
-            & & & & SMT & QF\_LIA & OpenSMT & & & & & 1 & & 1 & 0 & \cmark \\
-            & & & & SMT & QF\_LIA & Z3 & & & & & 1 & & 1 & 0 & \cmark \\
-            & & & & OMT & QF\_LIA & Z3 & & & & & 1 & & 1 & 0 & \cmark \\
+            \multirow{4}{*}{14} & \multirow{4}{*}{26} & \multirow{4}{*}{26} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{1} & \multirow{4}{*}{1428} & \multirow{4}{*}{108} & \multirow{4}{*}{14} & 1 & \multirow{4}{*}{0} & 1 & 0 & \cmark \\
+            & & & SMT & QF\_LIA & OpenSMT & & & & & 1 & & 1 & 0 & \cmark \\
+            & & & SMT & QF\_LIA & Z3 & & & & & 1 & & 1 & 0 & \cmark \\
+            & & & OMT & QF\_LIA & Z3 & & & & & 1 & & 1 & 0 & \cmark \\
             \hline
-            \multirow{4}{*}{15} & \multirow{4}{*}{Diverse2} & \multirow{4}{*}{50} & \multirow{4}{*}{25} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{1} & \multirow{4}{*}{8561} & \multirow{4}{*}{408} & \multirow{4}{*}{28} & 9 & \multirow{4}{*}{0} & 2 & 0 & \cmark \\
-            & & & & SMT & QF\_LIA & OpenSMT & & & & & 10 & & 2 & 0 & \cmark \\
-            & & & & SMT & QF\_LIA & Z3 & & & & & 31 & & 2 & 0 & \cmark \\
-            & & & & OMT & QF\_LIA & Z3 & & & & & 5 & & 2 & 0 & \cmark \\
+            \multirow{4}{*}{15} & \multirow{4}{*}{50} & \multirow{4}{*}{25} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{1} & \multirow{4}{*}{8561} & \multirow{4}{*}{408} & \multirow{4}{*}{28} & 9 & \multirow{4}{*}{0} & 2 & 0 & \cmark \\
+            & & & SMT & QF\_LIA & OpenSMT & & & & & 10 & & 2 & 0 & \cmark \\
+            & & & SMT & QF\_LIA & Z3 & & & & & 31 & & 2 & 0 & \cmark \\
+            & & & OMT & QF\_LIA & Z3 & & & & & 5 & & 2 & 0 & \cmark \\
             \hline
-            \multirow{4}{*}{16} & \multirow{4}{*}{Diverse2Opt} & \multirow{4}{*}{52} & \multirow{4}{*}{26} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{1} & \multirow{4}{*}{8897} & \multirow{4}{*}{424} & \multirow{4}{*}{28} & 8 & \multirow{4}{*}{0} & 2 & 0 & \cmark \\
-            & & & & SMT & QF\_LIA & OpenSMT & & & & & 8 & & 2 & 0 & \cmark \\
-            & & & & SMT & QF\_LIA & Z3 & & & & & 4 & & 2 & 0 & \cmark \\
-            & & & & OMT & QF\_LIA & Z3 & & & & & 2 & & 2 & 0 & \cmark \\
+            \multirow{4}{*}{16} & \multirow{4}{*}{52} & \multirow{4}{*}{26} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{1} & \multirow{4}{*}{8897} & \multirow{4}{*}{424} & \multirow{4}{*}{28} & 8 & \multirow{4}{*}{0} & 2 & 0 & \cmark \\
+            & & & SMT & QF\_LIA & OpenSMT & & & & & 8 & & 2 & 0 & \cmark \\
+            & & & SMT & QF\_LIA & Z3 & & & & & 4 & & 2 & 0 & \cmark \\
+            & & & OMT & QF\_LIA & Z3 & & & & & 2 & & 2 & 0 & \cmark \\
             \hline
-            \multirow{4}{*}{17} & \multirow{4}{*}{Diverse3} & \multirow{4}{*}{75} & \multirow{4}{*}{25} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{2} & \multirow{4}{*}{20496} & \multirow{4}{*}{912} & \multirow{4}{*}{42} & TO & \multirow{4}{*}{0} & 3 & 3300 & \xmark \\
-            & & & & SMT & QF\_LIA & OpenSMT & & & & & TO & & 3 & 3300 & \xmark \\
-            & & & & SMT & QF\_LIA & Z3 & & & & & TO & & 3 & 500 & \xmark \\
-            & & & & OMT & QF\_LIA & Z3 & & & & & 50 & & 4 & 0 & \xmark \\
+            \multirow{4}{*}{17} & \multirow{4}{*}{75} & \multirow{4}{*}{25} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{2} & \multirow{4}{*}{20496} & \multirow{4}{*}{912} & \multirow{4}{*}{42} & TO & \multirow{4}{*}{0} & 3 & 3300 & \xmark \\
+            & & & SMT & QF\_LIA & OpenSMT & & & & & TO & & 3 & 3300 & \xmark \\
+            & & & SMT & QF\_LIA & Z3 & & & & & TO & & 3 & 500 & \xmark \\
+            & & & OMT & QF\_LIA & Z3 & & & & & 50 & & 4 & 0 & \xmark \\
             \hline
-            \multirow{4}{*}{18} & \multirow{4}{*}{Diverse3Opt} & \multirow{4}{*}{78} & \multirow{4}{*}{26} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{2} & \multirow{4}{*}{21306} & \multirow{4}{*}{948} & \multirow{4}{*}{42} & TO & \multirow{4}{*}{0} & 4 & 51300 & \xmark \\
-            & & & & SMT & QF\_LIA & OpenSMT & & & & & TO & & 4 & 51300 & \xmark \\
-            & & & & SMT & QF\_LIA & Z3 & & & & & 47 & & 3 & 0 & \cmark \\
-            & & & & OMT & QF\_LIA & Z3 & & & & & TO & & 4 & 0 & \xmark \\
+            \multirow{4}{*}{18} & \multirow{4}{*}{78} & \multirow{4}{*}{26} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{2} & \multirow{4}{*}{21306} & \multirow{4}{*}{948} & \multirow{4}{*}{42} & TO & \multirow{4}{*}{0} & 4 & 51300 & \xmark \\
+            & & & SMT & QF\_LIA & OpenSMT & & & & & TO & & 4 & 51300 & \xmark \\
+            & & & SMT & QF\_LIA & Z3 & & & & & 47 & & 3 & 0 & \cmark \\
+            & & & OMT & QF\_LIA & Z3 & & & & & TO & & 4 & 0 & \xmark \\
             \hline
-            \multirow{4}{*}{19} & \multirow{4}{*}{Diverse4} & \multirow{4}{*}{100} & \multirow{4}{*}{25} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{3} & \multirow{4}{*}{39531} & \multirow{4}{*}{1616} & \multirow{4}{*}{56} & TO & \multirow{4}{*}{0} & 5 & 23800 & \xmark \\
-            & & & & SMT & QF\_LIA & OpenSMT & & & & & TO & & 5 & 28200 & \xmark \\
-            & & & & SMT & QF\_LIA & Z3 & & & & & TO & & 4 & 3208 & \xmark \\
-            & & & & OMT & QF\_LIA & Z3 & & & & & TO & & 5 & 0 & \xmark \\
+            \pagebreak
+            \multirow{4}{*}{19} & \multirow{4}{*}{100} & \multirow{4}{*}{25} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{3} & \multirow{4}{*}{39531} & \multirow{4}{*}{1616} & \multirow{4}{*}{56} & TO & \multirow{4}{*}{0} & 5 & 23800 & \xmark \\
+            & & & SMT & QF\_LIA & OpenSMT & & & & & TO & & 5 & 28200 & \xmark \\
+            & & & SMT & QF\_LIA & Z3 & & & & & TO & & 4 & 3208 & \xmark \\
+            & & & OMT & QF\_LIA & Z3 & & & & & TO & & 5 & 0 & \xmark \\
             \hline
-            \multirow{4}{*}{20} & \multirow{4}{*}{Diverse4Opt} & \multirow{4}{*}{104} & \multirow{4}{*}{26} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{3} & \multirow{4}{*}{41099} & \multirow{4}{*}{1680} & \multirow{4}{*}{56} & TO & \multirow{4}{*}{0} & 5 & 32950 & \xmark \\
-            & & & & SMT & QF\_LIA & OpenSMT & & & & & TO & & 5 & 51400 & \xmark \\
-            & & & & SMT & QF\_LIA & Z3 & & & & & 575 & & 4 & 0 & \cmark \\
-            & & & & OMT & QF\_LIA & Z3 & & & & & TO & & 5 & 0 & \xmark \\
+            \multirow{4}{*}{20} & \multirow{4}{*}{104} & \multirow{4}{*}{26} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{3} & \multirow{4}{*}{41099} & \multirow{4}{*}{1680} & \multirow{4}{*}{56} & TO & \multirow{4}{*}{0} & 5 & 32950 & \xmark \\
+            & & & SMT & QF\_LIA & OpenSMT & & & & & TO & & 5 & 51400 & \xmark \\
+            & & & SMT & QF\_LIA & Z3 & & & & & 575 & & 4 & 0 & \cmark \\
+            & & & OMT & QF\_LIA & Z3 & & & & & TO & & 5 & 0 & \xmark \\
             \hline
-            \multirow{4}{*}{21} & \multirow{4}{*}{Diverse5} & \multirow{4}{*}{125} & \multirow{4}{*}{25} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{4} & \multirow{4}{*}{66916} & \multirow{4}{*}{2520} & \multirow{4}{*}{70} & TO & \multirow{4}{*}{0} & 5 & 4900 & \xmark \\
-            & & & & SMT & QF\_LIA & OpenSMT & & & & & TO & & 5 & 4900 & \xmark \\
-            & & & & SMT & QF\_LIA & Z3 & & & & & TO & & 5 & 2516 & \xmark \\
-            & & & & OMT & QF\_LIA & Z3 & & & & & TO & & 6 & 0 & \xmark \\
+            \multirow{4}{*}{21} & \multirow{4}{*}{125} & \multirow{4}{*}{25} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{4} & \multirow{4}{*}{66916} & \multirow{4}{*}{2520} & \multirow{4}{*}{70} & TO & \multirow{4}{*}{0} & 5 & 4900 & \xmark \\
+            & & & SMT & QF\_LIA & OpenSMT & & & & & TO & & 5 & 4900 & \xmark \\
+            & & & SMT & QF\_LIA & Z3 & & & & & TO & & 5 & 2516 & \xmark \\
+            & & & OMT & QF\_LIA & Z3 & & & & & TO & & 6 & 0 & \xmark \\
             \hline
-            \multirow{4}{*}{22} & \multirow{4}{*}{Diverse5Opt} & \multirow{4}{*}{130} & \multirow{4}{*}{26} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{4} & \multirow{4}{*}{88901} & \multirow{4}{*}{3144} & \multirow{4}{*}{84} & TO & \multirow{4}{*}{0} & 6 & 40800 & \xmark \\
-            & & & & SMT & QF\_LIA & OpenSMT & & & & & TO & & 6 & 40800 & \xmark \\
-            & & & & SMT & QF\_LIA & Z3 & & & & & TO & & 6 & 23458 & \xmark \\
-            & & & & OMT & QF\_LIA & Z3 & & & & & TO & & 6 & 0 & \xmark \\
+            \multirow{4}{*}{22} & \multirow{4}{*}{130} & \multirow{4}{*}{26} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{4} & \multirow{4}{*}{88901} & \multirow{4}{*}{3144} & \multirow{4}{*}{84} & TO & \multirow{4}{*}{0} & 6 & 40800 & \xmark \\
+            & & & SMT & QF\_LIA & OpenSMT & & & & & TO & & 6 & 40800 & \xmark \\
+            & & & SMT & QF\_LIA & Z3 & & & & & TO & & 6 & 23458 & \xmark \\
+            & & & OMT & QF\_LIA & Z3 & & & & & TO & & 6 & 0 & \xmark \\
             \hline
-            \multirow{4}{*}{23} & \multirow{4}{*}{Diverse7} & \multirow{4}{*}{175} & \multirow{4}{*}{25} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{6} & \multirow{4}{*}{148636} & \multirow{4}{*}{4928} & \multirow{4}{*}{98} & TO & \multirow{4}{*}{0} & 8 & 56000 & \xmark \\
-            & & & & SMT & QF\_LIA & OpenSMT & & & & & TO & & 8 & 56000 & \xmark \\
-            & & & & SMT & QF\_LIA & Z3 & & & & & TO & & 7 & 7700 & \xmark \\
-            & & & & OMT & QF\_LIA & Z3 & & & & & TO & & - & - & \xmark \\
+            \multirow{4}{*}{23} & \multirow{4}{*}{175} & \multirow{4}{*}{25} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{6} & \multirow{4}{*}{148636} & \multirow{4}{*}{4928} & \multirow{4}{*}{98} & TO & \multirow{4}{*}{0} & 8 & 56000 & \xmark \\
+            & & & SMT & QF\_LIA & OpenSMT & & & & & TO & & 8 & 56000 & \xmark \\
+            & & & SMT & QF\_LIA & Z3 & & & & & TO & & 7 & 7700 & \xmark \\
+            & & & OMT & QF\_LIA & Z3 & & & & & TO & & - & - & \xmark \\
             \hline
-            \multirow{4}{*}{24} & \multirow{4}{*}{Diverse7Opt} & \multirow{4}{*}{182} & \multirow{4}{*}{26} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{6} & \multirow{4}{*}{187039} & \multirow{4}{*}{5856} & \multirow{4}{*}{112} & TO & \multirow{4}{*}{0} & 8 & 48950 & \xmark \\
-            & & & & SMT & QF\_LIA & OpenSMT & & & & & TO & & 8 & 48950 & \xmark \\
-            & & & & SMT & QF\_LIA & Z3 & & & & & TO & & 8 & 47300 & \xmark \\
-            & & & & OMT & QF\_LIA & Z3 & & & & & TO & & - & - & \xmark \\
+            \multirow{4}{*}{24} & \multirow{4}{*}{182} & \multirow{4}{*}{26} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{6} & \multirow{4}{*}{187039} & \multirow{4}{*}{5856} & \multirow{4}{*}{112} & TO & \multirow{4}{*}{0} & 8 & 48950 & \xmark \\
+            & & & SMT & QF\_LIA & OpenSMT & & & & & TO & & 8 & 48950 & \xmark \\
+            & & & SMT & QF\_LIA & Z3 & & & & & TO & & 8 & 47300 & \xmark \\
+            & & & OMT & QF\_LIA & Z3 & & & & & TO & & - & - & \xmark \\
             \hline
-            \multirow{4}{*}{25} & \multirow{4}{*}{Diverse10} & \multirow{4}{*}{250} & \multirow{4}{*}{25} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{9} & \multirow{4}{*}{396926} & \multirow{4}{*}{11044} & \multirow{4}{*}{154} & TO & \multirow{4}{*}{0} & - & - & \xmark \\
-            & & & & SMT & QF\_LIA & OpenSMT & & & & & TO & & - & - & \xmark \\
-            & & & & SMT & QF\_LIA & Z3 & & & & & TO & & 11 & 52858 & \xmark \\
-            & & & & OMT & QF\_LIA & Z3 & & & & & TO & & - & - & \xmark \\
+            \pagebreak
+            \multirow{4}{*}{25} & \multirow{4}{*}{250} & \multirow{4}{*}{25} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{9} & \multirow{4}{*}{396926} & \multirow{4}{*}{11044} & \multirow{4}{*}{154} & TO & \multirow{4}{*}{0} & - & - & \xmark \\
+            & & & SMT & QF\_LIA & OpenSMT & & & & & TO & & - & - & \xmark \\
+            & & & SMT & QF\_LIA & Z3 & & & & & TO & & 11 & 52858 & \xmark \\
+            & & & OMT & QF\_LIA & Z3 & & & & & TO & & - & - & \xmark \\
             \hline
-            \multirow{4}{*}{26} & \multirow{4}{*}{Diverse10Opt} & \multirow{4}{*}{260} & \multirow{4}{*}{26} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{9} & \multirow{4}{*}{412766} & \multirow{4}{*}{11484} & \multirow{4}{*}{154} & TO & \multirow{4}{*}{0} & 11 & 55800 & \xmark \\
-            & & & & SMT & QF\_LIA & OpenSMT & & & & & TO & & 11 & 55800 & \xmark \\
-            & & & & SMT & QF\_LIA & Z3 & & & & & TO & & 11 & 75211 & \xmark \\
-            & & & & OMT & QF\_LIA & Z3 & & & & & TO & & - & - & \xmark \\
+            \multirow{4}{*}{26} & \multirow{4}{*}{260} & \multirow{4}{*}{26} & SMT & QF\_LRA & OpenSMT & \multirow{4}{*}{9} & \multirow{4}{*}{412766} & \multirow{4}{*}{11484} & \multirow{4}{*}{154} & TO & \multirow{4}{*}{0} & 11 & 55800 & \xmark \\
+            & & & SMT & QF\_LIA & OpenSMT & & & & & TO & & 11 & 55800 & \xmark \\
+            & & & SMT & QF\_LIA & Z3 & & & & & TO & & 11 & 75211 & \xmark \\
+            & & & OMT & QF\_LIA & Z3 & & & & & TO & & - & - & \xmark \\
             \hline
         \caption{Vergleich der Programm-Konfigurationen mit Timeout nach zehn Minuten}
         \label{tab:vglkodierungreal}
@@ -169,37 +178,37 @@
 \begin{landscape}
         \begin{longtable}{|c|c|c|c|c|l|c|c|c|c|c|c|c|c|c|c|}
                 \hline
-                \multicolumn{4}{|c|}{\textbf{Eingabe}} & \multicolumn{7}{c|}{\textbf{Problem}} & \multicolumn{5}{c|}{\textbf{Lösung}} \\
+                \multicolumn{3}{|c|}{\textbf{Eingabe}} & \multicolumn{7}{c|}{\textbf{Problem}} & \multicolumn{5}{c|}{\textbf{Lösung}} \\
                 \hline
-                \textbf{Nr.} & \textbf{Name} & \textbf{$\lvert C \rvert$} & \textbf{$\lvert C_{Spec} \rvert$} & \textbf{Typ} & \textbf{Logik} & \textbf{Solver} & \textbf{$p$} & \textbf{Größe} & \textbf{\#$\mathbb{B}$} & \textbf{\#$\mathbb{Z}$} & \textbf{Zeit in s} & \textbf{$\lvert C_{Not} \rvert$} & \textbf{$\lvert P \rvert$} & \textbf{Rest in mm} & \textbf{Zert.} \\
+                \textbf{Nr.} & \textbf{$\lvert C \rvert$} & \textbf{$\lvert C_{Spec} \rvert$} & \textbf{Typ} & \textbf{Logik} & \textbf{Solver} & \textbf{$p$} & \textbf{Größe} & \textbf{\#$\mathbb{B}$} & \textbf{\#$\mathbb{Z}$} & \textbf{Zeit in s} & \textbf{$\lvert C_{Not} \rvert$} & \textbf{$\lvert P \rvert$} & \textbf{Rest in mm} & \textbf{Zert.} \\
                 \hline
                 \endfirsthead
 
                 \hline
-                \multicolumn{4}{|c|}{\textbf{Eingabe}} & \multicolumn{7}{c|}{\textbf{Problem}} & \multicolumn{5}{c|}{\textbf{Lösung}} \\
+                \multicolumn{3}{|c|}{\textbf{Eingabe}} & \multicolumn{7}{c|}{\textbf{Problem}} & \multicolumn{5}{c|}{\textbf{Lösung}} \\
                 \hline
-                \textbf{Nr.} & \textbf{Name} & \textbf{$\lvert C \rvert$} & \textbf{$\lvert C_{Spec} \rvert$} & \textbf{Typ} & \textbf{Logik} & \textbf{Solver} & \textbf{$p$} & \textbf{Größe} & \textbf{\#$\mathbb{B}$} & \textbf{\#$\mathbb{Z}$} & \textbf{Zeit in s} & \textbf{$\lvert C_{Not} \rvert$} & \textbf{$\lvert P \rvert$} & \textbf{Rest in mm} & \textbf{Zert.} \\
+                \textbf{Nr.} & \textbf{$\lvert C \rvert$} & \textbf{$\lvert C_{Spec} \rvert$} & \textbf{Typ} & \textbf{Logik} & \textbf{Solver} & \textbf{$p$} & \textbf{Größe} & \textbf{\#$\mathbb{B}$} & \textbf{\#$\mathbb{Z}$} & \textbf{Zeit in s} & \textbf{$\lvert C_{Not} \rvert$} & \textbf{$\lvert P \rvert$} & \textbf{Rest in mm} & \textbf{Zert.} \\
                 \hline
                 \endhead
 
                 \hline
-                \multirow{2}{*}{4} & \multirow{2}{*}{Small} & \multirow{2}{*}{27} & \multirow{2}{*}{6} & SMT & \multirow{2}{*}{QF\_LIA} & \multirow{2}{*}{Z3} & \multirow{2}{*}{1} & \multirow{2}{*}{7536} & \multirow{2}{*}{336} & \multirow{2}{*}{42} & TO & \multirow{2}{*}{0} & 3 & 298 & \xmark \\
-                & & & & OMT & & & & & & & TO & & - & - & \xmark \\
+                \multirow{2}{*}{4} & \multirow{2}{*}{27} & \multirow{2}{*}{6} & SMT & \multirow{2}{*}{QF\_LIA} & \multirow{2}{*}{Z3} & \multirow{2}{*}{1} & \multirow{2}{*}{7536} & \multirow{2}{*}{336} & \multirow{2}{*}{42} & TO & \multirow{2}{*}{0} & 3 & 298 & \xmark \\
+                & & & OMT & & & & & & & TO & & - & - & \xmark \\
                 \hline
-                \multirow{2}{*}{7} & \multirow{2}{*}{Optimal3} & \multirow{2}{*}{123} & \multirow{2}{*}{6} & SMT & \multirow{2}{*}{QF\_LIA} & \multirow{2}{*}{Z3} & \multirow{2}{*}{2} & \multirow{2}{*}{130902} & \multirow{2}{*}{4092} & \multirow{2}{*}{105} & 20571 & \multirow{2}{*}{0} & 3 & 0 & \cmark \\
-                & & & & OMT & & & & & & & 14994 & & 3 & 0 & \cmark \\
+                \multirow{2}{*}{7} & \multirow{2}{*}{123} & \multirow{2}{*}{6} & SMT & \multirow{2}{*}{QF\_LIA} & \multirow{2}{*}{Z3} & \multirow{2}{*}{2} & \multirow{2}{*}{130902} & \multirow{2}{*}{4092} & \multirow{2}{*}{105} & 20571 & \multirow{2}{*}{0} & 3 & 0 & \cmark \\
+                & & & OMT & & & & & & & 14994 & & 3 & 0 & \cmark \\
                 \hline
-                \multirow{2}{*}{11} & \multirow{2}{*}{Large} & \multirow{2}{*}{193} & \multirow{2}{*}{2} & SMT & \multirow{2}{*}{QF\_LIA} & \multirow{2}{*}{Z3} & \multirow{2}{*}{6} & \multirow{2}{*}{400967} & \multirow{2}{*}{10476} & \multirow{2}{*}{174} & TO & \multirow{2}{*}{0} & 6 & 63883 & \xmark \\
-                & & & & OMT & & & & & & & TO & & - & - & \xmark \\
+                \multirow{2}{*}{11} & \multirow{2}{*}{193} & \multirow{2}{*}{2} & SMT & \multirow{2}{*}{QF\_LIA} & \multirow{2}{*}{Z3} & \multirow{2}{*}{6} & \multirow{2}{*}{400967} & \multirow{2}{*}{10476} & \multirow{2}{*}{174} & TO & \multirow{2}{*}{0} & 6 & 63883 & \xmark \\
+                & & & OMT & & & & & & & TO & & - & - & \xmark \\
                 \hline
-                \multirow{2}{*}{12} & \multirow{2}{*}{Big} & \multirow{2}{*}{264} & \multirow{2}{*}{17} & SMT & \multirow{2}{*}{QF\_LIA} & \multirow{2}{*}{Z3} & \multirow{2}{*}{8} & \multirow{2}{*}{876160} & \multirow{2}{*}{20520} & \multirow{2}{*}{234} & TO & \multirow{2}{*}{0} & 9 & 205437 & \xmark \\
-                & & & & OMT & & & & & & & ?? & & ?? & ?? & ?? \\
+                \multirow{2}{*}{12} & \multirow{2}{*}{264} & \multirow{2}{*}{17} & SMT & \multirow{2}{*}{QF\_LIA} & \multirow{2}{*}{Z3} & \multirow{2}{*}{8} & \multirow{2}{*}{876160} & \multirow{2}{*}{20520} & \multirow{2}{*}{234} & TO & \multirow{2}{*}{0} & 9 & 205437 & \xmark \\
+                & & & OMT & & & & & & & ?? & & ?? & ?? & ?? \\
                 \hline
-                \multirow{2}{*}{22} & \multirow{2}{*}{Diverse5Opt} & \multirow{2}{*}{130} & \multirow{2}{*}{26} & SMT & \multirow{2}{*}{QF\_LIA} & \multirow{2}{*}{Z3} & \multirow{2}{*}{4} & \multirow{2}{*}{69576} & \multirow{2}{*}{2620} & \multirow{2}{*}{70} & 632 & \multirow{2}{*}{0} & 5 & 0 & \cmark \\
-                & & & & OMT & & & & & & & 9788 & & 5 & 0 & \cmark \\
+                \multirow{2}{*}{22} & \multirow{2}{*}{130} & \multirow{2}{*}{26} & SMT & \multirow{2}{*}{QF\_LIA} & \multirow{2}{*}{Z3} & \multirow{2}{*}{4} & \multirow{2}{*}{69576} & \multirow{2}{*}{2620} & \multirow{2}{*}{70} & 632 & \multirow{2}{*}{0} & 5 & 0 & \cmark \\
+                & & & OMT & & & & & & & 9788 & & 5 & 0 & \cmark \\
                 \hline
-                \multirow{2}{*}{24} & \multirow{2}{*}{Diverse7Opt} & \multirow{2}{*}{182} & \multirow{2}{*}{26} & SMT & \multirow{2}{*}{QF\_LIA} & \multirow{2}{*}{Z3} & \multirow{2}{*}{6} & \multirow{2}{*}{154558} & \multirow{2}{*}{5124} & \multirow{2}{*}{98} & 35806 & \multirow{2}{*}{0} & 7 & 0 & \cmark \\
-                & & & & OMT & & & & & & & 30730 & & 7 & 0 & \cmark \\
+                \multirow{2}{*}{24} & \multirow{2}{*}{182} & \multirow{2}{*}{26} & SMT & \multirow{2}{*}{QF\_LIA} & \multirow{2}{*}{Z3} & \multirow{2}{*}{6} & \multirow{2}{*}{154558} & \multirow{2}{*}{5124} & \multirow{2}{*}{98} & 35806 & \multirow{2}{*}{0} & 7 & 0 & \cmark \\
+                & & & OMT & & & & & & & 30730 & & 7 & 0 & \cmark \\
                 \hline
                 \caption{Vergleich der Programm-Konfigurationen mit Timeout nach zehn Stunden}
                 \label{tab:vglkodierungliberal}
@@ -207,71 +216,71 @@
 \end{landscape}
 
 \begin{landscape}
-        \begin{longtable}{|c|l|c|c||c|c|c|c||c|c|c|c|c|}
+        \begin{longtable}{|c|c|c||c|c|c|c||c|c|c|c|c|}
                 \hline
-                \multicolumn{4}{|c||}{\textbf{Eingabe}} & \multicolumn{4}{c||}{\textbf{Heuristik}} & \multicolumn{5}{c|}{\textbf{Constraint-System}} \\
+                \multicolumn{3}{|c||}{\textbf{Eingabe}} & \multicolumn{4}{c||}{\textbf{Heuristik}} & \multicolumn{5}{c|}{\textbf{Constraint-System}} \\
                 \hline
-                \textbf{Nr.} & \textbf{Name} & \textbf{$\lvert C \rvert$} & \textbf{$\lvert C_{Spec} \rvert$} & \textbf{Zeit in s} & \textbf{$\lvert C_{Not} \rvert$} & \textbf{$\lvert P \rvert$} & \textbf{Rest in mm} & \textbf{Zeit in s} & \textbf{$\lvert C_{Not} \rvert$} & \textbf{$\lvert P \rvert$} & \textbf{Rest in mm} & \textbf{Zert.} \\
+                \textbf{Nr.} & \textbf{$\lvert C \rvert$} & \textbf{$\lvert C_{Spec} \rvert$} & \textbf{Zeit in s} & \textbf{$\lvert C_{Not} \rvert$} & \textbf{$\lvert P \rvert$} & \textbf{Rest in mm} & \textbf{Zeit in s} & \textbf{$\lvert C_{Not} \rvert$} & \textbf{$\lvert P \rvert$} & \textbf{Rest in mm} & \textbf{Zert.} \\
                 \hline
                 \endfirsthead
 
                 \hline
-                \multicolumn{4}{|c||}{\textbf{Eingabe}} & \multicolumn{4}{c||}{\textbf{Heuristik}} & \multicolumn{5}{c|}{\textbf{Constraint-System}} \\
+                \multicolumn{3}{|c||}{\textbf{Eingabe}} & \multicolumn{4}{c||}{\textbf{Heuristik}} & \multicolumn{5}{c|}{\textbf{Constraint-System}} \\
                 \hline
-                \textbf{Nr.} & \textbf{Name} & \textbf{$\lvert C \rvert$} & \textbf{$\lvert C_{Spec} \rvert$} & \textbf{Zeit in s} & \textbf{$\lvert C_{Not} \rvert$} & \textbf{$\lvert P \rvert$} & \textbf{Rest in mm} & \textbf{Zeit in s} & \textbf{$\lvert C_{Not} \rvert$} & \textbf{$\lvert P \rvert$} & \textbf{Rest in mm} & \textbf{Zert.} \\
+                \textbf{Nr.} & \textbf{$\lvert C \rvert$} & \textbf{$\lvert C_{Spec} \rvert$} & \textbf{Zeit in s} & \textbf{$\lvert C_{Not} \rvert$} & \textbf{$\lvert P \rvert$} & \textbf{Rest in mm} & \textbf{Zeit in s} & \textbf{$\lvert C_{Not} \rvert$} & \textbf{$\lvert P \rvert$} & \textbf{Rest in mm} & \textbf{Zert.} \\
                 \hline
                 \endhead
 
                 \hline
-                1  & Trivial      & 15     & 1     & 1      & 0     & 1     & 0     & 1     & 0     & 1     & 0            & \cmark \\
-                2  & Simple       & 20     & 2     & 1      & 0     & 1     & 0     & 1     & 0     & 1     & 0            & \cmark \\
+                1       & 15     & 1     & 1      & 0     & 1     & 0     & 1     & 0     & 1     & 0            & \cmark \\
+                2       & 20     & 2     & 1      & 0     & 1     & 0     & 1     & 0     & 1     & 0            & \cmark \\
                 \rowcolor{red!20}
-                3  & Simple2      & 40     & 2     & 1      & 0     & 1     & 0     & 3     & 0     & 1     & 0            & \cmark \\
+                3       & 40     & 2     & 1      & 0     & 1     & 0     & 3     & 0     & 1     & 0            & \cmark \\
                 \rowcolor{green!20}
-                4  & Small        & 27     & 6     & 23     & 1     & 3     & 378   & TO    & 0     & 3     & 298          & \xmark \\
-                5  & Optimal      & 41     & 6     & 1      & 0     & 1     & 0     & 1     & 0     & 1     & 0            & \cmark \\
+                4       & 27     & 6     & 23     & 1     & 3     & 378   & TO    & 0     & 3     & 298          & \xmark \\
+                5       & 41     & 6     & 1      & 0     & 1     & 0     & 1     & 0     & 1     & 0            & \cmark \\
                 \rowcolor{green!20}
-                6  & Optimal2     & 82     & 6     & 143    & 1     & 3     & 0     & 351   & 0     & 2     & 0            & \cmark \\
+                6       & 82     & 6     & 143    & 1     & 3     & 0     & 351   & 0     & 2     & 0            & \cmark \\
                 \rowcolor{green!20}
-                7  & Optimal3     & 123    & 6     & 233    & 0     & 5     & 0     & TO    & 0     & 3     & 60006        & \xmark \\
+                7       & 123    & 6     & 233    & 0     & 5     & 0     & TO    & 0     & 3     & 60006        & \xmark \\
                 \rowcolor{green!20}
-                8  & 2082510      & 39     & 8     & 28     & 3     & 4     & 1016  & TO    & 0     & 4     & 5359         & \xmark \\
+                8       & 39     & 8     & 28     & 3     & 4     & 1016  & TO    & 0     & 4     & 5359         & \xmark \\
                 \rowcolor{green!20}
-                9  & 2082539      & 82     & 6     & TO     & 2     & 2     & 0     & TO    & 0     & 2     & 11807        & \xmark \\
+                9       & 82     & 6     & TO     & 2     & 2     & 0     & TO    & 0     & 2     & 11807        & \xmark \\
                 \rowcolor{green!20}
-                10 & 2082518      & 103    & 10    & TO     & 1     & 9     & 2434  & TO    & 0     & 8     & 17228        & \xmark \\
+                10      & 103    & 10    & TO     & 1     & 9     & 2434  & TO    & 0     & 8     & 17228        & \xmark \\
                 \rowcolor{green!20}
-                11 & Large        & 193    & 2     & TO     & 1     & 7     & 2000  & TO    & 0     & 6     & 110703       & \xmark \\
+                11      & 193    & 2     & TO     & 1     & 7     & 2000  & TO    & 0     & 6     & 110703       & \xmark \\
                 \rowcolor{red!20}
-                12 & Big          & 264    & 17    & 7      & 0     & 9     & 11331 & TO    & -     & -     & -            & \xmark \\
+                12      & 264    & 17    & 7      & 0     & 9     & 11331 & TO    & -     & -     & -            & \xmark \\
                 \rowcolor{red!20}
-                13 & Diverse      & 25     & 25    & 45     & 0     & 1     & 500   & TO    & 0     & 1     & 500          & \xmark \\
+                13      & 25     & 25    & 45     & 0     & 1     & 500   & TO    & 0     & 1     & 500          & \xmark \\
                 \rowcolor{green!20}
-                14 & DiverseOpt   & 26     & 26    & 12     & 0     & 1     & 0     & 1     & 0     & 1     & 0            & \cmark \\
+                14      & 26     & 26    & 12     & 0     & 1     & 0     & 1     & 0     & 1     & 0            & \cmark \\
                 \rowcolor{green!20}
-                15 & Diverse2     & 50     & 25    & 78     & 0     & 3     & 0     & 31    & 0     & 2     & 0            & \cmark \\
+                15      & 50     & 25    & 78     & 0     & 3     & 0     & 31    & 0     & 2     & 0            & \cmark \\
                 \rowcolor{green!20}
-                16 & Diverse2Opt  & 52     & 26    & 214    & 0     & 3     & 750   & 4     & 0     & 2     & 0            & \cmark \\
+                16      & 52     & 26    & 214    & 0     & 3     & 750   & 4     & 0     & 2     & 0            & \cmark \\
                 \rowcolor{red!20}
-                17 & Diverse3     & 75     & 25    & 45     & 0     & 3     & 500   & TO    & 0     & 3     & 500          & \xmark \\
+                17      & 75     & 25    & 45     & 0     & 3     & 500   & TO    & 0     & 3     & 500          & \xmark \\
                 \rowcolor{green!20}
-                18 & Diverse3Opt  & 78     & 26    & 36     & 0     & 4     & 0     & 47    & 0     & 3     & 0            & \cmark \\
+                18      & 78     & 26    & 36     & 0     & 4     & 0     & 47    & 0     & 3     & 0            & \cmark \\
                 \rowcolor{green!20}
-                19 & Diverse4     & 100    & 25    & 55     & 0     & 5     & 500   & TO    & 0     & 4     & 3208         & \xmark \\
+                19      & 100    & 25    & 55     & 0     & 5     & 500   & TO    & 0     & 4     & 3208         & \xmark \\
                 \rowcolor{green!20}
-                20 & Diverse4Opt  & 104    & 26    & 108    & 0     & 5     & 0     & 575   & 0     & 4     & 0            & \cmark \\
+                20      & 104    & 26    & 108    & 0     & 5     & 0     & 575   & 0     & 4     & 0            & \cmark \\
                 \rowcolor{red!20}
-                21 & Diverse5     & 125    & 25    & 98     & 0     & 5     & 500   & TO    & 0     & 5     & 2516         & \xmark \\
+                21      & 125    & 25    & 98     & 0     & 5     & 500   & TO    & 0     & 5     & 2516         & \xmark \\
                 \rowcolor{red!20}
-                22 & Diverse5Opt  & 130    & 26    & 48     & 0     & 6     & 0     & TO    & 0     & 6     & 23458        & \xmark \\
+                22      & 130    & 26    & 48     & 0     & 6     & 0     & TO    & 0     & 6     & 23458        & \xmark \\
                 \rowcolor{green!20}
-                23 & Diverse7     & 175    & 25    & TO     & 1     & 7     & 0     & TO    & 0     & 7     & 7700         & \xmark \\
+                23      & 175    & 25    & TO     & 1     & 7     & 0     & TO    & 0     & 7     & 7700         & \xmark \\
                 \rowcolor{red!20}
-                24 & Diverse7Opt  & 182    & 26    & 140    & 0     & 8     & 750   & TO    & 0     & 8     & 47300        & \xmark \\
+                24      & 182    & 26    & 140    & 0     & 8     & 750   & TO    & 0     & 8     & 47300        & \xmark \\
                 \rowcolor{green!20}
-                25 & Diverse10    & 250    & 25    & 296    & 0     & 12    & 750   & TO    & 0     & 11    & 52858        & \xmark \\
+                25      & 250    & 25    & 296    & 0     & 12    & 750   & TO    & 0     & 11    & 52858        & \xmark \\
                 \rowcolor{green!20}
-                26 & Diverse10Opt & 260    & 26    & TO     & 1     & 11    & 0     & TO    & 0     & 11    & 75211        & \xmark \\
+                26      & 260    & 26    & TO     & 1     & 11    & 0     & TO    & 0     & 11    & 75211        & \xmark \\
                 \hline
                 \caption{Vergleich der Performance von Programm-Konfiguration SMT, Z3, \texttt{QF\_LIA} und Germanedge's Heuristik mit TO 10 Minuten}
                 \label{tab:vglheuristik}
