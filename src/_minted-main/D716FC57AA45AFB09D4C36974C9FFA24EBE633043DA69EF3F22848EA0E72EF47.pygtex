@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{floatAppend}\PYG{+w}{ }\PYG{o+ow}{::}\PYG{+w}{ }\PYG{k+kt}{List}\PYG{+w}{ }\PYG{k+kt}{Float}\PYG{+w}{ }\PYG{o+ow}{\PYGZhy{}\PYGZgt{}}\PYG{+w}{ }\PYG{k+kt}{List}\PYG{+w}{ }\PYG{k+kt}{Float}\PYG{+w}{ }\PYG{o+ow}{\PYGZhy{}\PYGZgt{}}\PYG{+w}{ }\PYG{k+kt}{List}\PYG{+w}{ }\PYG{k+kt}{Float}
+\PYG{n+nf}{floatAppend}\PYG{+w}{ }\PYG{n}{xs}\PYG{+w}{ }\PYG{n}{ys}\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }\PYG{n}{append}\PYG{+w}{ }\PYG{o}{@}\PYG{k+kt}{Float}\PYG{+w}{ }\PYG{n}{xs}\PYG{+w}{ }\PYG{n}{ys}
+\end{Verbatim}

@@ -1,0 +1,10 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kr}{data}\PYG{+w}{ }\PYG{k+kt}{List}\PYG{+w}{ }\PYG{n}{a}\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }\PYG{k+kt}{Cons}\PYG{+w}{ }\PYG{n}{a}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{List}\PYG{+w}{ }\PYG{n}{a}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{|}\PYG{+w}{ }\PYG{k+kt}{Nil}
+
+\PYG{n+nf}{exampleList}\PYG{+w}{ }\PYG{o+ow}{::}\PYG{+w}{ }\PYG{k+kt}{List}\PYG{+w}{ }\PYG{k+kt}{Int}
+\PYG{n+nf}{exampleList}\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }\PYG{k+kt}{Const}\PYG{+w}{ }\PYG{l+m+mi}{5}\PYG{+w}{ }\PYG{o}{\PYGZdl{}}\PYG{+w}{ }\PYG{k+kt}{Cons}\PYG{+w}{ }\PYG{l+m+mi}{3}\PYG{+w}{ }\PYG{o}{\PYGZdl{}}\PYG{+w}{ }\PYG{k+kt}{Cons}\PYG{+w}{ }\PYG{l+m+mi}{10}\PYG{+w}{ }\PYG{k+kt}{Nil}
+
+\PYG{n+nf}{append}\PYG{+w}{ }\PYG{o+ow}{::}\PYG{+w}{ }\PYG{k+kt}{List}\PYG{+w}{ }\PYG{n}{a}\PYG{+w}{ }\PYG{o+ow}{\PYGZhy{}\PYGZgt{}}\PYG{+w}{ }\PYG{k+kt}{List}\PYG{+w}{ }\PYG{n}{a}\PYG{+w}{ }\PYG{o+ow}{\PYGZhy{}\PYGZgt{}}\PYG{+w}{ }\PYG{k+kt}{List}\PYG{+w}{ }\PYG{n}{a}
+\PYG{n+nf}{append}\PYG{+w}{ }\PYG{k+kt}{Nil}\PYG{+w}{         }\PYG{n}{ys}\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }\PYG{n}{ys}
+\PYG{n+nf}{append}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{Cons}\PYG{+w}{ }\PYG{n}{x}\PYG{+w}{ }\PYG{n}{xs}\PYG{p}{)}\PYG{+w}{ }\PYG{n}{ys}\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }\PYG{k+kt}{Cons}\PYG{+w}{ }\PYG{n}{x}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{append}\PYG{+w}{ }\PYG{n}{xs}\PYG{+w}{ }\PYG{n}{ys}\PYG{p}{)}
+\end{Verbatim}

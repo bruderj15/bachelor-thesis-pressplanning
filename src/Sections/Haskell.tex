@@ -1,21 +1,65 @@
 \chapter{Haskell und Hasmtlib}
 \label{chapter:haskell}
-In diesem Kapitel werden einige notwendige Grundlagen der funktionalen Programmiersprache Haskell erklärt.
+In diesem Kapitel werden einige, für das weitere Verständnis der Arbeit notwendige, Grundlagen der funktionalen Programmiersprache Haskell erklärt.
 Danach wird der Kern der Funktionsweise der Haskell-Bibliothek \texttt{Hasmtlib} \cite{hasmtlib} beschrieben.
 Ferner werden einige geeignete Erweiterungen dieser diskutiert.
 
 \section{Funktionale Programmierung mit Haskell}
 \label{sec:haskell}
-Was ist ein ADT?
-Polymorphismus.
-Pattern-Matching.
-Was ist ein GADT und was kann er besser als ein ADT?
-Typ- und Kind-System anreißen - Phasentrennung.
-Typklassen.
-Typeoperators.
-Was ist eine pure Funktion?
-Wie kann man Nebenwirkungen dennoch modellieren - was ist eine Monade?
-Was ist Lazy?
+Haskell ist eine funktionale Programmiersprache, welche sich vor allem durch statisch polymorphe Typisierung und Bedarfsauswertung auszeichnet \cite{haskell2010report}.
+Besonders das ausdrucksstarke Typsystem macht Haskell zu einem mächtigen Werkzeug in der Software-Entwicklung.
+Haskell unterscheidet dabei zwischen Typen zur Übersetzungszeit und Werten zur Laufzeit eines Programms \cite{singletons}.
+Diese strenge Trennung wird als Phasentrennung bezeichnet.
+Betrachten wir folgenden algebraischen Datentypen (kurz ADT) einfach gelinkter Listen:
+\begin{listing}[H]
+    \inputminted[linenos=true]{haskell}{Code/Implementierung/Haskell/List.hs}
+    \caption{Algebratischer Datetyp einfach gelinkter Listen}
+    \label{listing:linkedlist}
+\end{listing}
+Dieser Listen-Typ ist polymorph in den Elementen der Liste, sodass \texttt{a} mit verschiedenen Typen belegt werden kann.
+In Zeile 3 von Listing \ref{listing:linkedlist} wird das \texttt{a} zum Beispiel mit Int belegt.
+Damit ist \texttt{exampleList} ein Wert vom Typ \texttt{List Int}, also in Haskell-Syntax: \texttt{exampleList :: List Int}.
+
+Diese \textit{ist-Wert-von-Typ-Beziehung} kann auch auf die Typ-Ebene zur Übersetzungszeit gehoben werden.
+Die höhere Beziehung lautet dann: \textit{ist-Typ-von-Art-Beziehung}.
+Somit ist \texttt{List Int} vom Kind (deutsch Art) \texttt{Type}, also in Haskell-Syntax: \texttt{List Int :: Type}.
+Ein \textit{Kind} für einen Typen ist also das, was ein Typ für einen Wert ist.
+
+Das gilt auch für Funktionen.
+Die Funktion \texttt{append} nimmt zwei Listen und produziert eine Liste, also \texttt{append :: List a -> List a -> List a}.
+Der polymorphe Typ \texttt{List a} ist auch eine Funktion - aber auf Typ-Ebene.
+Er nimmt einen Typen und produziert einen Typen, also \texttt{List a :: Type -> Type}.
+Die Wahl des \texttt{a} kann durch Typ-Applikationen zur Übersetzungszeit folgend gewählt werden:
+\begin{listing}[H]
+    \inputminted[linenos=true]{haskell}{Code/Implementierung/Haskell/TypeApplication.hs}
+    \caption{Typ-Applikation polymorpher Funktionen}
+    \label{listing:typeapplication}
+\end{listing}
+Intern werden dazu Type-Operatoren (\texttt{\raisebox{-0.6ex}{\textasciitilde}}) verwendet.
+In Listing \ref{listing:typeapplication} wird das \texttt{a} mit \texttt{Float} belegt, also gilt: \texttt{a \raisebox{-0.6ex}{\textasciitilde} Float}.
+
+Mit diesem Wissen können nun Klassen betrachtet werden.
+Abstraktion über Listing \ref{listing:linkedlist} liefert die Spezifikation von Halbgruppen:
+\begin{listing}[H]
+    \inputminted[linenos=true]{haskell}{Code/Implementierung/Haskell/Semigroup.hs}
+    \caption{Typ-Klasse für Halbgruppen}
+    \label{listing:semigroup}
+\end{listing}
+Die Klasse \texttt{Semigroup} spezifiziert die Funktion \texttt{(<>)} und der Typ \texttt{List a} implementiert diese Spezifikation.
+Damit kann die Implementierung flexibel gewählt werden.
+
+Bisher wurde die Implementierung von \texttt{append} in Listing \ref{listing:linkedlist} noch nicht betrachtet.
+Die Implementierung unterscheidet sich dabei je nach Konstruktor des ADTs \texttt{List a}.
+Das Aufbrechen der Konstruktoren wird auch \textit{Pattern-Matching} genannt \cite{haskell2010report}.
+Eine Verallgemeinerung von ADTs stellen generalisierte algebraische Datentypen (kurz GADT) dar.
+Dort kann der Pattern-Match auf einen Wert (Konstruktor) zur Laufzeit zusätzlich Informationen zum Typen des Werts zur Übersetzungszeit liefern.
+Da dadurch Typen verfeinert werden können, wird diese Möglichkeit auch \textit{Type-Refinement} genannt \cite{gadts}.
+
+Die bisher betrachteten Funktionen sind alle pur - also mathematische Funktionen.
+Um zusätzlich Nebenwirkungen zu modellieren, nutzt Haskell das Konzept der Monade \cite{haskell2010report}.
+Da die Herleitung jener für diesen Rahmen zu komplex ist, reicht es für den Leser, zu verstehen, dass
+monadische Funktionen Berechnungen mit Kontext sind.
+Dieser Kontext ist bereits am Typ zu erkennen, sodass beispielsweise ein \texttt{appendPrint} den Typ \texttt{List a -> List a -> IO (List a)} hätte.
 
 \section{Hasmtlib - Haskell-Bibliothek für SMTLib}
 \label{sec:hasmtlib}
