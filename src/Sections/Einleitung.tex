@@ -4,17 +4,14 @@
 Die Germanedge Solutions GmbH spezialisiert sich in der Digitalisierung der Produktion und
 unterstützt Unternehmen mit individuellen Softwarelösungen für die Industrie 4.0 \cite{industry4dot0}.
 Darunter auch ein nicht genannter Kunde, welcher Germanedge mit der Optimierung der Planung von Holzpressen beauftragt hat.
-Dabei werden Holzbauteile zu Holzbalken kombiniert und anschließend in Pressen gepresst.
+Dabei werden Holzlamellen zu Holzbalken verleimt, in Pressen gepresst und anschließend in Holzbauteile zersägt.
 Die Art und Weise der Anordnung der Bauteile in den Pressen wird als Pressenplan bezeichnet.
 Abbildung \ref{figure:pressenplan} visualisiert einen solchen Pressenplan.
-Die Presse (grau) presst in Richtung der Pfeile nach unten.
-Die Balken (gelb) liegen horizontal und bestehen aus Bauteilen, welche durch die vertikalen (schwarzen) Linien getrennt sind.
-Der Rest jedes Balkens ist rot hervorgehoben.
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=1.00\textwidth, center]{Images/Pressenplan}\\
-    \caption{Darstellung eines Pressenplans}
+    \caption{Darstellung eines Pressenplans: Presse grau, Balken gelb, Rest rot und Sägelinien schwarz}
     \label{figure:pressenplan}
 \end{figure}
 
@@ -93,13 +90,13 @@ Jene Belegung transformiert das Programm dann in das gewünschte Ausgabeformat:
     \centering
     \begin{tabular}{|c|c|c|c|c|}
         \hline
-        \textbf{Presse} & \textbf{Schicht} & \textbf{Position} & \textbf{Länge in mm} & \textbf{Höhe in mm} \\
+        \textbf{Presse} & \textbf{Balken} & \textbf{Bauteil} & \textbf{Länge in mm} & \textbf{Höhe in mm} \\
         \hline
         1 & 1 & 1 & 13000 & 400 \\
         1 & 1 & 2 & 7500 & 400 \\
         1 & 2 & 1 & 3000 & 400 \\
-        1 & 2 & 2 & 6500 & 400 \\
-        1 & 2 & 3 & 3000 & 400 \\
+        1 & 2 & 2 & 3000 & 400 \\
+        1 & 2 & 3 & 3500 & 400 \\
         \ldots & \ldots & \ldots & \ldots & \ldots \\
         \hline
     \end{tabular}

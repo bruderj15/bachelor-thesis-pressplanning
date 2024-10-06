@@ -8,7 +8,7 @@ Abschließend wird das Modell um Optimierungsziele erweitert.
 \label{sec:anforderungen}
 Im Pressenplanungsproblem sind drei Entitäten und deren Eigenschaften von elementarer Bedeutung: Pressen, Balken und Bauteile.
 Diese haben jeweils die Eigenschaften Höhe, Breite und Länge.
-Zusätzlich gibt es Holzlamellen, welche durch Zersägen eines sogenannten \textit{Endlosbretts} entstehen.
+Zusätzlich gibt es Holzlamellen, welche durch Zersägen eines sogenannten Endlosbretts entstehen.
 Dieses kann von einer Maschine \textit{scheinbar} endlos ausgegeben werden.
 Höhe und Breite der Lamelle sind fest.
 Lamellen werden vertikal zu Bauteilen verleimt, sodass Bauteile immer die Form eines Quaders haben.
@@ -18,7 +18,7 @@ Folgend eine Abbildung verleimter Lamellen:
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.70\textwidth, center]{Images/LammelleLeim}\\
-    \caption{Vertikale Verleimung von Lamellen}
+    \caption{Balken: Vertikale Verleimung von Lamellen}
     \label{figure:lamelleleim}
 \end{figure}
 
@@ -85,8 +85,8 @@ Für den Auftrag in Tabelle \ref{tab:auftrageingabe} könnte beispielsweise folg
         1 & 1 & 1 & 13000 & 400 \\
         1 & 1 & 2 & 7500 & 400 \\
         1 & 2 & 1 & 3000 & 400 \\
-        1 & 2 & 2 & 6500 & 400 \\
-        1 & 2 & 3 & 3000 & 400 \\
+        1 & 2 & 2 & 3000 & 400 \\
+        1 & 2 & 3 & 3500 & 400 \\
         \ldots & \ldots & \ldots & \ldots & \ldots \\
         \hline
     \end{tabular}
@@ -102,6 +102,13 @@ An einen Pressenplan bestehen folgende Anforderungen:
     \item Alle Bauteile, die einen Balken formen, haben die gleiche Höhe.
     \item Jedes Bauteil eines Auftrages ist höchstens einem Balken zugeordnet.
     \item Jeder Balken ist genau einer Presse zugeordnet.
+\end{enumerate}
+Damit ist das Pressenplanungsproblem ein Ressourcenzuordnungsproblem und somit NP-vollständig, also nicht in polynomieller Zeit lösbar \cite{rcpspnp}.
+Das Problem wird allerdings noch schwieriger, da zusätzlich nach folgenden Kriterien lexikografisch optimiert wird:
+\begin{enumerate}
+    \item Minimierung der Anzahl ungeplanter Bauteile
+    \item Minimierung der Anzahl geplanter Pressen
+    \item Minimierung des Gesamtrests (Summe aller Reste pro Balken)
 \end{enumerate}
 
 \section{Modellierung}
