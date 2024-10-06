@@ -114,7 +114,7 @@ scheint die Schwere des Problems mit erhöhter Komplexität des Constraint-Syste
 Große Probleme vergrößern nicht nur den Lösungsraum, sondern erhöhen auch die Anforderungen des Solvers an die Hardware.
 Laufzeitmessungen auf einer Maschine mit 128 GB Arbeitsspeicher und Timeout nach zehn Stunden (Anhang \ref{appendix:results}, Tabelle \ref{tab:vglkodierungliberal}) zeigen für Probleme
 11, 12, 25 und 26 Arbeitsspeichernutzung von bis zu 40 GB pro Problem.
-Je länger der Solver-Prozess läuft, desto mehr Speicher benötigt er, weil er Lemmas lernt (DPLL(T), Abschnitt \ref{sec:smtbasics}).
+Je länger der Solver-Prozess läuft, desto mehr Speicher benötigt er, weil er Lemmas lernt (CDCL(T), Abschnitt \ref{sec:smtbasics}).
 
 Während auch größere Probleme wie Testfall 24 ohne Rest innerhalb von zehn Stunden optimal gelöst werden können, kann selbst der kleine Testfall 4 nach zehn Stunden
 noch immer nicht optimal vom Solver gelöst werden.

@@ -3,7 +3,7 @@
 
 Die Pressenplanung von Holzbalken aus Bauteilen erfordert eine fein abgestimmte Konfiguration, um die Pressen optimal auszulasten und den Verschnitt der Balken zu minimieren.
 Dafür hat die Germanedge Solutions GmbH\footnote{https://www.germanedge.com/, abgerufen am 21.08.2024}, Industriepartner dieser Arbeit, bereits eine unternehmensinterne Heuristik entwickelt, welche aufgrund ihrer Natur allerdings möglicherweise (optimale) Lösungen nicht berücksichtigt.
-Im Rahmen dieser Arbeit wird daher eine prototypische Lösung mithilfe der Methoden der Constraint-Programmierung, speziell jener der Satisfiability Modulo Theories (SMT), erarbeitet, welche optimale Lösungen finden soll.
+Im Rahmen dieser Arbeit wird daher eine prototypische Lösung mithilfe der Methoden der Constraint-Programmierung, speziell jener der Satisfiability Modulo Theories (\gls{SMT}), erarbeitet, welche optimale Lösungen finden soll.
 Dazu werden die Constraints der Domäne zunächst mithilfe der Prädikatenlogik modelliert und anschließend in einer konkreten Repräsentation des Modells implementiert.
 
 Dabei wird ein Programm entwickelt, welches aus den textuellen Eingaben der Pressen- und Bauteilspezifikationen ein Constraint-System erzeugt, das anschließend von einem externen Constraint-Solver gelöst wird.
@@ -18,6 +18,6 @@ Das Ziel für die prototypische Lösung des Problems der Pressenplanung ist die 
 Da es sich hier um eine prototypische Lösung handelt, werden einige Sonderfälle des Pressenplanungsproblems in dieser Arbeit nicht betrachtet.
 
 Die Ergebnisse dieser Arbeit zeigen, dass das Pressenplanungsproblem mithilfe von Constraint-Systemen optimal gelöst werden kann.
-Während Probleme kleiner bis mittlerer Größe innerhalb der gewünschten zehn Minuten optimal gelöst werden können, bedarf die optimale Lösung
+Während das für Probleme kleiner bis mittlerer Größe innerhalb der gewünschten zehn Minuten möglich ist, bedarf die optimale Lösung
 größerer Probleme weitaus mehr Zeit ($> 10 \text{h}$).
 Besonders für perfekte Pressenpläne ohne Verschnitt können schnell optimale Lösungen gefunden und zertifiziert werden.

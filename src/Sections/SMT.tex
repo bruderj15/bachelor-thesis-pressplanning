@@ -4,10 +4,10 @@
 In diesem Kapitel wird zuerst das Erfüllbarkeitsproblem der Satisfiability Module Theories - kurz SMT - vorgestellt.
 Dabei wird auch kurz auf die Kernelemente des Sprachstandards SMTLib Version 2.6 \cite{smtlib} eingegangen.
 Dieser ermöglicht die Kodierung von SMT-Problemen für SMT-Solver \cite{smt}.
-Ein SMT-Solver - kurz Solver - ist ein Programm, welches für ein kodiertes Problem die Erfüllbarkeit dieses und für den
+Ein \gls{SMT-Solver} - kurz Solver - ist ein Programm, welches für ein kodiertes Problem die Erfüllbarkeit dieses und für den
 Fall \textit{erfüllbar} (englisch \textit{satisfiable} - kurz \textit{sat}) ein Modell für jenes bestimmen kann.
-Einige bekannte Solver sind zum Beispiel Z3 \cite{z3}, CVC5 \cite{cvc5}, Yices \cite{yices} und OpenSMT \cite{opensmt}.
-Diese und viele andere nehmen jährlich an dem internationalen Wettbewerb SMT-COMP \cite{smtcomp} für SMT-Solver teil,
+Einige bekannte Solver sind zum Beispiel \texttt{Z3} \cite{z3}, \texttt{CVC5} \cite{cvc5}, \texttt{Yices} \cite{yices} und \texttt{OpenSMT} \cite{opensmt}.
+Diese und viele andere nehmen jährlich an dem internationalen Wettbewerb \gls{SMT-COMP} \cite{smtcomp} für SMT-Solver teil,
 wo sie sich in verschiedenen Disziplinen miteinander messen.
 
 Nach der Einführung in das Erfüllbarkeitsproblem SMT werden Anzahl-Constraints in SMT betrachtet,
@@ -16,17 +16,17 @@ bevor am Ende dieses Kapitels beleuchtet wird, wie SMT-Probleme nach Zielfunktio
 \section{Einführung in das Erfüllbarkeitsproblem SMT}
 \label{sec:smtbasics}
 Satisfiability Module Theories beschreibt das Erfüllbarkeitsproblem prädikatenlogischer Formeln unter spezifischen Theorien \cite{smt}.
-Damit ermöglicht es im Gegensatz zum Erfüllbarkeitsproblem SAT, bei welchem ausschließlich boolesche Unbekannte aussagenlogisch verknüpft werden können,
+Damit ermöglicht es im Gegensatz zum Erfüllbarkeitsproblem \gls{SAT}, bei welchem ausschließlich boolesche Unbekannte aussagenlogisch verknüpft werden können,
 die realitätsnahe Kodierung von Problemen wie beispielsweise Ressourcenzuordnungsproblemen \cite{rcpsp}.
 Jene sind nachweislich stark NP-schwere kombinatorische Probleme, sodass sie nicht in polynomieller Zeit lösbar sind \cite{rcpspnp}.
 Im Allgemeinen ist die Erfüllbarkeit prädikatenlogischer Formeln unentscheidbar \cite{smt}.
 Die Eingrenzung von Syntax und Semantik (Interpretation von Funktionssymbolen) der Prädikatenlogik in Modellen von SMT-Problemen
 ermöglicht die Entscheidbarkeit und erlaubt spezifische Lösungsverfahren unter bestimmten Hintergrund-Theorien (englisch \textit{background-theory}).
-Diese Theorien werden zu SMT-Logiken wie beispielsweise \texttt{QF\_LRA} kombiniert.
-Bei der Logik der quantorenfreien (QF) linearen (L) Real(R)-Arithmetik(A) sind das die Theorien der reellen Zahlen, linearen Arithmetik und Gleichheit/Ungleichheit.
+Diese Theorien werden zu \gls{SMT-Logik}en wie beispielsweise \texttt{QF\_LRA} kombiniert.
+Bei der Logik der quantorenfreien(QF) linearen(L) Real(R)-Arithmetik(A) sind das die Theorien der reellen Zahlen, linearen Arithmetik und Gleichheit/Ungleichheit.
 Der diesjährige Sieger in jener Logik der SMT-COMP 2024 \texttt{OpenSMT} \cite{smtcomp2024results} implementiert als Lösungsverfahren eine Kombination aus CDCL(T) und modifiziertem Simplex \cite{opensmt}.
-CDCL(T) is ein vollständiges Lösungsverfahren für prädikatenlogische Probleme unter einer Theorie \textit{T} und ersetzt alle Atome einer Formel mit booleschen Unbekannten \cite{smt}.
-Dieses - nun SAT - Problem wird an einen SAT-Solver gegeben, welcher die Erfüllbarkeit prüft und für den Fall Erfüllbar eine erfüllende Belegung ermittelt.
+\gls{CDCL(T)} is ein vollständiges Lösungsverfahren für SMT-Probleme unter einer Theorie \textit{T} und ersetzt alle Atome einer Formel mit booleschen Unbekannten \cite{smt}.
+Dieses - nun SAT - Problem wird an einen \gls{SAT-Solver} gegeben, welcher die Erfüllbarkeit prüft und für den Fall Erfüllbar eine erfüllende Belegung ermittelt.
 Für jene Belegung überprüft ein (möglicherweise auch mehrere) Theorie-Solver dann deren Konsistenz in der Theorie \textit{T}.
 Wenn diese Belegung \textit{T}-konsistent ist, so ist sie auch Modell für das prädikatenlogische Problem unter der Theorie \textit{T}.
 Im Fall der \textit{T}-Inkonsistenz wird der SAT-Solver erneut aufgerufen.
@@ -65,7 +65,7 @@ Dabei existieren die folgenden drei Restriktionen:
 
 Anzahl-Constraints sind nicht Teil des SMTLib-Standards Version 2.6 \cite{smtlib}, sodass nur wenige Solver wie Z3 solche Kodierungen direkt unterstützen \cite{z3Cardinality}.
 Daher wird zur manuellen Kodierung oft die ITE-Kodierung verwendet \cite{kovasznai}.
-Dabei werden die einzelnen booleschen Unbekannten mithilfe eines If-Then-Else-Ausdrucks (kurz ITE) in numerische Ausdrücke umgewandelt, anschließend summiert und verglichen.
+Dabei werden die einzelnen booleschen Unbekannten mithilfe eines If-Then-Else-Ausdrucks (kurz \gls{ITE}) in numerische Ausdrücke umgewandelt, anschließend summiert und verglichen.
 Mit der Hilfsfunktion $\text{count}: \dot{\mathbb{B}} \rightarrow \mathbb{N}_0$ lassen sich die Anzahl-Constraints einfach kodieren:
 
 \[
@@ -84,7 +84,7 @@ Mit der Hilfsfunktion $\text{count}: \dot{\mathbb{B}} \rightarrow \mathbb{N}_0$ 
 \]
 
 Je nach gewählter Logik erfolgt die Summierung in der entsprechenden Sorte.
-Ist für das SMT-Problem beispielsweise die Logik QF\_LRA gewählt, dann summiert $\text{count}(B)$ Terme der Sorte \texttt{Real}.
+Ist für das SMT-Problem beispielsweise die Logik \texttt{QF\_LRA} gewählt, dann summiert $\text{count}(B)$ Terme der Sorte \texttt{Real}.
 Dabei entstehen für jedes Anzahl-Constraint offensichtlich $n = \lvert B \rvert$ ITE-Ausdrücke, $n-1$ binäre Additionen und ein Vergleich.
 
 Für bestimmte $k$ wie beispielsweise $k = 0$ oder $k = 1$ können Anzahl-Constraints allerdings von spezialisierten Kodierungen profitieren.
@@ -131,7 +131,7 @@ Diese haben besonders in der Industrie 4.0 eine große Relevanz \cite{omt}, so a
 Die Anzahl unverplanter Bauteile, eingesetzter Pressen und notwendigen Rests soll minimiert werden, siehe Abschnitt \ref{sec:optimierung}.
 
 SMT-Probleme, bei denen zusätzlich nach bestimmten Zielfunktionen optimiert wird, fallen in eine neue Problemklasse,
-jene der Optimization Module Theories (kurz OMT) \cite{omt}.
+jene der Optimization Module Theories (kurz \gls{OMT}) \cite{omt}.
 Genau wie die lineare Optimierung unterstützt auch OMT die Optimierung nach linearen Zielfunktionen.
 Im Gegensatz zu ersterer, erlaubt OMT zusätzlich auch beliebige boolesche Kombinationen aus Atomen, wodurch die Modellierung komplexer Probleme vereinfacht wird.
 

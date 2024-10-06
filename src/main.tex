@@ -5,6 +5,9 @@
 \usepackage{packages}
 \usepackage{mathtools}
 
+\makenoidxglossaries
+\input{./Sections/Glossar}
+
 % Beginning of document
 \begin{document}
 
@@ -36,8 +39,9 @@
     \import{./Sections/}{Zusammenfassung.tex}
 
 % Printing bibliography
-    \newpage
     \printbibliography[heading = bibintoc, title = Literatur]    % 'bibintoc' inserts our bibliography into the table of contents
+
+    \printnoidxglossaries
 
 % Inserting appendix with separate settings
     \addappendix

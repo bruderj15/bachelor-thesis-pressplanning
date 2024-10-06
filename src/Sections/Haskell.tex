@@ -10,19 +10,19 @@ Haskell ist eine funktionale Programmiersprache, welche sich vor allem durch sta
 Besonders das ausdrucksstarke Typsystem macht Haskell zu einem mächtigen Werkzeug in der Software-Entwicklung.
 Haskell unterscheidet dabei zwischen Typen zur Übersetzungszeit und Werten zur Laufzeit eines Programms \cite{singletons}.
 Diese strenge Trennung wird als Phasentrennung bezeichnet.
-Betrachten wir folgenden algebraischen Datentypen (kurz ADT) einfach gelinkter Listen:
+Betrachten wir folgenden algebraischen Datentypen (kurz \gls{ADT}) einfach gelinkter Listen:
 \begin{listing}[H]
     \inputminted[linenos=true]{haskell}{Code/Implementierung/Haskell/List.hs}
     \caption{Algebratischer Datetyp einfach gelinkter Listen}
     \label{listing:linkedlist}
 \end{listing}
 Dieser Listen-Typ ist polymorph in den Elementen der Liste, sodass \texttt{a} mit verschiedenen Typen belegt werden kann.
-In Zeile 3 von Listing \ref{listing:linkedlist} wird das \texttt{a} zum Beispiel mit Int belegt.
+In Zeile 3 von Listing \ref{listing:linkedlist} wird das \texttt{a} zum Beispiel mit \texttt{Int} belegt.
 Damit ist \texttt{exampleList} ein Wert vom Typ \texttt{List Int}, also in Haskell-Syntax: \texttt{exampleList :: List Int}.
 
 Diese \textit{ist-Wert-von-Typ-Beziehung} kann auch auf die Typ-Ebene zur Übersetzungszeit gehoben werden.
 Die höhere Beziehung lautet dann: \textit{ist-Typ-von-Art-Beziehung}.
-Somit ist \texttt{List Int} vom Kind (deutsch Art) \texttt{Type}, also in Haskell-Syntax: \texttt{List Int :: Type}.
+Somit ist \texttt{List Int} vom \textit{\gls{Kind}} (deutsch Art) \texttt{Type}, also in Haskell-Syntax: \texttt{List Int :: Type}.
 Ein \textit{Kind} für einen Typen ist also das, was ein Typ für einen Wert ist.
 
 Das gilt auch für Funktionen.
@@ -46,26 +46,25 @@ Abstraktion über Listing \ref{listing:linkedlist} liefert die Spezifikation von
     \label{listing:semigroup}
 \end{listing}
 Die Klasse \texttt{Semigroup} spezifiziert die Funktion \texttt{(<>)} und der Typ \texttt{List a} implementiert diese Spezifikation.
-Damit kann die Implementierung flexibel gewählt werden.
 
 Bisher wurde die Implementierung von \texttt{append} in Listing \ref{listing:linkedlist} noch nicht betrachtet.
 Die Implementierung unterscheidet sich dabei je nach Konstruktor des ADTs \texttt{List a}.
 Das Aufbrechen der Konstruktoren wird auch \textit{Pattern-Matching} genannt \cite{haskell2010report}.
-Eine Verallgemeinerung von ADTs stellen generalisierte algebraische Datentypen (kurz GADT) dar.
+Eine Verallgemeinerung von ADTs stellen generalisierte algebraische Datentypen (kurz \gls{GADT}) dar.
 Dort kann der Pattern-Match auf einen Wert (Konstruktor) zur Laufzeit zusätzlich Informationen zum Typen des Werts zur Übersetzungszeit liefern.
-Da dadurch Typen verfeinert werden können, wird diese Möglichkeit auch \textit{Type-Refinement} genannt \cite{gadts}.
+Da dadurch Typen verfeinert werden können, wird diese Möglichkeit auch \textit{\gls{Type-Refinement}} genannt \cite{gadts}.
 
 Die bisher betrachteten Funktionen sind alle pur - also mathematische Funktionen.
 Um zusätzlich Nebenwirkungen zu modellieren, nutzt Haskell das Konzept der Monade \cite{haskell2010report}.
 Da die Herleitung jener für diesen Rahmen zu komplex ist, reicht es für den Leser, zu verstehen, dass
 monadische Funktionen Berechnungen mit Kontext sind.
-Dieser Kontext ist bereits am Typ zu erkennen, sodass beispielsweise ein \texttt{appendPrint} den Typ \texttt{List a -> List a -> IO (List a)} hätte.
+Dieser Kontext ist bereits am Typ zu erkennen, sodass \texttt{appendPrint} beispielsweise den Typ \texttt{List a -> List a -> IO (List a)} hätte.
 
 \section{Hasmtlib - Haskell-Bibliothek für SMTLib}
 \label{sec:hasmtlib}
 Die Haskell-Bibliothek \texttt{Hasmtlib} \cite{hasmtlib} ist eine eingebettete domänenspezifische Sprache
 (englisch \textit{embedded domain-specific language} - kurz \textit{eDSL}) für den SMTLib-Standard Version 2.6 \cite{smtlib} in Haskell.
-Eine eDSL ist eine, in einer Gastsprache eingebettete, anwendungsspezifische Sprache, welche auf Grundkonstrukten der Gastsprache aufbaut und somit den
+Eine \gls{eDSL} ist eine, in einer Gastsprache eingebettete, anwendungsspezifische Sprache, welche auf Grundkonstrukten der Gastsprache aufbaut und somit den
 Implementierungsaufwand der eingebetteten Sprache erheblich reduziert \cite{eDSL}.
 
 Haskell wird aufgrund seines starken Typsystems oft als Gastsprache für solche eingebetteten Sprachen verwendet \cite{eDSL2}.
@@ -77,13 +76,13 @@ Listing \ref{listing:hasmtlibexprgadt} zeigt beispielsweise, wie \texttt{Hasmtli
     \label{listing:hasmtlibexprgadt}
 \end{listing}
 
-Dabei ist der GADT \texttt{Expr t} polymorph in der \texttt{SMTSort}, sodass dessen Kind \texttt{Expr t :: SMTSort -> Type} ist.
+Dabei ist der GADT \texttt{Expr t} polymorph in der \texttt{SMTSort}, sodass dessen Kind \texttt{SMTSort -> Type} ist.
 Da Werte des Datentyps \texttt{SMTSort} hier als Typen verwendet werden, nennt man \texttt{SMTSort} auch \textit{Data-Kind} oder \textit{Promoted-Type} \cite{singletons}.
-Besonders relevant dafür ist das in \ref{sec:haskell} erklärte \textit{Type-Refinement}.
+Besonders relevant dafür ist das in \ref{sec:haskell} erklärte Type-Refinement.
 So weist beispielsweise ein Pattern-Match auf den Konstruktor \texttt{Sqrt} bereits zur Übersetzungszeit nach, dass \texttt{t \raisebox{-0.6ex}{\textasciitilde} RealSort} gilt.
 Bei anderen Konstruktoren wie \texttt{And} kann die Belegung des \texttt{t} in \texttt{Expr t} mithilfe von Singletons ermittelt werden.
-Ein \textit{Singleton} ist ein Laufzeit-Zeuge (Wert) für genau einen Übersetzungszeit-Typen \cite{singletons}.
-Diese Abhängigkeit ist aufgrund Haskell's strenger Phasentrennung notwendig und ermöglicht eine \textit{dependent}-ähnliche Kodierung
+Ein \textit{\gls{Singleton}} ist ein Laufzeit-Zeuge (Wert) für genau einen Übersetzungszeit-Typen \cite{singletons}.
+Diese Abhängigkeit ist aufgrund Haskell's strenger Phasentrennung notwendig und ermöglicht eine dependent-ähnliche Kodierung
 wie in den Dependently-Typed Programmiersprachen Idris \cite{idris} und Agda \cite{agda}.
 
 Jeder Typ vom Kind \texttt{SMTSort} erhält also einen Singleton (Wert).
@@ -95,11 +94,11 @@ Wie in Listing \ref{listing:hasmtlibssmtsort} zu sehen, stellt \texttt{Hasmtlib}
     \label{listing:hasmtlibssmtsort}
 \end{listing}
 
-Die Verbindung zwischen Typ und Wert wird mit der in Listing \ref{listing:hasmtlibknownsmtsort} dargestellten Typklasse \texttt{KnownSMTSort} erreicht.
+Die Verbindung zwischen Typ und Wert wird mit der in Listing \ref{listing:hasmtlibknownsmtsort} dargestellten Typ-Klasse \texttt{KnownSMTSort} erreicht.
 
 \begin{listing}[H]
     \inputminted[linenos=true]{haskell}{Code/Implementierung/Hasmtlib/KnownSMTSort.hs}
-    \caption{Typklasse zur Verbindung von Typ SMTSort zu Wert SSMTSort in \texttt{Hasmtlib} \cite{hasmtlibSSMTSort}}
+    \caption{Typ-Klasse zur Verbindung von Typ SMTSort zu Wert SSMTSort in \texttt{Hasmtlib} \cite{hasmtlibSSMTSort}}
     \label{listing:hasmtlibknownsmtsort}
 \end{listing}
 
@@ -131,8 +130,8 @@ Anhang \ref{appendix:hasmtlib} unter Listing \ref{listing:hasmtlibcardinality} z
 \texttt{Hasmtlib} kann aufbauend auf SMT-Problemen auch OMT-Probleme kodieren.
 Da dies allerdings nur wenige SMT-Solver wie \texttt{Z3} direkt unterstützen, verwendet man häufig sogenannte Optimierungsschleifen \cite{nuz3}.
 Dabei werden iterativ bessere Lösungen gesucht, indem obere Schranken für Maxima oder untere Schranken für Minima verfeinert werden.
-SMT-Solver haben einen Incremental-Stack, welcher die Wiederverwendung bereits definierter Probleme und auch erlernter Lemmas ermöglicht,
-sodass \textit{Incremental Refinement} wesentlich effizienter als das Starten eines neuen Solver-Prozesses für jede Verfeinerung ist \cite{incremental}.
+SMT-Solver haben einen \gls{Incremental-Stack}, welcher die Wiederverwendung bereits definierter Probleme und auch erlernter Lemmas ermöglicht,
+sodass \textit{\gls{Incremental Refinement}} wesentlich effizienter als das Starten eines neuen Solver-Prozesses für jede Verfeinerung ist \cite{incremental}.
 
 Im Rahmen dieser Arbeit wird \texttt{Hasmtlib} daher um eine solche Optimierungsschleife erweitert.
 Deren Implementierung ist im Anhang \ref{appendix:hasmtlib} in Listing \ref{listing:incrementalrefinement} zu finden.

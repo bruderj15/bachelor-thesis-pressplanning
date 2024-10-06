@@ -28,10 +28,10 @@ Das ermöglicht zwar einerseits das schnelle Ermitteln von Lösungen nahe am Opt
 
 Daher wird in dieser Arbeit ein neuer, vollständiger Ansatz zur Lösung des Problems gewählt.
 Dieser besteht in der Kodierung der Anforderungen an den Pressenplan als Constraints in einem Constraint-System.
-Ein Constraint ist hier eine prädikatenlogische Formel, welche unter einer erfüllenden Belegung den Wahrheitswert \texttt{Wahr} haben muss.
-Ein Constraint-System besteht aus der Konjunktion mehrerer Constraints.
+Ein \gls{Constraint} ist hier eine prädikatenlogische Formel, welche unter einer erfüllenden Belegung den Wahrheitswert \texttt{Wahr} haben muss.
+Ein \gls{Constraint-System} besteht aus der Konjunktion mehrerer Constraints.
 
-In dieser Arbeit wird das Constraint-System für die Satisfiability Module Theories (kurz SMT) mithilfe des Sprachstandards SMTLib Version 2.6 \cite{smtlib} kodiert.
+In dieser Arbeit wird das Constraint-System für die Satisfiability Module Theories (kurz SMT) mithilfe des Sprachstandards \gls{SMTLib} Version 2.6 \cite{smtlib} kodiert.
 Zu typischen Anwendungsbereichen von SMT gehören neben der Programmverifikation \cite{smt} auch Ressourcenzuordnungsprobleme \cite{rcpsp,smartnocs}.
 Das Pressenplanungsproblem kann als Ressourcenzuordnungsproblem betrachtet werden, sodass sich die Frage stellt, wie es als SMT-Problem in SMTLib kodiert werden kann.
 Eine Beispieleingabe von Bauteilen könnte folgende sein:
@@ -106,8 +106,6 @@ Jene Belegung transformiert das Programm dann in das gewünschte Ausgabeformat:
     \caption{Beispielausgabe des Pressenplans, Visualisierung in Abbildung \ref{figure:pressenplan}}
     \label{table:pressenplan}
 \end{table}
-
-% TODO: Waldmann sagt: Bestenfalls nicht hier hinten dran schmeißen, sondern in Einleitungstext integrieren
 
 Die Struktur dieser Arbeit ist folgende:
 
