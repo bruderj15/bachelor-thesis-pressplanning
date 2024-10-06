@@ -79,6 +79,7 @@ Die tabellarische Auswertung der Laufzeitmessungen ist in Anhang \ref{appendix:r
 Diese Ergebnisse zeigen, dass alle Programmkonfigurationen korrekte und auch optimale Lösungen für bestimmte Eingaben finden.
 Von insgesamt 26 Testfällen werden 25 gelöst.
 Zehn Testfälle können innerhalb von zehn Minuten sogar optimal gelöst und zertifiziert werden.
+Eine optimale Lösung ist genau dann zertifiziert, wenn der Solver nachweisen kann, dass keine bessere Lösung existiert.
 
 Die Kodierung des Constraint-Systems in Logik \texttt{QF\_LIA} liefert im Vergleich zu Logik \texttt{QF\_LRA} meist die besseren Lösungen.
 Das ist wenig verwunderlich, da die kleinste Einheit in der Problemdefinition Millimeter ist, sodass die arithmetischen Unbekannten ganzzahlig dargestellt werden können.
@@ -123,8 +124,8 @@ Auch dort bestätigt sich die Programmkonfiguration mit \texttt{Z3}, \texttt{QF\
 
 \section{Vergleich mit Germanedge's Heuristik}
 Der Vergleich der Laufzeitmessungen für Germanedge's Heuristik und das hier entwickelte Programm ist in Anhang \ref{appendix:results} Tabelle \ref{tab:vglheuristik} zu finden.
-Das Programm findet innerhalb von zehn Minuten in 16 von 26 Testfällen die bessere Lösung.
-In sieben von 26 Probleminstanzen siegt die Heuristik.
+Das Programm findet innerhalb von zehn Minuten in 16 von 26 Testfällen die bessere Lösung (grün).
+In sieben von 26 Probleminstanzen siegt die Heuristik (rot).
 Bei den verbleibenden drei Testfällen finden Programm und Heuristik gleich gute Lösungen in gleicher Zeit.
 
 Die Lösungen der Heuristik enthalten fast immer deutlich weniger Rest als die des Programms.
