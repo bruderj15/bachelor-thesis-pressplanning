@@ -31,14 +31,14 @@ Insgesamt wird die Lösung von 26 verschiedenen Probleminstanzen verglichen.
 Darunter befinden sich sowohl reale als auch konstruierte Testfälle.
 Zu Zwecken der Anonymisierung werden diese allerdings nicht als solche gekennzeichnet.
 
-Ausgewertet wird die Güte der Lösungen nach den Optimierungszielen in Abschnitt \ref{sec:optimierung}.
+Ausgewertet wird die Güte der Lösungen nach den Optimierungszielen aus Abschnitt \ref{sec:optimierung}.
 Zusätzlich kommt als viertes lexikografisches Optimierungsziel die Laufzeit des Programms beziehungsweise der Heuristik hinzu.
-Sind alle vier Metriken bei einer Probleminstanz gleich, dann wird die Lösung als gleich gut bewertet.
+Sind alle vier Metriken zweier Lösungen einer Probleminstanz gleich, dann werden die Lösungen als gleich gut bewertet.
 
 Die Laufzeitmessungen werden in den folgenden Abschnitten mit verschiedenen oberen Laufzeitgrenzen (Timeouts) versehen.
 Gemessen wird die Zeit, welche Programm oder Heuristik für eine endgültige Lösung benötigen.
 Ermittelt das Programm also beispielsweise eine Lösung nach $30s$, rechnet aber bis zum Timeout weiter und verbessert diese Lösung nicht,
-dann wird die Messung der Laufzeit mit $TO$ (kurz für Timeout) versehen.
+dann wird die Messung der Laufzeit mit \textit{\gls{TO}} (kurz für Timeout) versehen.
 Die gemessene Laufzeit des Programms schließt zwar alle Schritte von Eingabeverarbeitung über Kodierung der Constraints bis hin zur Lösung durch den Solver ein,
 umfasst letztendlich aber fast ausschließlich die Laufzeit des Solvers.
 
@@ -50,7 +50,6 @@ Folgend die Erklärung aller Kriterien der Vergleiche zur Lösung einer Problemi
         \textbf{Kriterium} & \textbf{Erklärung} \\
         \hline
         Nr                         & Identifizierende Nummer der Probleminstanz \\
-        Name                       & Name der Probleminstanz \\
         $\lvert C \rvert$          & Anzahl der Komponenten \\
         $\lvert C_{Spec} \rvert$   & Anzahl verschiedener Komponenten-Spezifikationen \\
         Typ                        & SMT (inkrementelles Verfeinern) oder OMT (lineare Optimierung) \\
@@ -67,7 +66,7 @@ Folgend die Erklärung aller Kriterien der Vergleiche zur Lösung einer Problemi
         Zert.                      & \cmark \; falls Lösung zertifiziert optimal ist, \xmark \; sonst \\
         \hline
     \end{tabular}
-    \caption{Kriterien für die Auswertung}
+    \caption{Kriterien für die Laufzeitmessungen in Anhang \ref{appendix:results}}
     \label{table:vglkriterien}
 \end{table}
 
@@ -76,22 +75,20 @@ In diesem Abschnitt wird die Performance verschiedener Konfigurationen des in di
 Der Timeout für alle Probleminstanzen beträgt zehn Minuten, die maximal tolerierte Laufzeit aus Sicht des Kunden.
 Die tabellarische Auswertung der Laufzeitmessungen ist in Anhang \ref{appendix:results}, Tabelle \ref{tab:vglkodierungreal} zu finden.
 
-Diese Ergebnisse zeigen, dass alle Programmkonfigurationen korrekte und auch optimale Lösungen für bestimmte Eingaben finden.
+Die Ergebnisse zeigen, dass alle Programmkonfigurationen korrekte und auch optimale Lösungen für bestimmte Eingaben finden.
 Von insgesamt 26 Testfällen werden 25 gelöst.
 Zehn Testfälle können innerhalb von zehn Minuten sogar optimal gelöst und zertifiziert werden.
 Eine optimale Lösung ist genau dann zertifiziert, wenn der Solver nachweisen kann, dass keine bessere Lösung existiert.
 
-Die Kodierung des Constraint-Systems in Logik \texttt{QF\_LIA} liefert im Vergleich zu Logik \texttt{QF\_LRA} meist die besseren Lösungen.
-Das ist wenig verwunderlich, da die kleinste Einheit in der Problemdefinition Millimeter ist, sodass die arithmetischen Unbekannten ganzzahlig dargestellt werden können.
-Dies wiederum vereinfacht die Lösung für den Solver, da die Sorte \texttt{Int} die Menge $\mathbb{Z}$ (abzählbar unendlich) und
-die Sorte \texttt{Real} die Menge $\mathbb{R}$ (überabzählbar unendlich) repräsentiert, der Lösungsraum für Sorte \texttt{Int} also kleiner ist.
+Die Kodierung des Constraint-Systems in den Logiken \texttt{QF\_LIA} und \texttt{QF\_LRA} liefert Lösungen ähnlicher Güte.
+Wenn die Lösung mit Kodierung \texttt{QF\_LIA} besser ist, dann ist sie das deutlich in Bezug auf den Rest (Testfall 6).
 
 Erstaunlich ist die dominante Performance von \texttt{Z3} mit Kodierung in \texttt{QF\_LIA} und Optimierung durch inkrementelles Verfeinern.
 In fast allen Testfällen liefert diese Konfiguration die beste Lösung.
 Besonders bemerkenswert sind dabei die Testfälle 2, 6, 18 und 20.
 Die Konfiguration liefert dort als einzige die zertifiziert optimalen Lösungen.
 Diese Ergebnisse stehen in Konflikt zu jenen der SMT-COMP 2024, in welcher \texttt{Z3} klar hinter \texttt{OpenSMT} einzuordnen ist \cite{smtcomp2024results}.
-Möglicherweise liegt das am niedrigen Verhältnis arithmetischer Unbekannter zu booleschen Unbekannten in der Modellierung des Pressenplanungsproblems.
+Höchstwahrscheinlich liegt das am niedrigen Verhältnis arithmetischer Unbekannter zu booleschen Unbekannten in der Modellierung des Pressenplanungsproblems.
 In den meisten Benchmarks der SMT-COMP 2024 für \texttt{QF\_LIA} sind die Unbekannten fast ausschließlich von der Sorte \texttt{Int}.
 
 Die Konfiguration mit der Optimierung nach linearen Verfahren in OMT, \texttt{Z3} und \texttt{QF\_LIA}
@@ -117,16 +114,16 @@ Laufzeitmessungen auf einer Maschine mit 128 GB Arbeitsspeicher und Timeout nach
 11, 12, 25 und 26 Arbeitsspeichernutzung von bis zu 40 GB pro Problem.
 Je länger der Solver-Prozess läuft, desto mehr Speicher benötigt er, weil er Lemmas lernt (CDCL(T), Abschnitt \ref{sec:smtbasics}).
 
-Während auch größere Probleme wie Testfall 24 ohne Rest innerhalb von zehn Stunden optimal gelöst werden können, kann selbst der kleine Testfall 4 nach zehn Stunden
-noch immer nicht optimal vom Solver gelöst werden.
+Während auch größere Probleme wie Testfall 24 ohne Rest innerhalb von zehn Stunden optimal gelöst werden können, kann selbst für den kleinen Testfall 4 nach zehn Stunden
+noch immer keine optimale Lösung gefunden werden.
 Testfälle 11 und 12 demonstrieren, dass die Solver mit mehr Laufzeit auch für die größten Probleme signifikant bessere Lösungen finden.
 Auch dort bestätigt sich die Programmkonfiguration mit \texttt{Z3}, \texttt{QF\_LIA} und inkrementellem Verfeinern als performanteste.
 
 \section{Vergleich mit Germanedge's Heuristik}
 Der Vergleich der Laufzeitmessungen für Germanedge's Heuristik und das hier entwickelte Programm ist in Anhang \ref{appendix:results} Tabelle \ref{tab:vglheuristik} zu finden.
-Das Programm findet innerhalb von zehn Minuten in 16 von 26 Testfällen die bessere Lösung (grün).
-In sieben von 26 Probleminstanzen siegt die Heuristik (rot).
-Bei den verbleibenden drei Testfällen finden Programm und Heuristik gleich gute Lösungen in gleicher Zeit.
+Das Programm findet innerhalb von zehn Minuten in 16 von 26 Testfällen die bessere Lösung.
+In sieben von 26 Probleminstanzen siegt die Heuristik.
+Bei den verbleibenden drei Testfällen finden Programm und Heuristik gleich gute Lösungen.
 
 Die Lösungen der Heuristik enthalten fast immer deutlich weniger Rest als die des Programms.
 Dennoch gewinnt das Programm knapp zwei Drittel der Testfälle, da die Minimierung des Rests lediglich Optimierungsziel 3 ist.
@@ -151,11 +148,11 @@ Wenn die Restriktion an die Laufzeit liberaler gestaltet werden kann, also ein T
 größere Probleme Anwendung in der Industrie finden.
 
 \section{Diskussion}
-Das in dieser Arbeit entwickelte Programm berücksichtigt die Kernelemente des Pressenplanungsproblems.
+Das in dieser Arbeit entwickelte Programm berücksichtigt nur die Kernelemente des Pressenplanungsproblems.
 Die Heuristik implementiert bereits einige Sonderfälle wie Doppellagen in Pressen oder Pressen mit treppenartiger Abstufung.
 Diese wären auch für das Programm wünschenswert.
 Inwiefern die Eingliederung dieser in das Constraint-System sinnvoll ist, hängt davon ab,
-wie die Modellierung dieser Sonderfälle die Komplexität und damit Schwere des Constraint-Systems beeinflussen.
+wie die Modellierung dieser Sonderfälle die Komplexität des Constraint-Systems und damit die Laufzeit des Solvers beeinflusst.
 
 Die Testfälle in Anhang \ref{appendix:results} Tabelle \ref{tab:vglkodierungreal} zeigen, dass das Constraint-System überschaubar viele Unbekannte kodiert.
 Allerdings scheinen die Constraints groß und komplex.

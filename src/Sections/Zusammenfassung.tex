@@ -7,7 +7,7 @@ Diese Vereinfachungen ermöglichen eine schnelle ($< 10 \text{min}$), aber meist
 Daher wurde in dieser Arbeit ein neuer Ansatz untersucht.
 
 Das in dieser Arbeit entwickelte prototypische Programm implementiert einen vollständigen Lösungsansatz mit Methoden der Constraint-Programmierung.
-Das Programm transformiert die Eingabe des Problems mithilfe der Haskell-Bibliothek \texttt{Hasmtlib} in ein in SMT-kodiertes Constraint-System,
+Das Programm transformiert die Eingabe des Problems mithilfe der Haskell-Bibliothek \texttt{Hasmtlib} in ein in SMT kodiertes Constraint-System,
 welches anschließend durch einen externen SMT-Solver gelöst wird.
 Dieser implementiert ein vollständiges Lösungsverfahren und garantiert somit die Optimalität der Lösung.
 
@@ -15,8 +15,8 @@ Dieser implementiert ein vollständiges Lösungsverfahren und garantiert somit d
 Im Gegensatz zu ersterer behalten diese allerdings optimale Lösungen bei.
 So werden beispielsweise Kodierungen mit verschiedenen aber festen Pressen-Anzahlen auf verschiedene CPU-Kerne aufgeteilt und parallel gelöst.
 Unter diesen wird anschließend die beste Lösung gewählt.
-
 Haskell und Bibliothek \texttt{Hasmtlib} eignen sich dabei aufgrund derer Ausdrucksstärke hervorragend für die Transformation der Eingabe zum Constraint-System.
+
 Das Constraint-System wächst linear zur Größe der Eingabe.
 Besonders Probleme kleiner und mittlerer Größe können schnell und optimal auf durchschnittlichen Maschinen gelöst werden.
 Für das optimale Lösen größerer Probleme sind sowohl mehr Laufzeit als auch mehr Arbeitsspeicher notwendig.

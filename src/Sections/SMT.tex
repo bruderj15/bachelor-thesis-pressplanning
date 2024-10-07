@@ -5,7 +5,7 @@ In diesem Kapitel wird zuerst das Erfüllbarkeitsproblem der Satisfiability Modu
 Dabei wird auch kurz auf die Kernelemente des Sprachstandards SMTLib Version 2.6 \cite{smtlib} eingegangen.
 Dieser ermöglicht die Kodierung von SMT-Problemen für SMT-Solver \cite{smt}.
 Ein \gls{SMT-Solver} - kurz Solver - ist ein Programm, welches für ein kodiertes Problem die Erfüllbarkeit dieses und für den
-Fall \textit{erfüllbar} (englisch \textit{satisfiable} - kurz \textit{sat}) ein Modell für jenes bestimmen kann.
+Fall Erfüllbar (englisch \textit{satisfiable} - kurz \textit{sat}) ein Modell für jenes bestimmen kann.
 Einige bekannte Solver sind zum Beispiel \texttt{Z3} \cite{z3}, \texttt{CVC5} \cite{cvc5}, \texttt{Yices} \cite{yices} und \texttt{OpenSMT} \cite{opensmt}.
 Diese und viele andere nehmen jährlich an dem internationalen Wettbewerb \gls{SMT-COMP} \cite{smtcomp} für SMT-Solver teil,
 wo sie sich in verschiedenen Disziplinen miteinander messen.
@@ -63,7 +63,7 @@ Dabei existieren die folgenden drei Restriktionen:
     \item Höchstens $k$: $\text{atMost}: \mathbb{N}_0 \times \dot{\mathbb{B}} \rightarrow \mathbb{B}$
 \end{itemize}
 
-Anzahl-Constraints sind nicht Teil des SMTLib-Standards Version 2.6 \cite{smtlib}, sodass nur wenige Solver wie Z3 solche Kodierungen direkt unterstützen \cite{z3Cardinality}.
+Anzahl-Constraints sind nicht Teil des SMTLib-Standards Version 2.6 \cite{smtlib}, sodass nur wenige Solver wie \texttt{Z3} solche Kodierungen direkt unterstützen \cite{z3Cardinality}.
 Daher wird zur manuellen Kodierung oft die ITE-Kodierung verwendet \cite{kovasznai}.
 Dabei werden die einzelnen booleschen Unbekannten mithilfe eines If-Then-Else-Ausdrucks (kurz \gls{ITE}) in numerische Ausdrücke umgewandelt, anschließend summiert und verglichen.
 Mit der Hilfsfunktion $\text{count}: \dot{\mathbb{B}} \rightarrow \mathbb{N}_0$ lassen sich die Anzahl-Constraints einfach kodieren:

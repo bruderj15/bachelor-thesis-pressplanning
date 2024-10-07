@@ -67,7 +67,7 @@ Das wäre analog auch in SMT möglich.
 Im Allgemeinen werden solche Probleme aber grundinstanziiert,
 um die Verwendung ineffizient (oder gar nicht) entscheidbarer Quantoren-Logiken zu vermeiden \cite{smtquantifiersarehard, smtquantifiersarehard2}.
 Für jede Presse wird dabei im Voraus die höchstmögliche Anzahl an Schichten basierend auf der Eingabe an Komponenten ermittelt, genauer in \ref{sec:vorverarbeitung}.
-Da unter diese Schichten auch einige leer sein können haben sie das Attribut \texttt{\_layerEmpty :: b} (Listing \ref{listing:datatypes}, Zeile 13).
+Da unter diese Schichten auch einige leer sein können, haben sie das Attribut \texttt{\_layerEmpty :: b} (Listing \ref{listing:datatypes}, Zeile 13).
 
 Identisch könnten Pressenpläne leere Pressen enthalten.
 Weiter könnte eine obere Schranke für die Anzahl an Pressen basierend auf der Eingabe an Komponenten ermittelt werden.
@@ -132,7 +132,7 @@ Die ermittelte Schranke ist für einige der Testfälle perfekt, bei anderen wie 
 Existiert eine bessere korrekte Schranke?
 Also:
 \begin{align*}
-    &\hspace{0pt} \exists f: P \times A \rightarrow \mathbb{N}, \; \forall p \in P, \; \forall a \in A_{sat}, \; \exists s \in \text{Mod}(a): \\
+    &\hspace{0pt} \exists f: P \times A \rightarrow \mathbb{N}_0, \; \forall p \in P, \; \forall a \in A_{sat}, \; \exists s \in \text{Mod}(a): \\
     &\hspace{20pt} s \models_{opt} a \rightarrow (\lvert \left\{ l \in \text{layers}(p) \mid \neg \beta_{\mathbb{B}}^{s}(\text{isEmpty}(l)) \right\} \rvert \leq f(p,a) \leq \text{maxLayers}(p,a) \\
     &\hspace{77pt} \land \exists p\prime \in P, \; \exists a\prime \in A_{sat}: f(p\prime,a\prime) < \text{maxLayers}(p\prime,a\prime))
 \end{align*}
